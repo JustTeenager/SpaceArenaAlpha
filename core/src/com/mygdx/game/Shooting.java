@@ -14,6 +14,7 @@ public class Shooting extends ActorObj {
 
     private Texture shoot;
     public boolean isOut;//переменная для проверки пули в области экрана
+
     private Rectangle rectangle;
     private float velocity;
     private Vector2 direction;
@@ -69,6 +70,14 @@ public class Shooting extends ActorObj {
 
     public Texture getShoot() {
         return shoot;
+    }
+
+    public Rectangle getRectangle() {
+        return rectangle;
+    }
+
+    public Vector2 getDirection() {
+        return direction;
     }
 }
 
