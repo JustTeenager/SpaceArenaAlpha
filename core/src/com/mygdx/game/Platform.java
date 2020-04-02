@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 public class Platform extends ActorObj {
+
     private Texture platTexture;
     private Texture playertxt;
     float coreX;
@@ -50,5 +51,13 @@ public class Platform extends ActorObj {
     @Override
     public void platformReact(Platform pl) {
 
+    }
+
+    public Texture getPlatTexture() {
+        return platTexture;
+    }
+
+    public void setPlatTexture(Texture platTexture) {
+        this.platTexture = platTexture;
     }
 }

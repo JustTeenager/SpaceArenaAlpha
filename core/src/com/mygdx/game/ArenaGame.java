@@ -70,7 +70,7 @@ public class ArenaGame extends ScreenAdapter {
 
 		txtplat=new Texture("SciFiPlatformset.png");
 		txtplatFloor=new Texture("SciFiPlatformsetFloor.png");
-		plat= new Platform[]{new Platform(150, 200,txtplat, playerStage),new Platform(330, 270,txtplat, playerStage)};
+		plat= new Platform[]{new Platform(150, 205,txtplat, playerStage),new Platform(470, 270,txtplat, playerStage)};
 
 		inputMultiplexer = new InputMultiplexer();
 
@@ -78,11 +78,11 @@ public class ArenaGame extends ScreenAdapter {
 		jumpbtn=new Texture("circle.png");
 		hud.setjumpButton(1700,450,"jumpbutton",100,100,jumpbtn);
 
-		try {
+		/*try {
 			ClientClass.startClient();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}
+		}*/
 	}
 
 

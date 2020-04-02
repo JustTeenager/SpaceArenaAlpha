@@ -18,7 +18,7 @@ public class ClientClass extends Listener {
     public static void startClient() throws Exception {
         messageReceived=false;
         System.out.println("Подключаемся к серверу");
-        adr=InetAddress.getByName("fathomless-reef-56006.herokuapp.com");//Адрес сервера?
+        adr=InetAddress.getByName("46.39.242.26");//Адрес сервера? Надо тестить
         client = new Client();
         //Регистрируем пакет
         client.getKryo().register(MessageBox.class);
@@ -38,7 +38,7 @@ public class ClientClass extends Listener {
         }
 
         System.out.println("Клиент покидает сервер");
-        System.exit(0);//окончание работы клиента
+        //System.exit(0);//окончание работы клиента
     }
 
 

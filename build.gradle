@@ -79,7 +79,7 @@ project(":core") {
 
 
     dependencies {
-        compile "com.esotericsoftware:kryonet:2.22.0-RC1"
+        implementation "com.esotericsoftware:kryonet:2.22.0-RC1"
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
         
