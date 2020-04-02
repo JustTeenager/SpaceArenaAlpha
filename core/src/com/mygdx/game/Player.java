@@ -165,7 +165,7 @@ public class Player extends ActorObj {
         } else if (lastFrame.x >= pl.left && lastFrame.x <= pl.right && position.y <= pl.top) {//стукаться головой о нижнюю грань
             if (pl.coreY - (position.y + txt.getHeight()) <= 0.2f) velocityY.y = -10;
         }
-        else if (((x3>x1 && x3<x2) || (x4>x1 && x4<x2) || (x1>x3 && x1<x4) || (x2>x3 && x2<x4)) &&
+        else if (((x3>x1 && x3<x2) || (x4>x1 && x4<x2) || (x1>x3 && x1<x4) || (x2>x3 && x2<x4)) &&// посмотреть,что там с игреками,надо подобрать цифру
         ((y3>y1 && y3<y2)||(y4>y1 && y4<y2)||(y1>y3 && y1<y4)||(y2>y3 && y2<y4))){
             position.x = lastFrame.x;
             setX(position.x);
