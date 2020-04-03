@@ -10,7 +10,7 @@ import java.net.InetAddress;
 public class ClientClass extends Listener {
     static Client client;
     //Порт к которому мы будем подключатся
-    static int tcpPort = 80, udpPort = 80;
+    static int tcpPort = 54555, udpPort = 54555;
     static InetAddress adr;
 
     static boolean messageReceived;

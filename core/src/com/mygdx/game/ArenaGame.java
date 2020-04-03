@@ -78,11 +78,11 @@ public class ArenaGame extends ScreenAdapter {
 		jumpbtn=new Texture("circle.png");
 		hud.setjumpButton(1700,450,"jumpbutton",100,100,jumpbtn);
 
-		/*try {
+		try {
 			ClientClass.startClient();
 		} catch (Exception e) {
 			e.printStackTrace();
-		}*/
+		}
 	}
 
 
