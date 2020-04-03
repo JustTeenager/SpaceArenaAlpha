@@ -40,7 +40,7 @@ public class ClientClass extends Listener {
             Thread.sleep(1000);
         }
 
-       // System.out.println("Клиент покидает сервер");
+        System.out.println("Клиент покидает сервер");
         //System.exit(0);//окончание работы клиента
     }
 
