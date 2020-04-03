@@ -10,7 +10,7 @@ import com.badlogic.gdx.utils.Array;
 
 public abstract class ActorObj extends Group {
     Texture textTEMP;
-
+    Animation<TextureRegion> anim;
     protected Animation<TextureRegion> animation;
     public ActorObj(float x, float y, Stage s){
         super();
@@ -25,7 +25,7 @@ public abstract class ActorObj extends Group {
         }
     }
     public void useAnim(float frameT,boolean loop,Array<TextureRegion> array){
-        Animation<TextureRegion> anim = new Animation<>(frameT, array);
+        anim = new Animation<>(frameT, array);
         if (loop)
             anim.setPlayMode(Animation.PlayMode.LOOP);
         else

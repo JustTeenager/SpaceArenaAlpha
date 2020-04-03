@@ -41,6 +41,8 @@ public class ArenaGame extends ScreenAdapter {
 	private Stage hudStage;
 	private Texture jumpbtn;
 
+	private CoordBox coordBox;
+
 	public ArenaGame () {
 		batch = new SpriteBatch();
 
@@ -70,7 +72,7 @@ public class ArenaGame extends ScreenAdapter {
 
 		txtplat=new Texture("SciFiPlatformset.png");
 		txtplatFloor=new Texture("SciFiPlatformsetFloor.png");
-		plat= new Platform[]{new Platform(150, 205,txtplat, playerStage),new Platform(470, 270,txtplat, playerStage)};
+		plat= new Platform[]{new Platform(150, 200,txtplat, playerStage),new Platform(330, 270,txtplat, playerStage)};
 
 		inputMultiplexer = new InputMultiplexer();
 
@@ -83,6 +85,8 @@ public class ArenaGame extends ScreenAdapter {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}*/
+
+
 	}
 
 
@@ -94,12 +98,14 @@ public class ArenaGame extends ScreenAdapter {
 	public void render (float delta) {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
+
 		inputMultiplexer.addProcessor(joystickLeft);
 		inputMultiplexer.addProcessor(joystickRight);
 		inputMultiplexer.addProcessor(hud);
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		playerStage.act(delta);
 		pl1.update();
+		coordBox= new CoordBox(0,pl1.position,pl1.anim.getKeyFrame(delta).getTexture(),pl1.jumpState,shootings);//золотая коробка
 		joystickRight.checkCreateBullet();
 		for (int i=0;i<shootings.size();i++){
 			shootings.get(i).update();

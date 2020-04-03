@@ -3,8 +3,11 @@ package com.mygdx.game;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
+import com.esotericsoftware.minlog.Log;
 
+import java.io.IOException;
 import java.net.InetAddress;
+
 
 
 public class ClientClass extends Listener {
