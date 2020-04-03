@@ -34,9 +34,7 @@ public abstract class ActorObj extends Group {
         animation = anim;
     }
 
-    public void setAction(Actor a, Stage s) {}
-
-    public abstract void collapse();
+    public abstract void collapse(Player player);
 
     public abstract void update();
 

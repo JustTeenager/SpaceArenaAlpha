@@ -37,8 +37,14 @@ public class Shooting extends ActorObj {
 
     }
     @Override
-    public void collapse() {
-
+    public void collapse(Player player) {
+        if (player.hp>0) {
+            if (this.rectangle.overlaps(player.rectangle)) {
+                this.setVisible(false);
+                player.hp -= 10;
+            }
+        }
+        else player.killed=true;
     }
 
     @Override

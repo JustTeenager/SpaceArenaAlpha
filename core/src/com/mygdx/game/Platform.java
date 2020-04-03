@@ -41,7 +41,7 @@ public class Platform extends ActorObj {
     }
 
     @Override
-    public void collapse() {
+    public void collapse(Player player) {
     }
 
     @Override

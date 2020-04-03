@@ -13,18 +13,17 @@ public class CoordBox {
     private Vector2 positionPlayer;
     private Texture playerTexture;
     private Player.JumpState jumpState;
+    private int hp;
 
     private ArrayList<Shooting> bullets;
-    private Vector2 positionBullet;
-    private Texture bulletTexture;
-    private Sprite bulletSprite;
-    private Rectangle bulletRectangle;
 
-    CoordBox(int playerIdentify, Vector2 positionPlayer, Texture playerTexture, Player.JumpState jumpState, ArrayList<Shooting> bullets){
+
+    CoordBox(int playerIdentify, Vector2 positionPlayer, Texture playerTexture, Player.JumpState jumpState,int hp, ArrayList<Shooting> bullets){
         this.playerIdentify=playerIdentify;
         this.positionPlayer=positionPlayer;
         this.playerTexture=playerTexture;
         this.jumpState=jumpState;
+        this.hp=hp;
         this.bullets=bullets;
     }
 

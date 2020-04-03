@@ -14,7 +14,9 @@ public class Player extends ActorObj {
     Vector2 position;
 
     JumpState jumpState;
-    private Rectangle rectangle;
+    Rectangle rectangle;
+    int hp=100;
+    boolean killed;
     private Texture txt;
     private Vector2 velocityY;
     private float dt=0;
@@ -26,6 +28,10 @@ public class Player extends ActorObj {
     private Array<TextureRegion> move_player_2= new Array<>();
     private Array<TextureRegion> jump_player_2= new Array<>();
 
+    private Array<TextureRegion> aim_player_4= new Array<>();
+    private Array<TextureRegion> move_player_4= new Array<>();
+    private Array<TextureRegion> jump_player_4= new Array<>();
+
     public Array<TextureRegion> getTextureArray_aim_player_2() {
         return aim_player_2;
     }
@@ -36,6 +42,18 @@ public class Player extends ActorObj {
 
     public Array<TextureRegion> getTextureArray_jump_player_2() {
         return jump_player_2;
+    }
+
+    public Array<TextureRegion> getTextureArray_aim_player_4() {
+        return aim_player_4;
+    }
+
+    public Array<TextureRegion> getTextureArray_move_player_4() {
+        return move_player_4;
+    }
+
+    public Array<TextureRegion> getTextureArray_jump_player_4() {
+        return jump_player_4;
     }
 
     public JumpState getJumpState() {
@@ -54,6 +72,7 @@ public class Player extends ActorObj {
         jumpState = JumpState.FALLING;
         velocityY=new Vector2();
         lastFrame=new Vector2();
+        killed=false;
 
         txt=new Texture("Aim (1).png");
         setPosition(x,y);
@@ -84,7 +103,7 @@ public class Player extends ActorObj {
 
 
     @Override
-    public void collapse() {
+    public void collapse(Player player) {
 
     }
 
@@ -116,6 +135,8 @@ public class Player extends ActorObj {
             }
         } else endJump();
 
+
+        //должен быть большой иф, просмотр кого мы будем двигать этим джойстиком
         if (!JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft) {
             flip = true;
             useAnim(0.1f, true,move_player_2);
@@ -197,7 +218,7 @@ public class Player extends ActorObj {
     private void startJump(){
         jumpState=JumpState.JUMPING;
         velocityY.y+=JUMP;
-        useAnim(0.1f,false,jump_player_2);
+        useAnim(0.1f,false,jump_player_2);//для второго игрока надо сделать
         continueJump();
     }
 

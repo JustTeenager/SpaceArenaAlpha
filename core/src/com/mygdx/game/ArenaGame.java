@@ -23,6 +23,7 @@ public class ArenaGame extends ScreenAdapter {
 
 	public static Stage playerStage;
 	public static Player pl1;
+	public static Player pl2;
 	private ChaseCam chaseCam;
 
 	private Texture circle;
@@ -62,6 +63,11 @@ public class ArenaGame extends ScreenAdapter {
 		pl1.setAnim(pl1.getTextureArray_jump_player_2(),MainGame.JumpShoot_2);
 		shootings = new ArrayList<>();
 
+		pl2=new Player(1000,50,playerStage);
+		pl2.setAnim(pl2.getTextureArray_aim_player_4(),MainGame.Aim_4);
+		pl2.setAnim(pl2.getTextureArray_move_player_4(),MainGame.RunShoot_4);
+		pl2.setAnim(pl2.getTextureArray_jump_player_4(),MainGame.JumpShoot_4);
+
 		circle = new Texture("circle.png");
 		circleCur = new Texture("circle.png");
 		joystickLeft = new JoystickLeft(circle,circleCur);
@@ -76,7 +82,7 @@ public class ArenaGame extends ScreenAdapter {
 
 		inputMultiplexer = new InputMultiplexer();
 
-		hud=new GameHUD(hudStage,viewport,pl1);
+		hud=new GameHUD(hudStage,viewport,pl1);//для второго игрока надо сделать отдельная сцена
 		jumpbtn=new Texture("circle.png");
 		hud.setjumpButton(1700,450,"jumpbutton",100,100,jumpbtn);
 
@@ -92,7 +98,7 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void show() {
-		chaseCam = new ChaseCam(viewport.getCamera(), pl1); }
+		chaseCam = new ChaseCam(viewport.getCamera(), pl1); }//должна быть для второго игрока
 
 	@Override
 	public void render (float delta) {
@@ -105,8 +111,11 @@ public class ArenaGame extends ScreenAdapter {
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		playerStage.act(delta);
 		pl1.update();
-		coordBox= new CoordBox(0,pl1.position,pl1.anim.getKeyFrame(delta).getTexture(),pl1.jumpState,shootings);//золотая коробка
+		pl2.update();
+		coordBox= new CoordBox(0,pl1.position,pl1.anim.getKeyFrame(delta).getTexture(),pl1.jumpState,pl1.hp,shootings);//золотая коробка
 		joystickRight.checkCreateBullet();
+
+		//сделать иф просмотра стреляет первый игрок или второй
 		for (int i=0;i<shootings.size();i++){
 			shootings.get(i).update();
 			if (shootings.get(i).isOut){//удаление той пули, которая выышла за экран
@@ -153,6 +162,7 @@ public class ArenaGame extends ScreenAdapter {
 		batch.dispose();
 		playerStage.dispose();
 		pl1.dispose();
+		pl2.dispose();
 
 		circle.dispose();
 		circleCur.dispose();
