@@ -110,8 +110,6 @@ public class JoystickRight extends BaseJoystick {
     }
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        System.out.println(screenX);
-        System.out.println(screenY);
         if (screenX>1000 && screenY>700) {
             isTouch(screenX, screenY);
             if (isTouchRight) {

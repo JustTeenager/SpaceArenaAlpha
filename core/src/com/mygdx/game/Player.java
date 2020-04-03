@@ -41,14 +41,11 @@ public class Player extends ActorObj {
     public JumpState getJumpState() {
         return jumpState;
     }
-
     enum JumpState {
         JUMPING,
         FALLING,
         GROUNDED
     }
-
-
 
 
     public Player(int x, int y, Stage s) {
