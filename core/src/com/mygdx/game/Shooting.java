@@ -35,7 +35,6 @@ public class Shooting extends ActorObj {
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
 
-
     }
     @Override
     public void collapse() {
