@@ -19,7 +19,7 @@ public class Player extends ActorObj {
     private Vector2 velocityY;
     private float dt=0;
     private float velocity=150;
-    private float JUMP=400;
+    private float JUMP=350;
     public  static boolean flip=false;
 
     private Array<TextureRegion> aim_player_2= new Array<>();
@@ -155,6 +155,8 @@ public class Player extends ActorObj {
         float x4=pl.coreX+pl.getPlatTexture().getWidth();
         float y4=pl.coreY+pl.getPlatTexture().getHeight();//координаты концов диагонали платформы
 
+        boolean x=((x3 > x1 && x3 < x2) || (x4 > x1 && x4 < x2) || (x1 > x3 && x1 < x4) || (x2 > x3 && x2 < x4));
+        boolean y=((y3 > y1 && y3 < y2) || (y4 > y1 && y4 < y2) || (y1 > y3 && y1 < y4) || (y2 > y3 && y2 < y4));
 
         if (lastFrame.x >= pl.left && lastFrame.x <= pl.right && lastFrame.y >= pl.top && (position.y - pl.top < 0.2f)) {//запрыгивать
             if (velocityY.y <= 0) {
@@ -163,13 +165,15 @@ public class Player extends ActorObj {
                 position.y = pl.top;
             }
         } else if (lastFrame.x >= pl.left && lastFrame.x <= pl.right && position.y <= pl.top) {//стукаться головой о нижнюю грань
-            if (pl.coreY - (position.y + txt.getHeight()) <= 0.2f) velocityY.y = -10;
+            if (pl.coreY - (position.y + txt.getHeight()) <= 0.2f) {
+                velocityY.y = -10;
+            }
         }
-        else if (((x3>x1 && x3<x2) || (x4>x1 && x4<x2) || (x1>x3 && x1<x4) || (x2>x3 && x2<x4)) &&// посмотреть,что там с игреками,надо подобрать цифру
-        ((y3>y1 && y3<y2)||(y4>y1 && y4<y2)||(y1>y3 && y1<y4)||(y2>y3 && y2<y4))){
-            position.x = lastFrame.x;
-            setX(position.x);
+        else if (x && y) {// посмотреть,что там с игреками,надо подобрать цифру
+                position.x = lastFrame.x;
+                setX(position.x);
         }
+
 
 
         /*else if ((jumpState==JumpState.GROUNDED)&&(pl.left - position.x < 0.2f) && (position.y+10f >= pl.bottom - txt.getHeight() + 50) && (position.y <= pl.top)) {
