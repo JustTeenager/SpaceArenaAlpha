@@ -213,7 +213,6 @@ public class Player extends ActorObj {
             }*/
         rectangle.setPosition(getX(), getY());
     }
-
     private void endJump() {
         if (jumpState == JumpState.JUMPING) {
             jumpState = JumpState.FALLING;

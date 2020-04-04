@@ -46,6 +46,12 @@ public class Shooting extends ActorObj {
             }
         }
         else player.killed=true;
+
+        for (int i=0;i<plat.length;i++){
+            if (rectangle.overlaps(plat[i].rect)){
+                this.setVisible(false);
+            }
+        }
     }
 
     @Override
@@ -63,7 +69,7 @@ public class Shooting extends ActorObj {
         setX(x);
         float y = getY() + direction.y * velocity * Gdx.graphics.getDeltaTime();
         setY(y);
-
+        rectangle.setPosition(x,y);
         isOut = x > 3420 || x < -1500 || y > 3580 || y < -1500;//надо будет поставить размры нашего экрана
     }
 

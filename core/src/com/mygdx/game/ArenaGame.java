@@ -118,6 +118,7 @@ public class ArenaGame extends ScreenAdapter {
 		//сделать иф просмотра стреляет первый игрок или второй
 		for (int i=0;i<shootings.size();i++){
 			shootings.get(i).update();
+			shootings.get(i).collapse(pl1);
 			if (shootings.get(i).isOut){//удаление той пули, которая выышла за экран
 				shootings.remove(i);
 				//shootings.get(i).getShoot().dispose();
