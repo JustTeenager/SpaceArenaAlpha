@@ -94,11 +94,15 @@ public class Player extends ActorObj {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
+        try{
         batch.draw(
                 animation.getKeyFrame(dt),getX(),getY(),getOriginX(),
                 getOriginY(),getWidth(),getHeight(),
                 (flip ? -1 : 1)*getScaleX(),getScaleY(),getRotation() );
         //batch.draw(txt,getX(),getY());
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -188,8 +192,10 @@ public class Player extends ActorObj {
             }
         }
         else if (x && y) {// посмотреть,что там с игреками,надо подобрать цифру
+            if (jumpState!=JumpState.GROUNDED) {
                 position.x = lastFrame.x;
                 setX(position.x);
+            }
         }
 
 

@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import static com.mygdx.game.ArenaGame.pl1;
+import static com.mygdx.game.ArenaGame.plat;
 
 public class Shooting extends ActorObj {
 

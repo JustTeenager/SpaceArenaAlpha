@@ -78,7 +78,7 @@ public class ArenaGame extends ScreenAdapter {
 
 		txtplat=new Texture("SciFiPlatformset.png");
 		txtplatFloor=new Texture("SciFiPlatformsetFloor.png");
-		plat= new Platform[]{new Platform(150, 200,txtplat, playerStage),new Platform(330, 270,txtplat, playerStage)};
+		plat= new Platform[]{new Platform(150, 200,txtplat, playerStage),new Platform(550, 270,txtplat, playerStage)};
 
 		inputMultiplexer = new InputMultiplexer();
 
