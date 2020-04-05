@@ -18,18 +18,18 @@ public class Platform extends ActorObj {
 
     Rectangle rect;
 
-    public Platform(float left, float top,Texture plat, Stage s) {
-        super(left,top-plat.getHeight(),s);
+    public Platform(float left, float bottom,Texture plat, Stage s) {
+        super(left,bottom,s);
         this.platTexture=plat;
         this.playertxt=new Texture("Aim (1).png");
-        this.top = top;
-        this.bottom = top-plat.getHeight();
+        this.top = bottom+plat.getHeight();
+        this.bottom = bottom;
         this.left = left;
         this.right = left + plat.getWidth();
         this.coreX=left+playertxt.getWidth()/2;
         this.coreY=top-platTexture.getHeight()/2;
 
-        rect=new Rectangle(coreX,coreY,platTexture.getWidth(),platTexture.getHeight());
+        rect=new Rectangle(left,bottom,platTexture.getWidth()+50,58);
     }
 
     @Override

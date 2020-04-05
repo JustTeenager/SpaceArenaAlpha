@@ -79,7 +79,7 @@ public class Player extends ActorObj {
         setWidth(txt.getWidth());
         setHeight(txt.getHeight());
         setOrigin(getWidth()/2,getHeight());
-        rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
+        rectangle = new Rectangle(getX()-30, getY(),getWidth(),getHeight());
         s.addActor(this);
 
     }

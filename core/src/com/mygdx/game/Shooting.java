@@ -42,7 +42,7 @@ public class Shooting extends ActorObj {
         if (player.hp>0) {
             if (this.rectangle.overlaps(player.rectangle)) {
                 this.setVisible(false);
-                player.hp -= 10;
+                player.hp -= 1;
             }
         }
         else player.killed=true;
@@ -50,6 +50,7 @@ public class Shooting extends ActorObj {
         for (int i=0;i<plat.length;i++){
             if (rectangle.overlaps(plat[i].rect)){
                 this.setVisible(false);
+                setPosition(7000,7000);
             }
         }
     }

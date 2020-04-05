@@ -81,7 +81,7 @@ public class ArenaGame extends ScreenAdapter {
 
 		txtplat=new Texture("SciFiPlatformset.png");
 		txtplatFloor=new Texture("SciFiPlatformsetFloor.png");
-		plat= new Platform[]{new Platform(150, 200,txtplat, playerStage),new Platform(550, 270,txtplat, playerStage)};
+		plat= new Platform[]{new Platform(150, 150,txtplat, playerStage),new Platform(550, 200,txtplat, playerStage)};
 
 		inputMultiplexer = new InputMultiplexer();
 
@@ -114,6 +114,7 @@ public class ArenaGame extends ScreenAdapter {
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		playerStage.act(delta);
 		pl1.update();
+
 		//pl2.update();
 		coordBox= new CoordBox(0,pl1.position,pl1.anim.getKeyFrame(delta).getTexture(),pl1.jumpState,pl1.hp,shootings);//золотая коробка
 		joystickRight.checkCreateBullet();
@@ -121,8 +122,9 @@ public class ArenaGame extends ScreenAdapter {
 		//сделать иф просмотра стреляет первый игрок или второй
 		for (int i=0;i<shootings.size();i++){
 			shootings.get(i).update();
-			shootings.get(i).collapse(pl1);
-			if (shootings.get(i).isOut){//удаление той пули, которая выышла за экран
+			//shootings.get(i).collapse(pl1);
+			shootings.get(i).collapse(pl2);
+			if (shootings.get(i).isOut || !shootings.get(i).isVisible()){//удаление той пули, которая выышла за экран
 				shootings.remove(i);
 				//shootings.get(i).getShoot().dispose();
 			}
