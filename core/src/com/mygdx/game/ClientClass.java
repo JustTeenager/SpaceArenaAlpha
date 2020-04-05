@@ -41,7 +41,6 @@ public class ClientClass extends Listener {
         }
 
         System.out.println("Клиент покидает сервер");
-        //System.exit(0);//окончание работы клиента
     }
 
 
@@ -52,7 +51,6 @@ public class ClientClass extends Listener {
             MessageBox box = (MessageBox) p;
             System.out.println("Ответ от сервера: "+box.message);
             messageReceived = true;
-            //Мы получили сообщение
         }
     }
 }

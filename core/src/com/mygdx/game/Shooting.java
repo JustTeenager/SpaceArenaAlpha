@@ -76,9 +76,7 @@ public class Shooting extends ActorObj {
 
 
     @Override
-    public void platformReact(Platform pl) {
-
-    }
+    public void platformReact(Platform pl) {}
 
     public Texture getShoot() {
         return shoot;

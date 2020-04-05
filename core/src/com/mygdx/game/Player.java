@@ -22,7 +22,7 @@ public class Player extends ActorObj {
     private float dt=0;
     private float velocity=150;
     private float JUMP=350;
-    public  static boolean flip=false;
+    public boolean flip=false;
 
     private Array<TextureRegion> aim_player_2= new Array<>();
     private Array<TextureRegion> move_player_2= new Array<>();
@@ -32,9 +32,7 @@ public class Player extends ActorObj {
     private Array<TextureRegion> move_player_4= new Array<>();
     private Array<TextureRegion> jump_player_4= new Array<>();
 
-    public Array<TextureRegion> getTextureArray_aim_player_2() {
-        return aim_player_2;
-    }
+    public Array<TextureRegion> getTextureArray_aim_player_2() {return aim_player_2;}
 
     public Array<TextureRegion> getTextureArray_move_player_2() {
         return move_player_2;
@@ -43,6 +41,8 @@ public class Player extends ActorObj {
     public Array<TextureRegion> getTextureArray_jump_player_2() {
         return jump_player_2;
     }
+
+
 
     public Array<TextureRegion> getTextureArray_aim_player_4() {
         return aim_player_4;
@@ -143,20 +143,21 @@ public class Player extends ActorObj {
         //должен быть большой иф, просмотр кого мы будем двигать этим джойстиком
         if (!JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft) {
             flip = true;
-            useAnim(0.1f, true,move_player_2);
+            if (this.getName().equals("pl1")) useAnim(0.1f, true,move_player_2);
             txt.dispose();
             position.x = getX() - velocity * Gdx.graphics.getDeltaTime();
             setX(position.x);
         } else if (JoystickLeft.isTouchLeft) {
             flip = false;
-            useAnim(0.1f, true,move_player_2);
+            if (this.getName().equals("pl1")) useAnim(0.1f, true,move_player_2);
             txt.dispose();
             position.x = getX() + velocity * Gdx.graphics.getDeltaTime();
             setX(position.x);
         }
         rectangle.setPosition(getX(), getY());
         if ((!JoystickLeft.isTouchLeft) && (jumpState== JumpState.GROUNDED)){
-            useAnim(0.1f, true,aim_player_2);
+            if (this.getName().equals("pl1")) useAnim(0.1f, true,aim_player_2);
+            System.out.println(this.getName());
             txt.dispose();
         }
 
@@ -223,7 +224,7 @@ public class Player extends ActorObj {
     private void startJump(){
         jumpState=JumpState.JUMPING;
         velocityY.y+=JUMP;
-        useAnim(0.1f,false,jump_player_2);//для второго игрока надо сделать
+        if (this.getName().equals("pl1")) useAnim(0.1f,false,jump_player_2);//для второго игрока надо сделать
         continueJump();
     }
 

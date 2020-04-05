@@ -9,7 +9,6 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-
 import java.util.ArrayList;
 
 public class ArenaGame extends ScreenAdapter {
@@ -58,15 +57,19 @@ public class ArenaGame extends ScreenAdapter {
 		hudStage = new Stage();
 
 		pl1=new Player(0,50,playerStage);
+		pl1.setName("pl1");
 		pl1.setAnim(pl1.getTextureArray_aim_player_2(),MainGame.Aim_2);
 		pl1.setAnim(pl1.getTextureArray_move_player_2(),MainGame.RunShoot_2);
 		pl1.setAnim(pl1.getTextureArray_jump_player_2(),MainGame.JumpShoot_2);
-		shootings = new ArrayList<>();
 
 		pl2=new Player(1000,50,playerStage);
+		pl2.setName("pl2");
 		pl2.setAnim(pl2.getTextureArray_aim_player_4(),MainGame.Aim_4);
 		pl2.setAnim(pl2.getTextureArray_move_player_4(),MainGame.RunShoot_4);
 		pl2.setAnim(pl2.getTextureArray_jump_player_4(),MainGame.JumpShoot_4);
+		pl2.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
+
+		shootings = new ArrayList<>();
 
 		circle = new Texture("circle.png");
 		circleCur = new Texture("circle.png");
@@ -111,7 +114,7 @@ public class ArenaGame extends ScreenAdapter {
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		playerStage.act(delta);
 		pl1.update();
-		pl2.update();
+		//pl2.update();
 		coordBox= new CoordBox(0,pl1.position,pl1.anim.getKeyFrame(delta).getTexture(),pl1.jumpState,pl1.hp,shootings);//золотая коробка
 		joystickRight.checkCreateBullet();
 
