@@ -8,23 +8,29 @@ import com.badlogic.gdx.math.Vector2;
 import java.util.ArrayList;
 
 public class CoordBox {
-    private int playerIdentify=0;
+    private int playerIdentify;
 
     private Vector2 positionPlayer;
     private Texture playerTexture;
-    private Player.JumpState jumpState;
+    private Rectangle rectanglePlayer;
     private int hp;
 
-    private ArrayList<Shooting> bullets;
+    private ArrayList<Integer> bulletsX;
+    private ArrayList<Integer> bulletsY;
+    private ArrayList<Rectangle> rectangleShoot;
+    private Texture shootTexture;
 
-
-    CoordBox(int playerIdentify, Vector2 positionPlayer, Texture playerTexture, Player.JumpState jumpState,int hp, ArrayList<Shooting> bullets){
+    CoordBox(int playerIdentify, Vector2 positionPlayer, Texture playerTexture,Rectangle rectanglePlayer,int hp,
+             ArrayList<Integer> bulletsX,ArrayList<Integer> bulletsY,ArrayList<Rectangle> rectangleShoot,Texture shootTexture){
         this.playerIdentify=playerIdentify;
         this.positionPlayer=positionPlayer;
         this.playerTexture=playerTexture;
-        this.jumpState=jumpState;
+        this.rectanglePlayer=rectanglePlayer;
         this.hp=hp;
-        this.bullets=bullets;
+        this.bulletsX=bulletsX;
+        this.bulletsY=bulletsY;
+        this.rectangleShoot=rectangleShoot;
+        this.shootTexture=shootTexture;
     }
 
     public void decordBox(int Identify) {//если identify=1, то передаём 2 и наоборот
