@@ -51,7 +51,7 @@ public abstract class ActorObj extends Group {
         else
             centerAtPosition( other.getX() + other.getWidth()/2+20, other.getY() + other.getHeight()/2-4 );*/
 
-        if (Player.flip)
+        if (other instanceof Player && ((Player) other).flip)//СДЕЛАЛ НЕСТАТИЧНЫМ ФЛИП,РАНЬШЕ ТУТ БЫЛО Player.flip
             centerAtPosition(other.getX()-other.getWidth()/2+20,other.getY()+other.getHeight()/2+4);
         else
             centerAtPosition( other.getX() + other.getWidth()/2+20, other.getY() + other.getHeight()/2-4);
