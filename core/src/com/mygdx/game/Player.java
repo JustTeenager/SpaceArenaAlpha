@@ -22,6 +22,7 @@ public class Player extends ActorObj {
     private float dt=0;
     private float velocity=150;
     private float JUMP=350;
+    private int ID;
     public boolean flip=false;
 
     private Array<TextureRegion> aim_player_2= new Array<>();
@@ -31,6 +32,7 @@ public class Player extends ActorObj {
     private Array<TextureRegion> aim_player_4= new Array<>();
     private Array<TextureRegion> move_player_4= new Array<>();
     private Array<TextureRegion> jump_player_4= new Array<>();
+
 
     public Array<TextureRegion> getTextureArray_aim_player_2() {return aim_player_2;}
 
@@ -43,6 +45,13 @@ public class Player extends ActorObj {
     }
 
 
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
+    }
 
     public Array<TextureRegion> getTextureArray_aim_player_4() {
         return aim_player_4;
@@ -66,8 +75,7 @@ public class Player extends ActorObj {
     }
 
 
-    public Player(int x, int y, Stage s) {
-        super(x,y,s);
+    public Player(int x, int y) {
         position=new Vector2();
         jumpState = JumpState.FALLING;
         velocityY=new Vector2();
@@ -80,8 +88,6 @@ public class Player extends ActorObj {
         setHeight(txt.getHeight());
         setOrigin(getWidth()/2,getHeight());
         rectangle = new Rectangle(getX()-30, getY(),getWidth(),getHeight());
-        s.addActor(this);
-
     }
 
 
@@ -113,6 +119,13 @@ public class Player extends ActorObj {
 
     @Override
     public void update() {
+        /*if (this.getName().equals("ENEMY")) {//удерживает в это же время противника на месте
+            position.x = 1000;
+            position.y = 50;
+            setX(position.x);
+            setY(position.y);
+        }*/
+
         lastFrame.set(position);
         float delta = Gdx.graphics.getDeltaTime();
         velocityY.y -= delta * MainGame.GRAVITY;
@@ -139,25 +152,26 @@ public class Player extends ActorObj {
             }
         } else endJump();
 
-
         //должен быть большой иф, просмотр кого мы будем двигать этим джойстиком
         if (!JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft) {
             flip = true;
-            if (this.getName().equals("pl1")) useAnim(0.1f, true,move_player_2);
+            if (this.getID()==0) useAnim(0.1f, true, move_player_2);
+            else useAnim(0.1f, true, move_player_4);
             txt.dispose();
             position.x = getX() - velocity * Gdx.graphics.getDeltaTime();
             setX(position.x);
         } else if (JoystickLeft.isTouchLeft) {
             flip = false;
-            if (this.getName().equals("pl1")) useAnim(0.1f, true,move_player_2);
+            if (this.getID()==0) useAnim(0.1f, true, move_player_2);
+            else useAnim(0.1f, true, move_player_4);
             txt.dispose();
             position.x = getX() + velocity * Gdx.graphics.getDeltaTime();
             setX(position.x);
         }
         rectangle.setPosition(getX(), getY());
-        if ((!JoystickLeft.isTouchLeft) && (jumpState== JumpState.GROUNDED)){
-            if (this.getName().equals("pl1")) useAnim(0.1f, true,aim_player_2);
-            System.out.println(this.getName());
+        if ((!JoystickLeft.isTouchLeft) && (jumpState == JumpState.GROUNDED)) {
+            if (this.getID()==0) useAnim(0.1f, true, aim_player_2);
+            else useAnim(0.1f, true, aim_player_4);
             txt.dispose();
         }
 
@@ -224,7 +238,8 @@ public class Player extends ActorObj {
     private void startJump(){
         jumpState=JumpState.JUMPING;
         velocityY.y+=JUMP;
-        if (this.getName().equals("pl1")) useAnim(0.1f,false,jump_player_2);//для второго игрока надо сделать
+        if (this.getID()==0) useAnim(0.1f,false,jump_player_2);
+        else useAnim(0.1f,false,jump_player_4);//для второго игрока надо сделать
         continueJump();
     }
 
@@ -235,5 +250,9 @@ public class Player extends ActorObj {
 
     public void dispose(){
         txt.dispose();
+    }
+
+    public void animationAdapt(){//Две одинаковые строчки про анимации во время движения должны быть применены ко всем
+
     }
 }

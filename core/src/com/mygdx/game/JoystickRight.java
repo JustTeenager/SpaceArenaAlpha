@@ -14,7 +14,7 @@ public class JoystickRight extends BaseJoystick {
     public static boolean isTouchRight= false;
     private float rad = 0;
     public static double angleRight=0;
-    public static boolean CheckAngleRight= false;
+    public static boolean CheckAngleRight= true;
 
     private static final float CURSOR_RADIUS = 40;
     public JoystickRight(Texture circle, Texture circleCur){
