@@ -116,7 +116,7 @@ public class ArenaGame extends ScreenAdapter {
 		pl1.update();
 
 		//pl2.update();
-		coordBox= new CoordBox(0,pl1.position,pl1.anim.getKeyFrame(delta).getTexture(),pl1.jumpState,pl1.hp,shootings);//золотая коробка
+		//coordBox= new CoordBox(0,pl1.position,pl1.anim.getKeyFrame(delta).getTexture(),pl1.jumpState,pl1.hp,shootings);//золотая коробка
 		joystickRight.checkCreateBullet();
 
 		//сделать иф просмотра стреляет первый игрок или второй

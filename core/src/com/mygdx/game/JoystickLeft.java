@@ -10,7 +10,7 @@ public class JoystickLeft extends BaseJoystick {
     private float curX=0;
     private float curY=0;
     public static boolean isTouchLeft= false;
-    public static boolean CheckAngleLeft=false;
+    public static boolean CheckAngleLeft=true;
     private float rad = 0;
     public static double angleLeft=0;
 
