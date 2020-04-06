@@ -59,15 +59,13 @@ public class ClientClass extends Listener {
         }
 
         if (p instanceof CoordBox){
+            box = (CoordBox) p;
             if (MainGame.getPlayerIdentify()==0) {
-                box = (CoordBox) p;
-                playerNUM = box.getPlayerIdentify();
-                MainGame.setPlayerIdentify(playerNUM);
-                System.out.println(MainGame.getPlayerIdentify() + " IS IDENTY FROM THE CLIENT");
+                boxNumDeploy(box);
             }
-            else {
+            /*else {
                 boxDeploy(box);
-            }
+            }*/
         }
     }
     public static void setNumToIdentify(){
@@ -80,7 +78,11 @@ public class ClientClass extends Listener {
         ArenaGame.ENEMY.hp=box.hp;
         ArenaGame.ENEMY.anim=box.playerAnim;
         ArenaGame.ENEMY.rectangle=box.rectanglePlayer;
-
+    }
+    public static void boxNumDeploy(CoordBox box){
+        playerNUM = box.getPlayerIdentify();
+        MainGame.setPlayerIdentify(playerNUM);
+        System.out.println(MainGame.getPlayerIdentify() + " IS IDENTY FROM THE CLIENT");
     }
 }
 

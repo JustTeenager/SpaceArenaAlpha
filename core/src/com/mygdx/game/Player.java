@@ -119,12 +119,12 @@ public class Player extends ActorObj {
 
     @Override
     public void update() {
-        /*if (this.getName().equals("ENEMY")) {//удерживает в это же время противника на месте
+        if (this.getName().equals("ENEMY")) {//удерживает в это же время противника на месте
             position.x = 1000;
             position.y = 50;
             setX(position.x);
             setY(position.y);
-        }*/
+        }
 
         lastFrame.set(position);
         float delta = Gdx.graphics.getDeltaTime();
@@ -250,9 +250,5 @@ public class Player extends ActorObj {
 
     public void dispose(){
         txt.dispose();
-    }
-
-    public void animationAdapt(){//Две одинаковые строчки про анимации во время движения должны быть применены ко всем
-
     }
 }

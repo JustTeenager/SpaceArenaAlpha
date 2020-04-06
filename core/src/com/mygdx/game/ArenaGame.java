@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class ArenaGame extends ScreenAdapter {
 
 	public ArenaGame () {
 		try {
-			ClientClass.startClient();
+			ClientClass.startClient();//НЕ УВЕРЕН В АНИМ КУРРЕНТ ПЛЕЕРА
 			ClientClass.sendBox(new CoordBox(0));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -78,6 +79,9 @@ public class ArenaGame extends ScreenAdapter {
 		pl2.setAnim(pl2.getTextureArray_jump_player_4(),MainGame.JumpShoot_4);
 
 
+		System.out.println(MainGame.getPlayerIdentify());
+
+
 		switch (MainGame.getPlayerIdentify()){
 			case 1:{
 				CURRENT_PLAYER=pl1;
@@ -90,6 +94,8 @@ public class ArenaGame extends ScreenAdapter {
 				playerStage.addActor(ENEMY);
 				ENEMY.setX(pl2.getID());
 				ENEMY.setY(50);
+				CURRENT_PLAYER.setName("CURRENT_NAME");
+				ENEMY.setName("ENEMY");
 
 			}break;
 			case 2:{
@@ -103,12 +109,13 @@ public class ArenaGame extends ScreenAdapter {
 				ENEMY.setX(pl1.getID());
 				ENEMY.setY(50);
 				ENEMY.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
+				CURRENT_PLAYER.setName("CURRENT_NAME");
+				ENEMY.setName("ENEMY");
 
 			}break;
 			default:System.out.println("THATS WORNG IDENTITY NUMBER!");
 		}
-		CURRENT_PLAYER.setName("CURRENT_NAME");
-		ENEMY.setName("ENEMY");
+
 
 
 
@@ -146,11 +153,12 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
+		//ClientClass.sendBox(new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.anim,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,));//Продолжим
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		coordBox=new CoordBox(MainGame.getPlayerIdentify());
-		ClientClass.sendBox(coordBox);
+		/*coordBox=new CoordBox(MainGame.getPlayerIdentify());
+		ClientClass.sendBox(coordBox);*/
 
 		inputMultiplexer.addProcessor(joystickLeft);
 		inputMultiplexer.addProcessor(joystickRight);
@@ -161,7 +169,6 @@ public class ArenaGame extends ScreenAdapter {
 		ENEMY.update();
 		//pl1.update();
 		//pl2.update();
-		//coordBox= new CoordBox(0,pl1.position,pl1.anim.getKeyFrame(delta).getTexture(),pl1.jumpState,pl1.hp,shootings);//золотая коробка
 		joystickRight.checkCreateBullet();
 
 		//сделать иф просмотра стреляет первый игрок или второй
