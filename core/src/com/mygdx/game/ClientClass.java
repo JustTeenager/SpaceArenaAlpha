@@ -5,6 +5,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import java.net.InetAddress;
 
+import static com.mygdx.game.Shooting.createEnemyShootingArray;
 
 
 public class ClientClass extends Listener {
@@ -27,6 +28,7 @@ public class ClientClass extends Listener {
         //Регистрируем пакет
         client.getKryo().register(MessageBox.class);
         client.getKryo().register(CoordBox.class);
+        client.getKryo().register(java.util.ArrayList.class);
         client.start();
 
         //Клиент подключается к серверу
@@ -63,9 +65,9 @@ public class ClientClass extends Listener {
             if (MainGame.getPlayerIdentify()==0) {
                 boxNumDeploy(box);
             }
-            /*else {
+            else {
                 boxDeploy(box);
-            }*/
+            }
         }
     }
     public static void setNumToIdentify(){
@@ -78,6 +80,8 @@ public class ClientClass extends Listener {
         ArenaGame.ENEMY.hp=box.hp;
         ArenaGame.ENEMY.anim=box.playerAnim;
         ArenaGame.ENEMY.rectangle=box.rectanglePlayer;
+
+        ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
     }
     public static void boxNumDeploy(CoordBox box){
         playerNUM = box.getPlayerIdentify();

@@ -12,6 +12,10 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import java.util.ArrayList;
 
+import static com.mygdx.game.Shooting.anglesCurrentPlayer;
+import static com.mygdx.game.Shooting.getBulletsDirection;
+import static com.mygdx.game.Shooting.getBulletsRectangle;
+
 public class ArenaGame extends ScreenAdapter {
 
 	private Texture backTxt;
@@ -35,6 +39,7 @@ public class ArenaGame extends ScreenAdapter {
 	private JoystickRight joystickRight;
 
 	public static ArrayList<Shooting> shootings;
+	public static ArrayList<Shooting> shootingsEnemy;
 
 
 	public static Platform[] plat;
@@ -116,13 +121,6 @@ public class ArenaGame extends ScreenAdapter {
 			default:System.out.println("Packet with wrong ident,coordinates incoming");
 		}
 
-
-
-
-
-
-
-
 		shootings = new ArrayList<>();
 
 		circle = new Texture("circle.png");
@@ -153,7 +151,9 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
-		//ClientClass.sendBox(new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.anim,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,));//Продолжим
+		//coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.anim,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
+				//getBulletsDirection(shootings),anglesCurrentPlayer,getBulletsRectangle(shootings),Shooting.shoot);
+		//ClientClass.sendBox(coordBox);
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
