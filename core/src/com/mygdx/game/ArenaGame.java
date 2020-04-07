@@ -113,7 +113,7 @@ public class ArenaGame extends ScreenAdapter {
 				ENEMY.setName("ENEMY");
 
 			}break;
-			default:System.out.println("THATS WORNG IDENTITY NUMBER!");
+			default:System.out.println("Packet with wrong ident,coordinates incoming");
 		}
 
 
@@ -157,9 +157,6 @@ public class ArenaGame extends ScreenAdapter {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
-		/*coordBox=new CoordBox(MainGame.getPlayerIdentify());
-		ClientClass.sendBox(coordBox);*/
-
 		inputMultiplexer.addProcessor(joystickLeft);
 		inputMultiplexer.addProcessor(joystickRight);
 		inputMultiplexer.addProcessor(hud);
@@ -167,8 +164,6 @@ public class ArenaGame extends ScreenAdapter {
 		playerStage.act(delta);
 		CURRENT_PLAYER.update();
 		ENEMY.update();
-		//pl1.update();
-		//pl2.update();
 		joystickRight.checkCreateBullet();
 
 		//сделать иф просмотра стреляет первый игрок или второй
