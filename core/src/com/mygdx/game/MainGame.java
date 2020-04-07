@@ -7,6 +7,8 @@ public class MainGame extends Game {
     static final int WORLD_SIZE_X=1020;
     static final int WORLD_SIZE_Y=800;
     static boolean jumped=false;
+
+    static int playerIdentify;
     //static final int HUD_X=1020;
     //static final int HUD_Y=1000;
 
@@ -53,5 +55,13 @@ public class MainGame extends Game {
     @Override
     public void create() {
         setScreen(new MainMenu(this));
+    }
+
+    public static int getPlayerIdentify() {
+        return playerIdentify;
+    }
+
+    public static void setPlayerIdentify(int playerIdentify) {
+        MainGame.playerIdentify = playerIdentify;
     }
 }

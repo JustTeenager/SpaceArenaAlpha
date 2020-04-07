@@ -17,6 +17,10 @@ public abstract class ActorObj extends Group {
         setPosition(x,y);
         s.addActor(this);
     }
+
+    protected ActorObj() {
+    }
+
     public void setAnim(Array<TextureRegion> array,String[] str) {
         for (int i = 0; i < str.length; i++) {
             textTEMP = new Texture(str[i]);
