@@ -8,6 +8,7 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 
 import java.util.ArrayList;
+import java.util.Vector;
 
 public class CoordBox {
 
@@ -17,14 +18,13 @@ public class CoordBox {
      Animation<TextureRegion> playerAnim;
      Rectangle rectanglePlayer;
      int hp;
-
-     ArrayList<Integer> bulletsX;
-     ArrayList<Integer> bulletsY;
+     ArrayList<Vector2> bulletsPosition;
      ArrayList<Rectangle> rectangleShoot;
      Texture shootTexture;
+     ArrayList<Double> angles;
 
     CoordBox(int playerIdentify, Vector2 positionPlayer, Animation<TextureRegion> playerAnim, Rectangle rectanglePlayer, int hp,
-             ArrayList<Integer> bulletsX, ArrayList<Integer> bulletsY, ArrayList<Rectangle> rectangleShoot, Texture shootTexture){
+             ArrayList<Vector2> bulletsPosition,ArrayList<Double> angles, ArrayList<Rectangle> rectangleShoot, Texture shootTexture){
         this.playerIdentify=playerIdentify;
         this.positionPlayer=positionPlayer;
         this.playerAnim=playerAnim;
@@ -32,8 +32,8 @@ public class CoordBox {
         this.hp=hp;
 
 
-        this.bulletsX=bulletsX;
-        this.bulletsY=bulletsY;
+        this.bulletsPosition=bulletsPosition;
+        this.angles=angles;
         this.rectangleShoot=rectangleShoot;
         this.shootTexture=shootTexture;
     }

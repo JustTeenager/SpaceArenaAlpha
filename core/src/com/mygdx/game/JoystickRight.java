@@ -16,6 +16,7 @@ public class JoystickRight extends BaseJoystick {
     public static double angleRight=0;
     public static boolean CheckAngleRight= true;
 
+
     private static final float CURSOR_RADIUS = 40;
     public JoystickRight(Texture circle, Texture circleCur){
         super();
@@ -146,6 +147,7 @@ public class JoystickRight extends BaseJoystick {
         if (JoystickRight.isTouchRight && JoystickLeft.CheckAngleLeft==CheckAngleRight && one-two>=5){
             ArenaGame.shootings.add(new Shooting(ArenaGame.pl1.getX(),ArenaGame.pl1.getY(),ArenaGame.playerStage,JoystickRight.direction,1000f));
             two=one;
+            Shooting.anglesCurrentPlayer.add(angleRight);
         }
         else{
             one++;
