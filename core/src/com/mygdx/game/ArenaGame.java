@@ -8,6 +8,7 @@ import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import java.util.ArrayList;
@@ -51,6 +52,13 @@ public class ArenaGame extends ScreenAdapter {
 	private Texture jumpbtn;
 
 	private CoordBox coordBox;
+	public static int TextureArray_aim_player_2_HASH;
+	public static int TextureArray_move_player_2_HASH;
+	public static int TextureArray_jump_player_2_HASH;
+
+	public static int TextureArray_aim_player_4_HASH;
+	public static int TextureArray_move_player_4_HASH;
+	public static int TextureArray_jump_player_4_HASH;
 
 	public ArenaGame () {
 		try {
@@ -82,9 +90,17 @@ public class ArenaGame extends ScreenAdapter {
 		pl2.setAnim(pl2.getTextureArray_aim_player_4(),MainGame.Aim_4);
 		pl2.setAnim(pl2.getTextureArray_move_player_4(),MainGame.RunShoot_4);
 		pl2.setAnim(pl2.getTextureArray_jump_player_4(),MainGame.JumpShoot_4);
+		System.out.println(pl2.getTextureArray_aim_player_4().hashCode()+ "       "+pl2.getTextureArray_move_player_4().hashCode()+ "       "+pl2.getTextureArray_jump_player_4().hashCode());
 
+		TextureArray_aim_player_2_HASH=ArenaGame.pl1.getTextureArray_aim_player_2().hashCode();
+		TextureArray_move_player_2_HASH=ArenaGame.pl1.getTextureArray_move_player_2().hashCode();
+		TextureArray_jump_player_2_HASH=ArenaGame.pl1.getTextureArray_jump_player_2().hashCode();
 
-		System.out.println(MainGame.getPlayerIdentify());
+		TextureArray_aim_player_4_HASH=ArenaGame.pl1.getTextureArray_aim_player_4().hashCode();
+		TextureArray_move_player_4_HASH=ArenaGame.pl1.getTextureArray_move_player_4().hashCode();
+		TextureArray_jump_player_4_HASH=ArenaGame.pl1.getTextureArray_jump_player_4().hashCode();
+
+		//System.out.println(MainGame.getPlayerIdentify());
 
 
 		switch (MainGame.getPlayerIdentify()){
@@ -93,14 +109,20 @@ public class ArenaGame extends ScreenAdapter {
 				playerStage.addActor(CURRENT_PLAYER);
 				CURRENT_PLAYER.setX(pl1.getID());
 				CURRENT_PLAYER.setY(50);
+				CURRENT_PLAYER.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
 
 				ENEMY=pl2;
-				ENEMY.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
 				playerStage.addActor(ENEMY);
 				ENEMY.setX(pl2.getID());
 				ENEMY.setY(50);
-				CURRENT_PLAYER.setName("CURRENT_NAME");
+				ENEMY.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
+
+				CURRENT_PLAYER.setName("CURRENT_PLAYER");
+				CURRENT_PLAYER.setID(pl1.getID());
 				ENEMY.setName("ENEMY");
+				ENEMY.setID(pl2.getID());
+				ENEMY.position=new Vector2(ENEMY.getID(),50);
+				CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
 
 			}break;
 			case 2:{
@@ -108,14 +130,20 @@ public class ArenaGame extends ScreenAdapter {
 				playerStage.addActor(CURRENT_PLAYER);
 				CURRENT_PLAYER.setX(pl2.getID());
 				CURRENT_PLAYER.setY(50);
+				CURRENT_PLAYER.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
 
 				ENEMY=pl1;
 				playerStage.addActor(ENEMY);
 				ENEMY.setX(pl1.getID());
 				ENEMY.setY(50);
-				ENEMY.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
-				CURRENT_PLAYER.setName("CURRENT_NAME");
+				ENEMY.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());//Стандартная анимация
+
+				CURRENT_PLAYER.setName("CURRENT_PLAYER");
+				CURRENT_PLAYER.setID(pl2.getID());
 				ENEMY.setName("ENEMY");
+				ENEMY.setID(pl1.getID());
+				ENEMY.position=new Vector2(ENEMY.getID(),50);
+				CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
 
 			}break;
 			default:System.out.println("Packet with wrong ident,coordinates incoming");
@@ -151,9 +179,10 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
-		//coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.anim,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
-				//getBulletsDirection(shootings),anglesCurrentPlayer,getBulletsRectangle(shootings),Shooting.shoot);
-		//ClientClass.sendBox(coordBox);
+		//System.out.println(MainGame.getPlayerIdentify());
+		//System.out.println(pl2.getTextureArray_aim_player_4().hashCode()+ "       "+pl2.getTextureArray_move_player_4().hashCode()+ "       "+pl2.getTextureArray_jump_player_4().hashCode());
+
+
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -161,9 +190,9 @@ public class ArenaGame extends ScreenAdapter {
 		inputMultiplexer.addProcessor(joystickRight);
 		inputMultiplexer.addProcessor(hud);
 		Gdx.input.setInputProcessor(inputMultiplexer);
-		playerStage.act(delta);
 		CURRENT_PLAYER.update();
 		ENEMY.update();
+		playerStage.act(delta);
 		joystickRight.checkCreateBullet();
 
 		//сделать иф просмотра стреляет первый игрок или второй
@@ -184,6 +213,10 @@ public class ArenaGame extends ScreenAdapter {
 		batch.end();
 		playerStage.draw();
 		hudStage.draw();
+
+		coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.animation.hashCode()/*CURRENT_PLAYER.animation*/,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
+				getBulletsDirection(shootings),anglesCurrentPlayer,getBulletsRectangle(shootings),Shooting.shoot.hashCode()/*Shooting.shoot*/);
+		ClientClass.sendBox(coordBox);
 
 	}
 

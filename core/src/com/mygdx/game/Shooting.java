@@ -20,7 +20,7 @@ public class Shooting extends ActorObj {
     public static ArrayList<Double> anglesCurrentPlayer=new ArrayList<>();
     //public static ArrayList<Double> anglesEnemy=new ArrayList<>();
 
-    public static Texture shoot;
+    public static Texture shoot = new Texture("ef_2_00000.png");
     public static Texture shootEnemy;
     public boolean isOut;//переменная для проверки пули в области экрана
 
@@ -33,7 +33,6 @@ public class Shooting extends ActorObj {
         setPosition(x,y);
         this.direction = new Vector2(direction);
         this.velocity = velocity;
-        shoot = new Texture("ef_2_00000.png");
 
         sprite = new Sprite(shoot);//поворачиваем пулю на угол, равный углу курсора
         sprite.setOriginCenter();
@@ -111,11 +110,11 @@ public class Shooting extends ActorObj {
     }
 
     public static ArrayList<Shooting> createEnemyShootingArray(CoordBox coordBox){
-        ArrayList<Vector2> arrayList = coordBox.bulletsPosition;
+        ArrayList<Vector2> arrayList = coordBox.BbulletsPosition;
         ArrayList<Shooting> arrayList1 = new ArrayList<>();
         for(int i=0;i<arrayList.size();i++){
-            Sprite sprite1 = new Sprite(coordBox.shootTexture,(int)arrayList.get(i).x,(int)arrayList.get(i).y,coordBox.shootTexture.getWidth(),coordBox.shootTexture.getHeight());
-            Shooting shooting = new Shooting(sprite1,playerStage,coordBox.angles.get(i),coordBox.rectangleShoot.get(i));
+            Sprite sprite1 = new Sprite(coordBox.BshootTexture,(int)arrayList.get(i).x,(int)arrayList.get(i).y,coordBox.BshootTexture.getWidth(),coordBox.BshootTexture.getHeight());
+            Shooting shooting = new Shooting(sprite1,playerStage,coordBox.Bangles.get(i),coordBox.BrectangleShoot.get(i));
             arrayList1.add(shooting);
         }
         return arrayList1;

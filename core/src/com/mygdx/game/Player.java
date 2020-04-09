@@ -44,15 +44,6 @@ public class Player extends ActorObj {
         return jump_player_2;
     }
 
-
-    public int getID() {
-        return ID;
-    }
-
-    public void setID(int ID) {
-        this.ID = ID;
-    }
-
     public Array<TextureRegion> getTextureArray_aim_player_4() {
         return aim_player_4;
     }
@@ -63,6 +54,14 @@ public class Player extends ActorObj {
 
     public Array<TextureRegion> getTextureArray_jump_player_4() {
         return jump_player_4;
+    }
+
+    public int getID() {
+        return ID;
+    }
+
+    public void setID(int ID) {
+        this.ID = ID;
     }
 
     public JumpState getJumpState() {
@@ -119,64 +118,65 @@ public class Player extends ActorObj {
 
     @Override
     public void update() {
-        if (this.getName().equals("ENEMY")) {//удерживает в это же время противника на месте
-            position.x = 1000;
-            position.y = 50;
-            setX(position.x);
-            setY(position.y);
-        }
-
-        lastFrame.set(position);
-        float delta = Gdx.graphics.getDeltaTime();
-        velocityY.y -= delta * MainGame.GRAVITY;
-        position.mulAdd(velocityY, delta);
-        setY(position.y);
-
-
-        if (position.y - txt.getHeight() / 2 < 0) {
-            jumpState = JumpState.GROUNDED;
-            position.y = txt.getHeight() / 2;
-            velocityY.y = 0;
-        }
-
-        if (MainGame.jumped) {
-            switch (jumpState) {
-                case GROUNDED:
-                    startJump();
-                    break;
-                case JUMPING:
-                    continueJump();
-                    break;
-                case FALLING:
-                    break;
+        if (this.getName().equals("CURRENT_PLAYER")) {
+            if (this.getName().equals("ENEMY")) {//удерживает в это же время противника на месте
+                position.x = 1000;
+                position.y = 50;
+                setX(position.x);
+                setY(position.y);
             }
-        } else endJump();
 
-        //должен быть большой иф, просмотр кого мы будем двигать этим джойстиком
-        if (!JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft) {
-            flip = true;
-            if (this.getID()==0) useAnim(0.1f, true, move_player_2);
-            else useAnim(0.1f, true, move_player_4);
-            txt.dispose();
-            position.x = getX() - velocity * Gdx.graphics.getDeltaTime();
-            setX(position.x);
-        } else if (JoystickLeft.isTouchLeft) {
-            flip = false;
-            if (this.getID()==0) useAnim(0.1f, true, move_player_2);
-            else useAnim(0.1f, true, move_player_4);
-            txt.dispose();
-            position.x = getX() + velocity * Gdx.graphics.getDeltaTime();
-            setX(position.x);
-        }
-        rectangle.setPosition(getX(), getY());
-        if ((!JoystickLeft.isTouchLeft) && (jumpState == JumpState.GROUNDED)) {
-            if (this.getID()==0) useAnim(0.1f, true, aim_player_2);
-            else useAnim(0.1f, true, aim_player_4);
-            txt.dispose();
-        }
+            lastFrame.set(position);
+            float delta = Gdx.graphics.getDeltaTime();
+            velocityY.y -= delta * MainGame.GRAVITY;
+            position.mulAdd(velocityY, delta);
+            setY(position.y);
 
-        for (Platform pl : ArenaGame.plat){
-            platformReact(pl);
+
+            if (position.y - txt.getHeight() / 2 < 0) {
+                jumpState = JumpState.GROUNDED;
+                position.y = txt.getHeight() / 2;
+                velocityY.y = 0;
+            }
+
+            if (MainGame.jumped) {
+                switch (jumpState) {
+                    case GROUNDED:
+                        startJump();
+                        break;
+                    case JUMPING:
+                        continueJump();
+                        break;
+                    case FALLING:
+                        break;
+                }
+            } else endJump();
+            //должен быть большой иф, просмотр кого мы будем двигать этим джойстиком
+            if (!JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft) {
+                flip = true;
+                if (this.getID() == 0) useAnim(0.1f, true, move_player_2);
+                else useAnim(0.1f, true, move_player_4);
+                txt.dispose();
+                position.x = getX() - velocity * Gdx.graphics.getDeltaTime();
+                setX(position.x);
+            } else if (JoystickLeft.isTouchLeft) {
+                flip = false;
+                if (this.getID() == 0) useAnim(0.1f, true, move_player_2);
+                else useAnim(0.1f, true, move_player_4);
+                txt.dispose();
+                position.x = getX() + velocity * Gdx.graphics.getDeltaTime();
+                setX(position.x);
+            }
+            rectangle.setPosition(getX(), getY());
+            if ((!JoystickLeft.isTouchLeft) && (jumpState == JumpState.GROUNDED)) {
+                if (this.getID() == 0) useAnim(0.1f, true, aim_player_2);
+                else useAnim(0.1f, true, aim_player_4);
+                txt.dispose();
+            }
+
+            for (Platform pl : ArenaGame.plat) {
+                platformReact(pl);
+            }
         }
     }
 

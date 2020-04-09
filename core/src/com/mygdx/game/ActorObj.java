@@ -11,6 +11,7 @@ import com.badlogic.gdx.utils.Array;
 public abstract class ActorObj extends Group {
     Texture textTEMP;
     Animation<TextureRegion> anim;
+
     protected Animation<TextureRegion> animation;
     public ActorObj(float x, float y, Stage s){
         super();
@@ -36,6 +37,9 @@ public abstract class ActorObj extends Group {
             anim.setPlayMode(Animation.PlayMode.NORMAL);
 
         animation = anim;
+    }
+
+    public void useEnemyAnim(String animName){
     }
 
     public abstract void collapse(Player player);

@@ -14,28 +14,32 @@ public class CoordBox {
 
     private int playerIdentify;
 
-     Vector2 positionPlayer;
-     Animation<TextureRegion> playerAnim;
-     Rectangle rectanglePlayer;
-     int hp;
-     ArrayList<Vector2> bulletsPosition;
-     ArrayList<Rectangle> rectangleShoot;
-     Texture shootTexture;
-     ArrayList<Double> angles;
+     Vector2 BpositionPlayer;
+     Animation<TextureRegion> BplayerAnim;
+     int BplayerAnimHash;
+     Rectangle BrectanglePlayer;
+     int Bhp;
+     ArrayList<Vector2> BbulletsPosition;
+     ArrayList<Rectangle> BrectangleShoot;
+     Texture BshootTexture;
+     int BshootTextureHash;
+     ArrayList<Double> Bangles;
 
-    CoordBox(int playerIdentify, Vector2 positionPlayer, Animation<TextureRegion> playerAnim, Rectangle rectanglePlayer, int hp,
-             ArrayList<Vector2> bulletsPosition,ArrayList<Double> angles, ArrayList<Rectangle> rectangleShoot, Texture shootTexture){
+    CoordBox(int playerIdentify, Vector2 positionPlayer ,int playerAnimHash /*Animation<TextureRegion> playerAnim*/, Rectangle rectanglePlayer, int hp,
+             ArrayList<Vector2> bulletsPosition,ArrayList<Double> angles, ArrayList<Rectangle> rectangleShoot,int  shootTextureHash /*Texture shootTexture*/){
         this.playerIdentify=playerIdentify;
-        this.positionPlayer=positionPlayer;
-        this.playerAnim=playerAnim;
-        this.rectanglePlayer=rectanglePlayer;
-        this.hp=hp;
+        BpositionPlayer=positionPlayer;
+        BplayerAnimHash=playerAnimHash;
+        //BplayerAnim=playerAnim;
+        BrectanglePlayer=rectanglePlayer;
+        Bhp=hp;
 
 
-        this.bulletsPosition=bulletsPosition;
-        this.angles=angles;
-        this.rectangleShoot=rectangleShoot;
-        this.shootTexture=shootTexture;
+        BbulletsPosition=bulletsPosition;
+        Bangles=angles;
+        BrectangleShoot=rectangleShoot;
+        BshootTextureHash=shootTextureHash;
+        //BshootTexture=shootTexture;
     }
 
     CoordBox(int playerIdentify){
