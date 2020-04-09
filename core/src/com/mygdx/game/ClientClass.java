@@ -6,6 +6,7 @@ import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import java.net.InetAddress;
 
+import static com.mygdx.game.ArenaGame.ENEMY;
 import static com.mygdx.game.ArenaGame.TextureArray_aim_player_2_HASH;
 import static com.mygdx.game.ArenaGame.TextureArray_aim_player_4_HASH;
 import static com.mygdx.game.ArenaGame.TextureArray_jump_player_2_HASH;
@@ -91,6 +92,8 @@ public class ClientClass extends Listener {
        MainGame.setPlayerIdentify(playerNUM);
     }
     public static void boxDeploy(CoordBox box){
+        System.out.println(ArenaGame.ENEMY.position.hashCode());
+        System.out.println(box.BpositionPlayer.hashCode());
         ArenaGame.ENEMY.position=box.BpositionPlayer;
         //ArenaGame.ENEMY.setX(box.BpositionPlayer.x);
         //ArenaGame.ENEMY.setY(box.BpositionPlayer.y);
