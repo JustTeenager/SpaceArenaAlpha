@@ -120,8 +120,6 @@ public class ArenaGame extends ScreenAdapter {
 				CURRENT_PLAYER.setID(pl1.getID());
 				ENEMY.setName("ENEMY");
 				ENEMY.setID(pl2.getID());
-				ENEMY.position=new Vector2(ENEMY.getID(),50);
-				CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
 
 			}break;
 			case 2:{
@@ -141,12 +139,13 @@ public class ArenaGame extends ScreenAdapter {
 				CURRENT_PLAYER.setID(pl2.getID());
 				ENEMY.setName("ENEMY");
 				ENEMY.setID(pl1.getID());
-				ENEMY.position=new Vector2(ENEMY.getID(),50);
-				CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
 
 			}break;
 			default:System.out.println("Packet with wrong ident,coordinates incoming");
 		}
+		ENEMY.position=new Vector2(ENEMY.getID(),50);
+		CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
+		System.out.println("VECTORS ENABLED");
 
 		shootings = new ArrayList<>();
 
@@ -178,6 +177,9 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
+		coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.animation.hashCode()/*CURRENT_PLAYER.animation*/,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
+				getBulletsDirection(shootings),anglesCurrentPlayer,getBulletsRectangle(shootings),Shooting.shoot.hashCode()/*Shooting.shoot*/);
+		ClientClass.sendBox(coordBox);
 		//System.out.println(MainGame.getPlayerIdentify());
 		//System.out.println(pl2.getTextureArray_aim_player_4().hashCode()+ "       "+pl2.getTextureArray_move_player_4().hashCode()+ "       "+pl2.getTextureArray_jump_player_4().hashCode());
 
@@ -212,11 +214,6 @@ public class ArenaGame extends ScreenAdapter {
 		batch.end();
 		playerStage.draw();
 		hudStage.draw();
-
-		coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.animation.hashCode()/*CURRENT_PLAYER.animation*/,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
-				getBulletsDirection(shootings),anglesCurrentPlayer,getBulletsRectangle(shootings),Shooting.shoot.hashCode()/*Shooting.shoot*/);
-		ClientClass.sendBox(coordBox);
-
 	}
 
 	@Override

@@ -84,7 +84,7 @@ public class ClientClass extends Listener {
             }
             else {
                 box = (CoordBox) p;
-                boxDeploy(box);
+                //boxDeploy(box);
             }
         }
     }
@@ -93,7 +93,7 @@ public class ClientClass extends Listener {
     }
     public static void boxDeploy(CoordBox box){
         System.out.println(ArenaGame.ENEMY.position.hashCode());
-        System.out.println(box.BpositionPlayer.hashCode());
+        //System.out.println(box.BpositionPlayer.hashCode());
         ArenaGame.ENEMY.position=box.BpositionPlayer;
         //ArenaGame.ENEMY.setX(box.BpositionPlayer.x);
         //ArenaGame.ENEMY.setY(box.BpositionPlayer.y);

@@ -9,6 +9,15 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 
+import static com.mygdx.game.ArenaGame.TextureArray_aim_player_2_HASH;
+import static com.mygdx.game.ArenaGame.TextureArray_aim_player_4_HASH;
+import static com.mygdx.game.ArenaGame.TextureArray_jump_player_2_HASH;
+import static com.mygdx.game.ArenaGame.TextureArray_jump_player_4_HASH;
+import static com.mygdx.game.ArenaGame.TextureArray_move_player_2_HASH;
+import static com.mygdx.game.ArenaGame.TextureArray_move_player_4_HASH;
+import static com.mygdx.game.ClientClass.box;
+import static com.mygdx.game.Shooting.createEnemyShootingArray;
+
 public class Player extends ActorObj {
     Vector2 lastFrame;
     Vector2 position;
@@ -177,6 +186,29 @@ public class Player extends ActorObj {
             for (Platform pl : ArenaGame.plat) {
                 platformReact(pl);
             }
+        }
+        else {
+            System.out.println(this.position.hashCode());
+            //System.out.println(box.BpositionPlayer.hashCode());
+            this.position= box.BpositionPlayer;
+            //ArenaGame.ENEMY.setX(box.BpositionPlayer.x);
+            //ArenaGame.ENEMY.setY(box.BpositionPlayer.y);
+            this.hp= box.Bhp;
+
+            if (box.BplayerAnimHash==TextureArray_aim_player_2_HASH) this.useAnim(0.1f,true,this.getTextureArray_aim_player_2());
+            if (box.BplayerAnimHash==TextureArray_move_player_2_HASH) this.useAnim(0.1f,true,this.getTextureArray_move_player_2());
+            if (box.BplayerAnimHash==TextureArray_jump_player_2_HASH) this.useAnim(0.1f,false,this.getTextureArray_jump_player_2());
+            if (box.BplayerAnimHash==TextureArray_aim_player_4_HASH) this.useAnim(0.1f,true,this.getTextureArray_aim_player_4());
+            if (box.BplayerAnimHash==TextureArray_move_player_4_HASH) this.useAnim(0.1f,true,this.getTextureArray_move_player_4());
+            if (box.BplayerAnimHash==TextureArray_jump_player_4_HASH) this.useAnim(0.1f,false,this.getTextureArray_jump_player_4());
+
+
+
+            //ArenaGame.ENEMY.anim=box.BplayerAnim;
+            //ArenaGame.ENEMY.animation=box.BplayerAnim;
+            this.rectangle=box.BrectanglePlayer;
+
+            //ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
         }
     }
 
