@@ -188,7 +188,7 @@ public class Player extends ActorObj {
             }
         }
         else {
-            System.out.println(this.position.hashCode());
+            //System.out.println(this.position.hashCode());
             //System.out.println(box.BpositionPlayer.hashCode());
             this.position= box.BpositionPlayer;
             //ArenaGame.ENEMY.setX(box.BpositionPlayer.x);
@@ -208,9 +208,7 @@ public class Player extends ActorObj {
             //ArenaGame.ENEMY.animation=box.BplayerAnim;
             ArenaGame.ENEMY.rectangle=box.BrectanglePlayer;
 
-            ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
-
-
+            //ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
         }
     }
 

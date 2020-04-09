@@ -181,9 +181,6 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
-		coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.animation.hashCode()/*CURRENT_PLAYER.animation*/,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
-				getBulletsDirection(shootings),anglesCurrentPlayer,getBulletsRectangle(shootings),Shooting.shoot.hashCode()/*Shooting.shoot*/);
-		ClientClass.sendBox(coordBox);
 		//System.out.println(MainGame.getPlayerIdentify());
 		//System.out.println(pl2.getTextureArray_aim_player_4().hashCode()+ "       "+pl2.getTextureArray_move_player_4().hashCode()+ "       "+pl2.getTextureArray_jump_player_4().hashCode());
 
@@ -210,6 +207,9 @@ public class ArenaGame extends ScreenAdapter {
 				//shootings.get(i).getShoot().dispose();
 			}
 		}
+		coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.animation.hashCode()/*CURRENT_PLAYER.animation*/,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
+				getBulletsDirection(shootings),anglesCurrentPlayer,getBulletsRectangle(shootings),Shooting.shoot.hashCode()/*Shooting.shoot*/);
+		ClientClass.sendBox(coordBox);
 		hud.setColor(1,1,1,0.5f);
 		chaseCam.update();
 		viewport.apply();
