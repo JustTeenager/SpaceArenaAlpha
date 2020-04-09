@@ -124,7 +124,7 @@ public class ArenaGame extends ScreenAdapter {
 				ENEMY.setID(pl2.getID());
 
 			}break;
-			case 2:{
+			/*case 2:{
 				CURRENT_PLAYER=new Player(1000,50);
 				CURRENT_PLAYER=pl2;
 				playerStage.addActor(CURRENT_PLAYER);
@@ -144,8 +144,27 @@ public class ArenaGame extends ScreenAdapter {
 				ENEMY.setName("ENEMY");
 				ENEMY.setID(pl1.getID());
 
-			}break;
-			default:System.out.println("Packet with wrong ident,coordinates incoming");
+			}break;*/
+			default:{
+				CURRENT_PLAYER=new Player(1000,50);
+				CURRENT_PLAYER=pl2;
+				playerStage.addActor(CURRENT_PLAYER);
+				CURRENT_PLAYER.setX(pl2.getID());
+				CURRENT_PLAYER.setY(50);
+				CURRENT_PLAYER.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
+
+				ENEMY=new Player(0,50);
+				ENEMY=pl1;
+				playerStage.addActor(ENEMY);
+				ENEMY.setX(pl1.getID());
+				ENEMY.setY(50);
+				ENEMY.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());//Стандартная анимация
+
+				CURRENT_PLAYER.setName("CURRENT_PLAYER");
+				CURRENT_PLAYER.setID(pl2.getID());
+				ENEMY.setName("ENEMY");
+				ENEMY.setID(pl1.getID());
+			}
 		}
 		ENEMY.position=new Vector2(ENEMY.getID(),50);
 		CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
