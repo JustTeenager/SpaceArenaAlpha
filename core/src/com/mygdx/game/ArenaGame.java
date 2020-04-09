@@ -50,7 +50,7 @@ public class ArenaGame extends ScreenAdapter {
 	private Stage hudStage;
 	private Texture jumpbtn;
 
-	private CoordBox coordBox;
+	private CoordBox coordBox;//dssda
 	public static int TextureArray_aim_player_2_HASH;
 	public static int TextureArray_move_player_2_HASH;
 	public static int TextureArray_jump_player_2_HASH;
