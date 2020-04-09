@@ -127,6 +127,7 @@ public class Player extends ActorObj {
 
     @Override
     public void update() {
+        if (this.getName().equals("CURRENT_PLAYER")) {
             if (this.getName().equals("ENEMY")) {//удерживает в это же время противника на месте
                 position.x = 1000;
                 position.y = 50;
@@ -185,7 +186,8 @@ public class Player extends ActorObj {
             for (Platform pl : ArenaGame.plat) {
                 platformReact(pl);
             }
-        if (this.getName().equals("ENEMY")) {
+        }
+        else {
             System.out.println(this.position.hashCode());
             //System.out.println(box.BpositionPlayer.hashCode());
             this.position= box.BpositionPlayer;
@@ -204,9 +206,11 @@ public class Player extends ActorObj {
 
             //ArenaGame.ENEMY.anim=box.BplayerAnim;
             //ArenaGame.ENEMY.animation=box.BplayerAnim;
-            this.rectangle=box.BrectanglePlayer;
+            ArenaGame.ENEMY.rectangle=box.BrectanglePlayer;
 
-            //ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
+            ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
+
+
         }
     }
 

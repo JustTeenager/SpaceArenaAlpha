@@ -104,12 +104,14 @@ public class ArenaGame extends ScreenAdapter {
 
 		switch (MainGame.getPlayerIdentify()){
 			case 1:{
+				CURRENT_PLAYER=new Player(0,50);
 				CURRENT_PLAYER=pl1;
 				playerStage.addActor(CURRENT_PLAYER);
 				CURRENT_PLAYER.setX(pl1.getID());
 				CURRENT_PLAYER.setY(50);
 				CURRENT_PLAYER.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
 
+				ENEMY=new Player(1000,50);
 				ENEMY=pl2;
 				playerStage.addActor(ENEMY);
 				ENEMY.setX(pl2.getID());
@@ -123,12 +125,14 @@ public class ArenaGame extends ScreenAdapter {
 
 			}break;
 			case 2:{
+				CURRENT_PLAYER=new Player(1000,50);
 				CURRENT_PLAYER=pl2;
 				playerStage.addActor(CURRENT_PLAYER);
 				CURRENT_PLAYER.setX(pl2.getID());
 				CURRENT_PLAYER.setY(50);
 				CURRENT_PLAYER.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
 
+				ENEMY=new Player(0,50);
 				ENEMY=pl1;
 				playerStage.addActor(ENEMY);
 				ENEMY.setX(pl1.getID());
