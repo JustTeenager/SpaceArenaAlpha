@@ -116,7 +116,7 @@ public class ArenaGame extends ScreenAdapter {
 				playerStage.addActor(ENEMY);
 				ENEMY.setX(pl2.getID());
 				ENEMY.setY(50);
-				ENEMY.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
+			    ENEMY.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
 
 				CURRENT_PLAYER.setName("CURRENT_PLAYER");
 				CURRENT_PLAYER.setID(pl1.getID());
@@ -137,7 +137,7 @@ public class ArenaGame extends ScreenAdapter {
 				playerStage.addActor(ENEMY);
 				ENEMY.setX(pl1.getID());
 				ENEMY.setY(50);
-				ENEMY.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());//Стандартная анимация
+			    ENEMY.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());//Стандартная анимация
 
 				CURRENT_PLAYER.setName("CURRENT_PLAYER");
 				CURRENT_PLAYER.setID(pl2.getID());
