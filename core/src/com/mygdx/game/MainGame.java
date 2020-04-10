@@ -9,8 +9,6 @@ public class MainGame extends Game {
     static boolean jumped=false;
 
     static int playerIdentify;
-    //static final int HUD_X=1020;
-    //static final int HUD_Y=1000;
 
     public static final String[] Aim_4 = {
             "Aim 4(1).png", "Aim 4(2).png",
@@ -28,9 +26,6 @@ public class MainGame extends Game {
             "JumpShoot 4(4).png","JumpShoot 4(5).png",
             "JumpShoot 4(6).png","JumpShoot 4(7).png",
             "JumpShoot 4(8).png","JumpShoot 4(9).png","JumpShoot 4(10).png"};
-
-
-
 
 
 

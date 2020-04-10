@@ -7,12 +7,6 @@ import com.esotericsoftware.kryonet.Listener;
 import java.net.InetAddress;
 
 import static com.mygdx.game.ArenaGame.ENEMY;
-import static com.mygdx.game.ArenaGame.TextureArray_aim_player_2_HASH;
-import static com.mygdx.game.ArenaGame.TextureArray_aim_player_4_HASH;
-import static com.mygdx.game.ArenaGame.TextureArray_jump_player_2_HASH;
-import static com.mygdx.game.ArenaGame.TextureArray_jump_player_4_HASH;
-import static com.mygdx.game.ArenaGame.TextureArray_move_player_2_HASH;
-import static com.mygdx.game.ArenaGame.TextureArray_move_player_4_HASH;
 import static com.mygdx.game.Shooting.createEnemyShootingArray;
 
 
@@ -52,11 +46,6 @@ public class ClientClass extends Listener {
         //Клиент подключается к серверу
         client.connect(5000, adr, tcpPort, udpPort);
         client.addListener(new ClientClass());
-
-        //Отправляем на сервер сообщениеЩ
-        /*if (client.isConnected()) {
-            System.out.println("Вы подключились к серверу!");
-        }*/
     }
 
     @Override
@@ -93,10 +82,8 @@ public class ClientClass extends Listener {
        MainGame.setPlayerIdentify(playerNUM);
     }
     public static void boxDeploy(CoordBox box){
-        //System.out.println(this.position.hashCode());
-        //System.out.println(box.BpositionPlayer.hashCode());
         ENEMY.position= box.BpositionPlayer;
-        System.out.println(box.BpositionPlayer.x+"    "+box.BpositionPlayer.y);
+        //System.out.println(box.BpositionPlayer.x+"    "+box.BpositionPlayer.y);
         ENEMY.setX(box.BpositionPlayer.x);
         ENEMY.setY(box.BpositionPlayer.y);
         ENEMY.hp= box.Bhp;
@@ -110,9 +97,6 @@ public class ClientClass extends Listener {
         if (box.BplayerAnimNumber==23) ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_jump_player_4());
 
 
-
-        //ArenaGame.ENEMY.anim=box.BplayerAnim;
-        //ArenaGame.ENEMY.animation=box.BplayerAnim;
         ArenaGame.ENEMY.rectangle=box.BrectanglePlayer;
 
         ArenaGame.shootingsEnemy=createEnemyShootingArray(box);

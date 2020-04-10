@@ -38,10 +38,6 @@ public abstract class ActorObj extends Group {
 
         animation = anim;
     }
-
-    public void useEnemyAnim(String animName){
-    }
-
     public abstract void collapse(Player player);
 
     public abstract void update();
@@ -50,16 +46,9 @@ public abstract class ActorObj extends Group {
     {
         setPosition( x - getWidth()/2 , y - getHeight()/2 );
     }
-    public void positionGun(ActorObj other)//недоделанная функция
+    public void positionGun(ActorObj other)
     {
-        /*if (JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft)
-        centerAtPosition( other.getX() + other.getWidth()/2+20, other.getY() + other.getHeight()/2-4 );
-        else if (JoystickLeft.isTouchLeft)
-            centerAtPosition(other.getX()-other.getWidth()/2+20,other.getY()+other.getHeight()/2+4);
-        else
-            centerAtPosition( other.getX() + other.getWidth()/2+20, other.getY() + other.getHeight()/2-4 );*/
-
-        if (other instanceof Player && ((Player) other).flip)//СДЕЛАЛ НЕСТАТИЧНЫМ ФЛИП,РАНЬШЕ ТУТ БЫЛО Player.flip
+        if (other instanceof Player && ((Player) other).flip)
             centerAtPosition(other.getX()-other.getWidth()/2+20,other.getY()+other.getHeight()/2+4);
         else
             centerAtPosition( other.getX() + other.getWidth()/2+20, other.getY() + other.getHeight()/2-4);

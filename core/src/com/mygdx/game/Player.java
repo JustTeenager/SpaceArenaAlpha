@@ -6,19 +6,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
-
-import static com.mygdx.game.ArenaGame.ENEMY;
-import static com.mygdx.game.ArenaGame.TextureArray_aim_player_2_HASH;
-import static com.mygdx.game.ArenaGame.TextureArray_aim_player_4_HASH;
-import static com.mygdx.game.ArenaGame.TextureArray_jump_player_2_HASH;
-import static com.mygdx.game.ArenaGame.TextureArray_jump_player_4_HASH;
-import static com.mygdx.game.ArenaGame.TextureArray_move_player_2_HASH;
-import static com.mygdx.game.ArenaGame.TextureArray_move_player_4_HASH;
-import static com.mygdx.game.ClientClass.box;
-import static com.mygdx.game.Shooting.createEnemyShootingArray;
-
 public class Player extends ActorObj {
     Vector2 lastFrame;
     Vector2 position;
@@ -124,7 +112,6 @@ public class Player extends ActorObj {
                 animation.getKeyFrame(dt),getX(),getY(),getOriginX(),
                 getOriginY(),getWidth(),getHeight(),
                 (flip ? -1 : 1)*getScaleX(),getScaleY(),getRotation() );
-        //batch.draw(txt,getX(),getY());
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -139,13 +126,6 @@ public class Player extends ActorObj {
     @Override
     public void update() {
         if (this.getName().equals("CURRENT_PLAYER")) {
-            if (this.getName().equals("ENEMY")) {//удерживает в это же время противника на месте
-                position.x = 1000;
-                position.y = 50;
-                setX(position.x);
-                setY(position.y);
-            }
-
             lastFrame.set(position);
             float delta = Gdx.graphics.getDeltaTime();
             velocityY.y -= delta * MainGame.GRAVITY;
@@ -171,7 +151,6 @@ public class Player extends ActorObj {
                         break;
                 }
             } else endJump();
-            //должен быть большой иф, просмотр кого мы будем двигать этим джойстиком
             if (!JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft) {
                 flip = true;
                 if (this.getID() == 0) {
@@ -216,30 +195,6 @@ public class Player extends ActorObj {
                 platformReact(pl);
             }
         }
-        /*else if (MainGame.getPlayerIdentify()!=0 && this.getName().equals(ENEMY)) {
-            //System.out.println(this.position.hashCode());
-            //System.out.println(box.BpositionPlayer.hashCode());
-            this.position= box.BpositionPlayer;
-            //System.out.println(box.BpositionPlayer.x+"    "+box.BpositionPlayer.y);
-            //setX(this.position.x);
-            //setY(this.position.y);
-            this.hp= box.Bhp;
-
-            if (box.BplayerAnimNumber==11) this.useAnim(0.1f,true,this.getTextureArray_aim_player_2());
-            if (box.BplayerAnimNumber==12) this.useAnim(0.1f,true,this.getTextureArray_move_player_2());
-            if (box.BplayerAnimNumber==13) this.useAnim(0.1f,false,this.getTextureArray_jump_player_2());
-            if (box.BplayerAnimNumber==21) this.useAnim(0.1f,true,this.getTextureArray_aim_player_4());
-            if (box.BplayerAnimNumber==22) this.useAnim(0.1f,true,this.getTextureArray_move_player_4());
-            if (box.BplayerAnimNumber==23) this.useAnim(0.1f,false,this.getTextureArray_jump_player_4());
-
-
-
-            //ArenaGame.ENEMY.anim=box.BplayerAnim;
-            //ArenaGame.ENEMY.animation=box.BplayerAnim;
-            ArenaGame.ENEMY.rectangle=box.BrectanglePlayer;
-
-            //ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
-        }*/
     }
 
     @Override
@@ -247,12 +202,12 @@ public class Player extends ActorObj {
         float x1=lastFrame.x;
         float y1=lastFrame.y;
         float x2=lastFrame.x+txt.getWidth();
-        float y2=lastFrame.y+txt.getHeight();//координаты концов диагонали персонажа
+        float y2=lastFrame.y+txt.getHeight();
 
         float x3=pl.coreX;
         float y3=pl.coreY;
         float x4=pl.coreX+pl.getPlatTexture().getWidth();
-        float y4=pl.coreY+pl.getPlatTexture().getHeight();//координаты концов диагонали платформы
+        float y4=pl.coreY+pl.getPlatTexture().getHeight();
 
         boolean x=((x3 > x1 && x3 < x2) || (x4 > x1 && x4 < x2) || (x1 > x3 && x1 < x4) || (x2 > x3 && x2 < x4));
         boolean y=((y3 > y1 && y3 < y2) || (y4 > y1 && y4 < y2) || (y1 > y3 && y1 < y4) || (y2 > y3 && y2 < y4));
@@ -268,26 +223,12 @@ public class Player extends ActorObj {
                 velocityY.y = -10;
             }
         }
-        else if (x && y) {// посмотреть,что там с игреками,надо подобрать цифру
+        else if (x && y) {
             if (jumpState!=JumpState.GROUNDED) {
                 position.x = lastFrame.x;
                 setX(position.x);
             }
         }
-
-
-
-        /*else if ((jumpState==JumpState.GROUNDED)&&(pl.left - position.x < 0.2f) && (position.y+10f >= pl.bottom - txt.getHeight() + 50) && (position.y <= pl.top)) {
-            position.x = lastFrame.x - 5f;
-            setX(position.x);
-        }*/
-         /*else if ((pl.coreX-lastFrame.x-txt.getWidth()/2<1f) && (lastFrame.y+txt.getHeight()/2-30>=pl.bottom)&& (position.y-txt.getHeight()/2>pl.bottom)){
-                if (lastFrame.y>=pl.bottom){
-                    position.y=lastFrame.y;
-                }
-                position.x=lastFrame.x-5f;
-                setX(position.x);
-            }*/
         rectangle.setPosition(getX(), getY());
     }
     private void endJump() {
@@ -307,7 +248,7 @@ public class Player extends ActorObj {
         else {
             useAnim(0.1f,false,jump_player_4);
             animationNum=23;
-        }//для второго игрока надо сделать
+        }
         continueJump();
     }
 

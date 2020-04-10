@@ -25,15 +25,12 @@ public class JoystickLeft extends BaseJoystick {
     }
 
     public void isTouch(float x,float y) { // проверяем коснулись ли мы курсора
-        //if ((x>=40 && x<=200) &&(y>=280 && y<=440)) {//числа подобраны для десктопа
-        if ((x>=40 && x<=360) &&(y>=720 && y<=1040)) {//числа подобраны для телефона
+        if ((x>=40 && x<=360) &&(y>=720 && y<=1040)) {
             isTouchLeft = true;
         }
     }
 
     public void setDefaultWH(){// задаётся ширина,высота и радиус большого шара
-        //setWidth(160);
-        //setHeight(160);
         setWidth(320);
         setHeight(320);
         rad = 160;
@@ -70,10 +67,8 @@ public class JoystickLeft extends BaseJoystick {
         }
     }
     public void changeCursor(float x, float y){
-        float dx = x - rad-40;//40 подобрано специально, чтобы всё работало исправно
-
-        //float dy =280-(y - rad);//280 подобрано специально для десктопа
-        float dy =720-(y - rad);//880 подобрано специально для телефона
+        float dx = x - rad-40;
+        float dy =720-(y - rad);
         float lenght = (float) Math.sqrt(dx*dx+dy*dy);
         if (lenght<rad){
             this.curX = dx;

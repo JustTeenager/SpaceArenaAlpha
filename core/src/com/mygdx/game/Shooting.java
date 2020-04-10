@@ -12,14 +12,13 @@ import static com.mygdx.game.ArenaGame.CURRENT_PLAYER;
 import static com.mygdx.game.ArenaGame.pl1;
 import static com.mygdx.game.ArenaGame.plat;
 import static com.mygdx.game.ArenaGame.playerStage;
-import static com.mygdx.game.ArenaGame.shootings;
 
 public class Shooting extends ActorObj {
     public static ArrayList<Double> anglesCurrentPlayer=new ArrayList<>();
     //public static ArrayList<Double> anglesEnemy=new ArrayList<>();
 
     public static Texture shoot = new Texture("ef_2_00000.png");
-    public static Texture shootEnemy=new Texture("ef_2_00000_4.png");;
+    public static Texture shootEnemy=new Texture("ef_2_00000_4.png");
     public boolean isOut;//переменная для проверки пули в области экрана
 
     private Rectangle rectangle;
@@ -46,7 +45,6 @@ public class Shooting extends ActorObj {
 
     Shooting(Sprite sprite,Stage stage, double angle, Rectangle rectangle){
         super(sprite.getX(),sprite.getY(),stage);
-        //shootEnemy = new Texture("ef_2_00000_4.png");//надо поменять на текстуру врага
         this.sprite = new Sprite(sprite);
         sprite.setOriginCenter();
         sprite.rotate((float) angle);

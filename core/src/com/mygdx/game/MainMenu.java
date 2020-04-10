@@ -52,19 +52,14 @@ public class MainMenu implements Screen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                //System.out.println(screenX);
-                //System.out.println(screenY);
                 if ((screenY>butt[0].btn.getY()&&screenY<butt[0].btn.getY()+butt[0].btn.getHeight())
                         && (screenX>butt[0].btn.getX()&&screenX<butt[0].btn.getX()+butt[0].btn.getWidth())){
                     clickSound.play();
-                    //System.out.println(butt[0].btn.getName());
-
                 }
                 else if ((screenY>butt[1].btn.getY()&&screenY<butt[1].btn.getY()+butt[1].btn.getHeight()
                         && (screenX>butt[1].btn.getX()&&screenX<butt[1].btn.getX()+butt[1].btn.getWidth()))){
                     clickSound.play();
                     game.setScreen(new ArenaGame());
-                    //System.out.println(butt[1].btn.getName());
                 }
                 return true;
             }
@@ -95,8 +90,7 @@ public class MainMenu implements Screen {
             if (i!=0 && (buttTexts[i].toCharArray().length<buttTexts[i-1].toCharArray().length)){
                 setupX=buttTexts[i-1].toCharArray().length-buttTexts[i].toCharArray().length;
             }
-            butt[i]=new Buttons(Gdx.graphics.getWidth()/2+Gdx.graphics.getWidth()/150*setupX-50,panel.getHeight()+250-i*100, //это для телефона
-                    //butt[i]=new Buttons(Gdx.graphics.getWidth()/2+Gdx.graphics.getWidth()/45*setupX,panel.getHeight()-50-i*100,
+            butt[i]=new Buttons(Gdx.graphics.getWidth()/2+Gdx.graphics.getWidth()/150*setupX-50,panel.getHeight()+250-i*100,
                     "button_"+i,buttTexts[i],1f,s);
             s.addActor(butt[i]);
             setupX=0;
@@ -117,8 +111,7 @@ public class MainMenu implements Screen {
 
         batch.begin();
         batch.draw(backtxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        batch.draw(panel,Gdx.graphics.getWidth()/2-50,400); //это для телефона
-        //batch.draw(panel,Gdx.graphics.getWidth()/2,100); //это для десктопа
+        batch.draw(panel,Gdx.graphics.getWidth()/2-50,400);
         batch.end();
 
         s.act(delta);

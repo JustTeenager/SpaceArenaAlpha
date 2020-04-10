@@ -29,8 +29,7 @@ public class JoystickRight extends BaseJoystick {
     }
 
     public void isTouch(float x,float y) { // проверяем коснулись ли мы курсора
-        //if ((x>=440 && x<=600) &&(y>=280 && y<=440)) {//числа подобраны для десктопа
-        if ((x>=1550 && x<=1870) &&(y>=720 && y<=1040)) {//числа подобраны для телефона
+        if ((x>=1550 && x<=1870) &&(y>=720 && y<=1040)) {
             isTouchRight = true;
         }
     }
@@ -42,8 +41,7 @@ public class JoystickRight extends BaseJoystick {
 
     }
     public void setDefaultXY(){//задаётся левый нижни угол квадрата длбольшого шара
-        //setX(440);
-        setX(1550);//для телефона
+        setX(1550);
         setY(40);
     }
     public void setWidth(float w){
@@ -73,9 +71,8 @@ public class JoystickRight extends BaseJoystick {
         }
     }
     public void changeCur(float x, float y){// функция , которая не даёт курсору выйти за границы большого круга
-        float dx = x - rad-1550;//1700 подобрано специально, чтобы всё работало исправно
-        //float dy =280-(y - rad);//280 подобрано специально для десктопа
-        float dy =720-(y - rad);//720 подобрано специально для телефона
+        float dx = x - rad-1550;
+        float dy =720-(y - rad);
         float length = (float) Math.sqrt(dx*dx+dy*dy);
         float k = rad/length;
         if (length<rad){

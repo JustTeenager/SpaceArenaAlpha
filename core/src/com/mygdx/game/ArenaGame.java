@@ -50,20 +50,14 @@ public class ArenaGame extends ScreenAdapter {
 	private Stage hudStage;
 	private Texture jumpbtn;
 
-	private CoordBox coordBox;//dssda
-	public static int TextureArray_aim_player_2_HASH;
-	public static int TextureArray_move_player_2_HASH;
-	public static int TextureArray_jump_player_2_HASH;
-
-	public static int TextureArray_aim_player_4_HASH;
-	public static int TextureArray_move_player_4_HASH;
-	public static int TextureArray_jump_player_4_HASH;
-
+	private CoordBox coordBox;
 	public ArenaGame () {
 		CURRENT_PLAYER=new Player(0,50);
 		ENEMY=new Player(1000,50);
+        shootings = new ArrayList<>();
+        shootingsEnemy = new ArrayList<>();
 		try {
-			ClientClass.startClient();//НЕ УВЕРЕН В АНИМ КУРРЕНТ ПЛЕЕРА
+			ClientClass.startClient();
 			ClientClass.sendBox(new CoordBox(0));
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -91,19 +85,6 @@ public class ArenaGame extends ScreenAdapter {
 		pl2.setAnim(pl2.getTextureArray_aim_player_4(),MainGame.Aim_4);
 		pl2.setAnim(pl2.getTextureArray_move_player_4(),MainGame.RunShoot_4);
 		pl2.setAnim(pl2.getTextureArray_jump_player_4(),MainGame.JumpShoot_4);
-		//System.out.println(pl2.getTextureArray_aim_player_4().hashCode()+ "       "+pl2.getTextureArray_move_player_4().hashCode()+ "       "+pl2.getTextureArray_jump_player_4().hashCode());
-
-		TextureArray_aim_player_2_HASH=ArenaGame.pl1.getTextureArray_aim_player_2().hashCode();
-		TextureArray_move_player_2_HASH=ArenaGame.pl1.getTextureArray_move_player_2().hashCode();
-		TextureArray_jump_player_2_HASH=ArenaGame.pl1.getTextureArray_jump_player_2().hashCode();
-
-		TextureArray_aim_player_4_HASH=ArenaGame.pl1.getTextureArray_aim_player_4().hashCode();
-		TextureArray_move_player_4_HASH=ArenaGame.pl1.getTextureArray_move_player_4().hashCode();
-		TextureArray_jump_player_4_HASH=ArenaGame.pl1.getTextureArray_jump_player_4().hashCode();
-
-		//System.out.println(MainGame.getPlayerIdentify());
-
-
 		switch (MainGame.getPlayerIdentify()){
 			case 1:{
 				CURRENT_PLAYER=pl1;
@@ -159,7 +140,7 @@ public class ArenaGame extends ScreenAdapter {
 				playerStage.addActor(ENEMY);
 				ENEMY.setX(pl1.getID());
 				ENEMY.setY(50);
-				ENEMY.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());//Стандартная анимация
+				ENEMY.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
 				ENEMY.setAnimationNum(11);
 
 				CURRENT_PLAYER.setName("CURRENT_PLAYER");
@@ -172,7 +153,7 @@ public class ArenaGame extends ScreenAdapter {
 		CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
 		System.out.println("VECTORS ENABLED");
 
-		shootings = new ArrayList<>();
+
 
 		circle = new Texture("circle.png");
 		circleCur = new Texture("circle.png");
@@ -188,7 +169,7 @@ public class ArenaGame extends ScreenAdapter {
 
 		inputMultiplexer = new InputMultiplexer();
 
-		hud=new GameHUD(hudStage,viewport,CURRENT_PLAYER);//для второго игрока надо сделать отдельная сцена
+		hud=new GameHUD(hudStage,viewport,CURRENT_PLAYER);
 		jumpbtn=new Texture("circle.png");
 		hud.setjumpButton(1700,450,"jumpbutton",100,100,jumpbtn);
 		playerStage.addActor(CURRENT_PLAYER);
@@ -198,14 +179,10 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void show() {
-		chaseCam = new ChaseCam(viewport.getCamera(), CURRENT_PLAYER); }//должна быть для второго игрока
+		chaseCam = new ChaseCam(viewport.getCamera(), CURRENT_PLAYER); }
 
 	@Override
 	public void render (float delta) {
-		//System.out.println(MainGame.getPlayerIdentify());
-		//System.out.println(pl2.getTextureArray_aim_player_4().hashCode()+ "       "+pl2.getTextureArray_move_player_4().hashCode()+ "       "+pl2.getTextureArray_jump_player_4().hashCode());
-
-
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -218,18 +195,16 @@ public class ArenaGame extends ScreenAdapter {
 		playerStage.act(delta);
 		joystickRight.checkCreateBullet();
 
-		//сделать иф просмотра стреляет первый игрок или второй
 		for (int i=0;i<shootings.size();i++){
 			shootings.get(i).update();
-			//shootings.get(i).collapse(pl1);
 			shootings.get(i).collapse(ENEMY);
 			if (shootings.get(i).isOut || !shootings.get(i).isVisible()){//удаление той пули, которая выышла за экран
 				shootings.remove(i);
-				//shootings.get(i).getShoot().dispose();
+				anglesCurrentPlayer.remove(i);
 			}
 		}
-		coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.getAnimationNum(),CURRENT_PLAYER.flip/*CURRENT_PLAYER.animation*/,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
-				getBulletsDirection(shootings),anglesCurrentPlayer,getBulletsRectangle(shootings),Shooting.shoot.hashCode()/*Shooting.shoot*/);
+		coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.getAnimationNum(),CURRENT_PLAYER.flip,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
+				getBulletsDirection(shootings),anglesCurrentPlayer,getBulletsRectangle(shootings));
 		ClientClass.sendBox(coordBox);
 		hud.setColor(1,1,1,0.5f);
 		chaseCam.update();
@@ -268,8 +243,6 @@ public class ArenaGame extends ScreenAdapter {
 		playerStage.dispose();
 		CURRENT_PLAYER.dispose();
 		ENEMY.dispose();
-		//pl1.dispose();
-		//pl2.dispose();
 
 		circle.dispose();
 		circleCur.dispose();
@@ -278,7 +251,5 @@ public class ArenaGame extends ScreenAdapter {
 
 		hudStage.dispose();
 		jumpbtn.dispose();
-		//joystick.dispose();
-		//s.dispose();
 	}
 }
