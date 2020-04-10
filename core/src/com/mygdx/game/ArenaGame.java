@@ -60,6 +60,8 @@ public class ArenaGame extends ScreenAdapter {
 	public static int TextureArray_jump_player_4_HASH;
 
 	public ArenaGame () {
+		CURRENT_PLAYER=new Player(0,50);
+		ENEMY=new Player(1000,50);
 		try {
 			ClientClass.startClient();//НЕ УВЕРЕН В АНИМ КУРРЕНТ ПЛЕЕРА
 			ClientClass.sendBox(new CoordBox(0));
@@ -89,7 +91,7 @@ public class ArenaGame extends ScreenAdapter {
 		pl2.setAnim(pl2.getTextureArray_aim_player_4(),MainGame.Aim_4);
 		pl2.setAnim(pl2.getTextureArray_move_player_4(),MainGame.RunShoot_4);
 		pl2.setAnim(pl2.getTextureArray_jump_player_4(),MainGame.JumpShoot_4);
-		System.out.println(pl2.getTextureArray_aim_player_4().hashCode()+ "       "+pl2.getTextureArray_move_player_4().hashCode()+ "       "+pl2.getTextureArray_jump_player_4().hashCode());
+		//System.out.println(pl2.getTextureArray_aim_player_4().hashCode()+ "       "+pl2.getTextureArray_move_player_4().hashCode()+ "       "+pl2.getTextureArray_jump_player_4().hashCode());
 
 		TextureArray_aim_player_2_HASH=ArenaGame.pl1.getTextureArray_aim_player_2().hashCode();
 		TextureArray_move_player_2_HASH=ArenaGame.pl1.getTextureArray_move_player_2().hashCode();
@@ -104,19 +106,19 @@ public class ArenaGame extends ScreenAdapter {
 
 		switch (MainGame.getPlayerIdentify()){
 			case 1:{
-				CURRENT_PLAYER=new Player(0,50);
 				CURRENT_PLAYER=pl1;
 				playerStage.addActor(CURRENT_PLAYER);
 				CURRENT_PLAYER.setX(pl1.getID());
 				CURRENT_PLAYER.setY(50);
 				CURRENT_PLAYER.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
+				CURRENT_PLAYER.setAnimationNum(11);
 
-				ENEMY=new Player(1000,50);
 				ENEMY=pl2;
 				playerStage.addActor(ENEMY);
 				ENEMY.setX(pl2.getID());
 				ENEMY.setY(50);
 			    ENEMY.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
+			    ENEMY.setAnimationNum(21);
 
 				CURRENT_PLAYER.setName("CURRENT_PLAYER");
 				CURRENT_PLAYER.setID(pl1.getID());
@@ -146,19 +148,19 @@ public class ArenaGame extends ScreenAdapter {
 
 			}break;*/
 			default:{
-				CURRENT_PLAYER=new Player(1000,50);
 				CURRENT_PLAYER=pl2;
 				playerStage.addActor(CURRENT_PLAYER);
 				CURRENT_PLAYER.setX(pl2.getID());
 				CURRENT_PLAYER.setY(50);
 				CURRENT_PLAYER.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
+				CURRENT_PLAYER.setAnimationNum(21);
 
-				ENEMY=new Player(0,50);
 				ENEMY=pl1;
 				playerStage.addActor(ENEMY);
 				ENEMY.setX(pl1.getID());
 				ENEMY.setY(50);
 				ENEMY.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());//Стандартная анимация
+				ENEMY.setAnimationNum(11);
 
 				CURRENT_PLAYER.setName("CURRENT_PLAYER");
 				CURRENT_PLAYER.setID(pl2.getID());
@@ -226,7 +228,7 @@ public class ArenaGame extends ScreenAdapter {
 				//shootings.get(i).getShoot().dispose();
 			}
 		}
-		coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.animation.hashCode()/*CURRENT_PLAYER.animation*/,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
+		coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.getAnimationNum(),CURRENT_PLAYER.flip/*CURRENT_PLAYER.animation*/,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
 				getBulletsDirection(shootings),anglesCurrentPlayer,getBulletsRectangle(shootings),Shooting.shoot.hashCode()/*Shooting.shoot*/);
 		ClientClass.sendBox(coordBox);
 		hud.setColor(1,1,1,0.5f);

@@ -21,7 +21,7 @@ public class Shooting extends ActorObj {
     //public static ArrayList<Double> anglesEnemy=new ArrayList<>();
 
     public static Texture shoot = new Texture("ef_2_00000.png");
-    public static Texture shootEnemy;
+    public static Texture shootEnemy=new Texture("ef_2_00000_4.png");;
     public boolean isOut;//переменная для проверки пули в области экрана
 
     private Rectangle rectangle;
@@ -34,7 +34,8 @@ public class Shooting extends ActorObj {
         this.direction = new Vector2(direction);
         this.velocity = velocity;
 
-        sprite = new Sprite(shoot);//поворачиваем пулю на угол, равный углу курсора
+       if(CURRENT_PLAYER.getID()==pl1.getID()) sprite = new Sprite(shoot);//поворачиваем пулю на угол, равный углу курсора
+        else sprite=new Sprite(shootEnemy);
         sprite.setOriginCenter();
         sprite.rotate((float)JoystickRight.angleRight);
         sprite.setPosition(getX(),getY());
@@ -47,7 +48,7 @@ public class Shooting extends ActorObj {
 
     Shooting(Sprite sprite,Stage stage, double angle, Rectangle rectangle){
         super(sprite.getX(),sprite.getY(),stage);
-        shootEnemy = new Texture("ef_2_00000.png");//надо поменять на текстуру врага
+        //shootEnemy = new Texture("ef_2_00000_4.png");//надо поменять на текстуру врага
         this.sprite = new Sprite(sprite);
         sprite.setOriginCenter();
         sprite.rotate((float) angle);

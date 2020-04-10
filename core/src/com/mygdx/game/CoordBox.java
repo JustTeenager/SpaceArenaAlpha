@@ -13,10 +13,10 @@ import java.util.Vector;
 public class CoordBox {
 
     private int playerIdentify;
-
+    boolean flipped;
      Vector2 BpositionPlayer;
      Animation<TextureRegion> BplayerAnim;
-     int BplayerAnimHash;
+     int BplayerAnimNumber;
      Rectangle BrectanglePlayer;
      int Bhp;
      ArrayList<Vector2> BbulletsPosition;
@@ -25,11 +25,12 @@ public class CoordBox {
      int BshootTextureHash;
      ArrayList<Double> Bangles;
 
-    CoordBox(int playerIdentify, Vector2 positionPlayer ,int playerAnimHash /*Animation<TextureRegion> playerAnim*/, Rectangle rectanglePlayer, int hp,
+    CoordBox(int playerIdentify, Vector2 positionPlayer ,int playerAnimNumber /*Animation<TextureRegion> playerAnim*/,boolean flipped, Rectangle rectanglePlayer, int hp,
              ArrayList<Vector2> bulletsPosition,ArrayList<Double> angles, ArrayList<Rectangle> rectangleShoot,int  shootTextureHash /*Texture shootTexture*/){
         this.playerIdentify=playerIdentify;
+        this.flipped=flipped;
         BpositionPlayer=positionPlayer;
-        BplayerAnimHash=playerAnimHash;
+        BplayerAnimNumber=playerAnimNumber;
         //BplayerAnim=playerAnim;
         BrectanglePlayer=rectanglePlayer;
         Bhp=hp;

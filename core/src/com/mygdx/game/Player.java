@@ -9,6 +9,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 
+import static com.mygdx.game.ArenaGame.ENEMY;
 import static com.mygdx.game.ArenaGame.TextureArray_aim_player_2_HASH;
 import static com.mygdx.game.ArenaGame.TextureArray_aim_player_4_HASH;
 import static com.mygdx.game.ArenaGame.TextureArray_jump_player_2_HASH;
@@ -42,6 +43,8 @@ public class Player extends ActorObj {
     private Array<TextureRegion> move_player_4= new Array<>();
     private Array<TextureRegion> jump_player_4= new Array<>();
 
+    private int animationNum;
+
 
     public Array<TextureRegion> getTextureArray_aim_player_2() {return aim_player_2;}
 
@@ -71,6 +74,14 @@ public class Player extends ActorObj {
 
     public void setID(int ID) {
         this.ID = ID;
+    }
+
+    public int getAnimationNum() {
+        return animationNum;
+    }
+
+    public void setAnimationNum(int animationNum) {
+        this.animationNum = animationNum;
     }
 
     public JumpState getJumpState() {
@@ -163,23 +174,41 @@ public class Player extends ActorObj {
             //должен быть большой иф, просмотр кого мы будем двигать этим джойстиком
             if (!JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft) {
                 flip = true;
-                if (this.getID() == 0) useAnim(0.1f, true, move_player_2);
-                else useAnim(0.1f, true, move_player_4);
+                if (this.getID() == 0) {
+                    useAnim(0.1f, true, move_player_2);
+                    animationNum=12;
+                }
+                else {
+                    useAnim(0.1f, true, move_player_4);
+                    animationNum=22;
+                }
                 txt.dispose();
                 position.x = getX() - velocity * Gdx.graphics.getDeltaTime();
                 setX(position.x);
             } else if (JoystickLeft.isTouchLeft) {
                 flip = false;
-                if (this.getID() == 0) useAnim(0.1f, true, move_player_2);
-                else useAnim(0.1f, true, move_player_4);
+                if (this.getID() == 0) {
+                    useAnim(0.1f, true, move_player_2);
+                    animationNum=12;
+                }
+                else {
+                    useAnim(0.1f, true, move_player_4);
+                    animationNum=22;
+                }
                 txt.dispose();
                 position.x = getX() + velocity * Gdx.graphics.getDeltaTime();
                 setX(position.x);
             }
             rectangle.setPosition(getX(), getY());
             if ((!JoystickLeft.isTouchLeft) && (jumpState == JumpState.GROUNDED)) {
-                if (this.getID() == 0) useAnim(0.1f, true, aim_player_2);
-                else useAnim(0.1f, true, aim_player_4);
+                if (this.getID() == 0) {
+                    useAnim(0.1f, true, aim_player_2);
+                    animationNum=11;
+                }
+                else {
+                    useAnim(0.1f, true, aim_player_4);
+                    animationNum=21;
+                }
                 txt.dispose();
             }
 
@@ -187,20 +216,21 @@ public class Player extends ActorObj {
                 platformReact(pl);
             }
         }
-        else {
+        /*else if (MainGame.getPlayerIdentify()!=0 && this.getName().equals(ENEMY)) {
             //System.out.println(this.position.hashCode());
             //System.out.println(box.BpositionPlayer.hashCode());
             this.position= box.BpositionPlayer;
-            //ArenaGame.ENEMY.setX(box.BpositionPlayer.x);
-            //ArenaGame.ENEMY.setY(box.BpositionPlayer.y);
+            //System.out.println(box.BpositionPlayer.x+"    "+box.BpositionPlayer.y);
+            //setX(this.position.x);
+            //setY(this.position.y);
             this.hp= box.Bhp;
 
-            if (box.BplayerAnimHash==TextureArray_aim_player_2_HASH) this.useAnim(0.1f,true,this.getTextureArray_aim_player_2());
-            if (box.BplayerAnimHash==TextureArray_move_player_2_HASH) this.useAnim(0.1f,true,this.getTextureArray_move_player_2());
-            if (box.BplayerAnimHash==TextureArray_jump_player_2_HASH) this.useAnim(0.1f,false,this.getTextureArray_jump_player_2());
-            if (box.BplayerAnimHash==TextureArray_aim_player_4_HASH) this.useAnim(0.1f,true,this.getTextureArray_aim_player_4());
-            if (box.BplayerAnimHash==TextureArray_move_player_4_HASH) this.useAnim(0.1f,true,this.getTextureArray_move_player_4());
-            if (box.BplayerAnimHash==TextureArray_jump_player_4_HASH) this.useAnim(0.1f,false,this.getTextureArray_jump_player_4());
+            if (box.BplayerAnimNumber==11) this.useAnim(0.1f,true,this.getTextureArray_aim_player_2());
+            if (box.BplayerAnimNumber==12) this.useAnim(0.1f,true,this.getTextureArray_move_player_2());
+            if (box.BplayerAnimNumber==13) this.useAnim(0.1f,false,this.getTextureArray_jump_player_2());
+            if (box.BplayerAnimNumber==21) this.useAnim(0.1f,true,this.getTextureArray_aim_player_4());
+            if (box.BplayerAnimNumber==22) this.useAnim(0.1f,true,this.getTextureArray_move_player_4());
+            if (box.BplayerAnimNumber==23) this.useAnim(0.1f,false,this.getTextureArray_jump_player_4());
 
 
 
@@ -209,7 +239,7 @@ public class Player extends ActorObj {
             ArenaGame.ENEMY.rectangle=box.BrectanglePlayer;
 
             //ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
-        }
+        }*/
     }
 
     @Override
@@ -270,8 +300,14 @@ public class Player extends ActorObj {
     private void startJump(){
         jumpState=JumpState.JUMPING;
         velocityY.y+=JUMP;
-        if (this.getID()==0) useAnim(0.1f,false,jump_player_2);
-        else useAnim(0.1f,false,jump_player_4);//для второго игрока надо сделать
+        if (this.getID()==0) {
+            useAnim(0.1f,false,jump_player_2);
+            animationNum=13;
+        }
+        else {
+            useAnim(0.1f,false,jump_player_4);
+            animationNum=23;
+        }//для второго игрока надо сделать
         continueJump();
     }
 

@@ -46,6 +46,7 @@ public class ClientClass extends Listener {
         client.getKryo().register(com.badlogic.gdx.graphics.Texture.class);
         client.getKryo().register(com.badlogic.gdx.graphics.glutils.FileTextureData.class);
         client.getKryo().register(com.badlogic.gdx.assets.AssetManager.class);
+        client.getKryo().register(PlayersWaitingBox.class);
         client.start();
 
         //Клиент подключается к серверу
@@ -84,7 +85,7 @@ public class ClientClass extends Listener {
             }
             else {
                 box = (CoordBox) p;
-                //boxDeploy(box);
+                boxDeploy(box);
             }
         }
     }
@@ -92,19 +93,21 @@ public class ClientClass extends Listener {
        MainGame.setPlayerIdentify(playerNUM);
     }
     public static void boxDeploy(CoordBox box){
-        System.out.println(ArenaGame.ENEMY.position.hashCode());
+        //System.out.println(this.position.hashCode());
         //System.out.println(box.BpositionPlayer.hashCode());
-        ArenaGame.ENEMY.position=box.BpositionPlayer;
-        //ArenaGame.ENEMY.setX(box.BpositionPlayer.x);
-        //ArenaGame.ENEMY.setY(box.BpositionPlayer.y);
-        ArenaGame.ENEMY.hp=box.Bhp;
+        ENEMY.position= box.BpositionPlayer;
+        System.out.println(box.BpositionPlayer.x+"    "+box.BpositionPlayer.y);
+        ENEMY.setX(box.BpositionPlayer.x);
+        ENEMY.setY(box.BpositionPlayer.y);
+        ENEMY.hp= box.Bhp;
+        ENEMY.flip=box.flipped;
 
-        if (box.BplayerAnimHash==TextureArray_aim_player_2_HASH) ArenaGame.ENEMY.useAnim(0.1f,true,ArenaGame.ENEMY.getTextureArray_aim_player_2());
-        if (box.BplayerAnimHash==TextureArray_move_player_2_HASH) ArenaGame.ENEMY.useAnim(0.1f,true,ArenaGame.ENEMY.getTextureArray_move_player_2());
-        if (box.BplayerAnimHash==TextureArray_jump_player_2_HASH) ArenaGame.ENEMY.useAnim(0.1f,false,ArenaGame.ENEMY.getTextureArray_jump_player_2());
-        if (box.BplayerAnimHash==TextureArray_aim_player_4_HASH) ArenaGame.ENEMY.useAnim(0.1f,true,ArenaGame.ENEMY.getTextureArray_aim_player_4());
-        if (box.BplayerAnimHash==TextureArray_move_player_4_HASH) ArenaGame.ENEMY.useAnim(0.1f,true,ArenaGame.ENEMY.getTextureArray_move_player_4());
-        if (box.BplayerAnimHash==TextureArray_jump_player_4_HASH) ArenaGame.ENEMY.useAnim(0.1f,false,ArenaGame.ENEMY.getTextureArray_jump_player_4());
+        if (box.BplayerAnimNumber==11) ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_aim_player_2());
+        if (box.BplayerAnimNumber==12) ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_move_player_2());
+        if (box.BplayerAnimNumber==13) ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_jump_player_2());
+        if (box.BplayerAnimNumber==21) ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_aim_player_4());
+        if (box.BplayerAnimNumber==22) ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_move_player_4());
+        if (box.BplayerAnimNumber==23) ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_jump_player_4());
 
 
 
@@ -112,7 +115,7 @@ public class ClientClass extends Listener {
         //ArenaGame.ENEMY.animation=box.BplayerAnim;
         ArenaGame.ENEMY.rectangle=box.BrectanglePlayer;
 
-        ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
+        //ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
     }
     public static void boxNumDeploy(CoordBox box){
         playerNUM = box.getPlayerIdentify();
