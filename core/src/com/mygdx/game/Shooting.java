@@ -112,7 +112,7 @@ public class Shooting extends ActorObj {
         ArrayList<Vector2> arrayList = coordBox.BbulletsPosition;
         ArrayList<Shooting> arrayList1 = new ArrayList<>();
         for(int i=0;i<arrayList.size();i++){
-            Sprite sprite1 = new Sprite(coordBox.BshootTexture,(int)arrayList.get(i).x,(int)arrayList.get(i).y,coordBox.BshootTexture.getWidth(),coordBox.BshootTexture.getHeight());
+            Sprite sprite1 = new Sprite((MainGame.getPlayerIdentify()==1)?shoot:shootEnemy,(int)arrayList.get(i).x,(int)arrayList.get(i).y,shoot.getWidth(),shoot.getHeight());
             Shooting shooting = new Shooting(sprite1,playerStage,coordBox.Bangles.get(i),coordBox.BrectangleShoot.get(i));
             arrayList1.add(shooting);
         }

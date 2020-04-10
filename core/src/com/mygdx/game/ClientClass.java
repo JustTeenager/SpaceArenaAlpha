@@ -115,7 +115,7 @@ public class ClientClass extends Listener {
         //ArenaGame.ENEMY.animation=box.BplayerAnim;
         ArenaGame.ENEMY.rectangle=box.BrectanglePlayer;
 
-        //ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
+        ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
     }
     public static void boxNumDeploy(CoordBox box){
         playerNUM = box.getPlayerIdentify();
