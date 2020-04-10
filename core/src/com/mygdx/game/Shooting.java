@@ -7,9 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-
 import java.util.ArrayList;
-
 import static com.mygdx.game.ArenaGame.CURRENT_PLAYER;
 import static com.mygdx.game.ArenaGame.pl1;
 import static com.mygdx.game.ArenaGame.plat;
