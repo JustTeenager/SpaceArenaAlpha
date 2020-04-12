@@ -57,9 +57,18 @@ public class ClientClass extends Listener {
     public static void sendBox(CoordBox box){
         client.sendTCP(box);
     }
+    public static void sendPlayersWaitingBox(PlayersWaitingBox box){
+        client.sendUDP(box);
+    }
 
     public void received(Connection c, Object p){
         //Проверяем какой отправляется пакет
+        if (p instanceof PlayersWaitingBox){
+            PlayersWaitingBox box=(PlayersWaitingBox) p;
+            MainGame.playersNum=box.count;
+        }
+
+
         if(p instanceof MessageBox){
             //Если мы получили PacketMessage .
             MessageBox box = (MessageBox) p;

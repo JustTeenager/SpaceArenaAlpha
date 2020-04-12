@@ -7,7 +7,9 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+
 import java.util.ArrayList;
+
 import static com.mygdx.game.ArenaGame.CURRENT_PLAYER;
 import static com.mygdx.game.ArenaGame.pl1;
 import static com.mygdx.game.ArenaGame.plat;
@@ -31,7 +33,7 @@ public class Shooting extends ActorObj {
         this.direction = new Vector2(direction);
         this.velocity = velocity;
 
-       if(CURRENT_PLAYER.getID()==pl1.getID()) sprite = new Sprite(shoot);//поворачиваем пулю на угол, равный углу курсора
+       if(CURRENT_PLAYER.getID()==1) sprite = new Sprite(shoot);//поворачиваем пулю на угол, равный углу курсора
         else sprite=new Sprite(shootEnemy);
         sprite.setOriginCenter();
         sprite.rotate((float)JoystickRight.angleRight);

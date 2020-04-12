@@ -44,7 +44,7 @@ public class Buttons extends Actor {
 
         btn=new TextButton(text,style);
         btn.setName(name);
-        btn.setSize(gl.width+50,gl.height+50);
+        btn.setSize(gl.width+75,gl.height+75);
         btn.setX(x);
         btn.setY(y);
         s.addActor(this);

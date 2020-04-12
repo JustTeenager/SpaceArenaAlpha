@@ -59,7 +59,11 @@ public class MainMenu implements Screen {
                 else if ((screenY>butt[1].btn.getY()&&screenY<butt[1].btn.getY()+butt[1].btn.getHeight()
                         && (screenX>butt[1].btn.getX()&&screenX<butt[1].btn.getX()+butt[1].btn.getWidth()))){
                     clickSound.play();
-                    game.setScreen(new ArenaGame());
+                    try {
+                        game.setScreen(new WaitingMenu(game));
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
                 }
                 return true;
             }
@@ -111,7 +115,7 @@ public class MainMenu implements Screen {
 
         batch.begin();
         batch.draw(backtxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        batch.draw(panel,Gdx.graphics.getWidth()/2-50,400);
+        batch.draw(panel,Gdx.graphics.getWidth()/2-115,400,400,325);
         batch.end();
 
         s.act(delta);
