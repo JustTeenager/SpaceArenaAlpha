@@ -16,6 +16,8 @@ public class JoystickRight extends BaseJoystick {
     public static double angleRight=0;
     public static boolean CheckAngleRight= true;
 
+    public static Shooting shootTemp=new Shooting(5000,5000,ArenaGame.playerStage,new Vector2(5000,5000),1000f);
+
 
     private static final float CURSOR_RADIUS = 40;
     public JoystickRight(Texture circle, Texture circleCur){
@@ -142,9 +144,11 @@ public class JoystickRight extends BaseJoystick {
     private float two = Gdx.graphics.getDeltaTime()-5;
     public void checkCreateBullet(){//функция для создание пуль
         if (JoystickRight.isTouchRight && JoystickLeft.CheckAngleLeft==CheckAngleRight && one-two>=5){
-            ArenaGame.shootings.add(new Shooting(ArenaGame.pl1.getX(),ArenaGame.pl1.getY(),ArenaGame.playerStage,JoystickRight.direction,1000f));
+            MainGame.isShooted=true;
+            shootTemp=new Shooting(ArenaGame.CURRENT_PLAYER.getX(),ArenaGame.CURRENT_PLAYER.getY(),ArenaGame.playerStage,JoystickRight.direction,1000);
+            ArenaGame.shootings.add(shootTemp);
             two=one;
-            Shooting.anglesCurrentPlayer.add(angleRight);
+            //Shooting.anglesCurrentPlayer.add(angleRight);
         }
         else{
             one++;

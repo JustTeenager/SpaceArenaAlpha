@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import java.util.ArrayList;
 
 import static com.mygdx.game.ArenaGame.CURRENT_PLAYER;
+import static com.mygdx.game.ArenaGame.ENEMY;
 import static com.mygdx.game.ArenaGame.pl1;
 import static com.mygdx.game.ArenaGame.plat;
 import static com.mygdx.game.ArenaGame.playerStage;
@@ -33,7 +34,7 @@ public class Shooting extends ActorObj {
         this.direction = new Vector2(direction);
         this.velocity = velocity;
 
-       if(CURRENT_PLAYER.getID()==1) sprite = new Sprite(shoot);//поворачиваем пулю на угол, равный углу курсора
+       if(CURRENT_PLAYER.getID()==0) sprite = new Sprite(shoot);//поворачиваем пулю на угол, равный углу курсора
         else sprite=new Sprite(shootEnemy);
         sprite.setOriginCenter();
         sprite.rotate((float)JoystickRight.angleRight);
@@ -45,16 +46,32 @@ public class Shooting extends ActorObj {
 
     }
 
-    Shooting(Sprite sprite,Stage stage, double angle, Rectangle rectangle){
+    public Shooting(float x, float y, Stage s,Vector2 direction,float velocity,double angle){
+        super(x,y,s);
+        setPosition(x,y);
+        this.direction = new Vector2(direction);
+        this.velocity = velocity;
+
+        if(CURRENT_PLAYER.getID()==1000) sprite = new Sprite(shoot);//поворачиваем пулю на угол, равный углу курсора
+        else sprite=new Sprite(shootEnemy);
+        sprite.setOriginCenter();
+        sprite.rotate((float) angle);
+        sprite.setPosition(getX(),getY());
+        rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
+        s.addActor(this);
+
+    }
+
+    /*Shooting(Sprite sprite,Stage stage, double angle, Rectangle rectangle){
         super(sprite.getX(),sprite.getY(),stage);
         this.sprite = new Sprite(sprite);
         sprite.setOriginCenter();
+        sprite.setPosition(sprite.getX(),sprite.getY());
         sprite.rotate((float) angle);
         sprite.setPosition(getX(),getY());
         this.rectangle=rectangle;
         stage.addActor(this);
-
-    }
+    }*/
     @Override
     public void collapse(Player player) {
         if (player.hp>0) {
@@ -108,15 +125,9 @@ public class Shooting extends ActorObj {
         return rectanglesBullets;
     }
 
-    public static ArrayList<Shooting> createEnemyShootingArray(CoordBox coordBox){
-        ArrayList<Vector2> arrayList = coordBox.BbulletsPosition;
-        ArrayList<Shooting> arrayList1 = new ArrayList<>();
-        for(int i=0;i<arrayList.size();i++){
-            Sprite sprite1 = new Sprite((MainGame.getPlayerIdentify()==1)?shoot:shootEnemy,(int)arrayList.get(i).x,(int)arrayList.get(i).y,shoot.getWidth(),shoot.getHeight());
-            Shooting shooting = new Shooting(sprite1,playerStage,coordBox.Bangles.get(i),coordBox.BrectangleShoot.get(i));
-            arrayList1.add(shooting);
-        }
-        return arrayList1;
+    public static void addEnemyShootingArray(CoordBox coordBox){
+        Shooting enemySh=new Shooting(coordBox.BpositionPlayer.x,coordBox.BpositionPlayer.y, playerStage,coordBox.BbulletsPosition,1000f,coordBox.Bangles);
+        ArenaGame.shootingsEnemy.add(enemySh);
     }
 
 

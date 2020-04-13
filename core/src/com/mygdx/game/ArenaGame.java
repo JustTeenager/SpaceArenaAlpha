@@ -182,6 +182,8 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
+		System.out.println("CURRENT ID: "+CURRENT_PLAYER.getID());
+		System.out.println("ENEMY ID: "+ENEMY.getID());
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -199,12 +201,31 @@ public class ArenaGame extends ScreenAdapter {
 			shootings.get(i).collapse(ENEMY);
 			if (shootings.get(i).isOut || !shootings.get(i).isVisible()){//удаление той пули, которая выышла за экран
 				shootings.remove(i);
-				anglesCurrentPlayer.remove(i);
+				//anglesCurrentPlayer.remove(i);
 			}
 		}
-		coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.getAnimationNum(),CURRENT_PLAYER.flip,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp,
-				getBulletsDirection(shootings),anglesCurrentPlayer,getBulletsRectangle(shootings));
-		ClientClass.sendBox(coordBox);
+		for (int i=0;i<shootingsEnemy.size();i++){
+			shootingsEnemy.get(i).update();
+			shootingsEnemy.get(i).collapse(CURRENT_PLAYER);
+			// shootings.get(i).collapse(ENEMY);
+			if (shootingsEnemy.get(i).isOut || !shootingsEnemy.get(i).isVisible()){//удаление той пули, которая выышла за экран
+				shootingsEnemy.remove(i);
+				//anglesCurrentPlayer.remove(i);
+			}
+		}
+
+		if (!MainGame.isShooted){
+			coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.getAnimationNum(),CURRENT_PLAYER.flip,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp);
+			ClientClass.sendBox(coordBox);
+		}
+
+		else if (MainGame.isShooted) {
+			MainGame.isShooted=false;
+			coordBox = new CoordBox(MainGame.getPlayerIdentify(), CURRENT_PLAYER.position, CURRENT_PLAYER.getAnimationNum(), CURRENT_PLAYER.flip, CURRENT_PLAYER.rectangle, CURRENT_PLAYER.hp,
+					JoystickRight.shootTemp.getDirection(), (double) JoystickRight.shootTemp.getRotation(), JoystickRight.shootTemp.getRectangle());
+
+			ClientClass.sendBox(coordBox);
+		}
 		hud.setColor(1,1,1,0.5f);
 		chaseCam.update();
 		viewport.apply();

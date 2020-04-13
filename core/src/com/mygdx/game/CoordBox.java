@@ -12,12 +12,12 @@ public class CoordBox {
      int BplayerAnimNumber;
      Rectangle BrectanglePlayer;
      int Bhp;
-     ArrayList<Vector2> BbulletsPosition;
-     ArrayList<Rectangle> BrectangleShoot;
-     ArrayList<Double> Bangles;
+     Vector2 BbulletsPosition;
+     Rectangle BrectangleShoot;
+     Double Bangles;
 
     CoordBox(int playerIdentify, Vector2 positionPlayer ,int playerAnimNumber ,boolean flipped, Rectangle rectanglePlayer, int hp,
-             ArrayList<Vector2> bulletsPosition,ArrayList<Double> angles, ArrayList<Rectangle> rectangleShoot){
+             Vector2 bulletsPosition,Double angle,Rectangle rectangleShoot){
         this.playerIdentify=playerIdentify;
         this.flipped=flipped;
         BpositionPlayer=positionPlayer;
@@ -25,14 +25,22 @@ public class CoordBox {
         BrectanglePlayer=rectanglePlayer;
         Bhp=hp;
 
-
-        BbulletsPosition=bulletsPosition;
-        Bangles=angles;
-        BrectangleShoot=rectangleShoot;
+        BbulletsPosition = bulletsPosition;
+        Bangles = angle;
+        BrectangleShoot = rectangleShoot;
     }
 
     CoordBox(int playerIdentify){
         this.playerIdentify=playerIdentify;
+    }
+
+    CoordBox(int playerIdentify, Vector2 positionPlayer ,int playerAnimNumber ,boolean flipped, Rectangle rectanglePlayer, int hp){
+        this.playerIdentify=playerIdentify;
+        this.flipped=flipped;
+        BpositionPlayer=positionPlayer;
+        BplayerAnimNumber=playerAnimNumber;
+        BrectanglePlayer=rectanglePlayer;
+        Bhp=hp;
     }
 
     CoordBox(){}

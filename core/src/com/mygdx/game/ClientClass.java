@@ -7,7 +7,6 @@ import com.esotericsoftware.kryonet.Listener;
 import java.net.InetAddress;
 
 import static com.mygdx.game.ArenaGame.ENEMY;
-import static com.mygdx.game.Shooting.createEnemyShootingArray;
 
 
 public class ClientClass extends Listener {
@@ -108,7 +107,9 @@ public class ClientClass extends Listener {
 
         ArenaGame.ENEMY.rectangle=box.BrectanglePlayer;
 
-        ArenaGame.shootingsEnemy=createEnemyShootingArray(box);
+        try {
+            Shooting.addEnemyShootingArray(box);
+        }catch (Exception e){}
     }
     public static void boxNumDeploy(CoordBox box){
         playerNUM = box.getPlayerIdentify();
