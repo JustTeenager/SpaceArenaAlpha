@@ -1,6 +1,5 @@
 package com.mygdx.game;
 
-import com.badlogic.gdx.assets.AssetManager;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -13,6 +12,7 @@ public class ClientClass extends Listener {
 
     static Client client;
     static CoordBox box;
+    static boolean isClientStarted=false;
     //Порт к которому мы будем подключатся
     static int tcpPort = 54555, udpPort = 54555;
     static InetAddress adr;
@@ -25,20 +25,13 @@ public class ClientClass extends Listener {
         messageReceived=false;
         playerNUM=0;
         System.out.println("Подключаемся к серверу");
-        adr=InetAddress.getByName("46.39.242.26");//Адрес сервера? Надо тестить
+        adr=InetAddress.getByName("46.39.242.26");
         client = new Client();
-        //Регистрируем пакет
+        //Регистрируем пакеты
         client.getKryo().register(MessageBox.class);
         client.getKryo().register(CoordBox.class);
-        client.getKryo().register(java.util.ArrayList.class);
         client.getKryo().register(com.badlogic.gdx.math.Vector2.class);
         client.getKryo().register(com.badlogic.gdx.math.Rectangle.class);
-        client.getKryo().register(com.badlogic.gdx.graphics.g2d.Animation.class);
-        client.getKryo().register(Object[].class);
-        client.getKryo().register(com.badlogic.gdx.graphics.g2d.TextureRegion.class);
-        client.getKryo().register(com.badlogic.gdx.graphics.Texture.class);
-        client.getKryo().register(com.badlogic.gdx.graphics.glutils.FileTextureData.class);
-        client.getKryo().register(com.badlogic.gdx.assets.AssetManager.class);
         client.getKryo().register(PlayersWaitingBox.class);
         client.start();
 
@@ -91,21 +84,38 @@ public class ClientClass extends Listener {
     }
     public static void boxDeploy(CoordBox box){
         ENEMY.position= box.BpositionPlayer;
-        //System.out.println(box.BpositionPlayer.x+"    "+box.BpositionPlayer.y);
         ENEMY.setX(box.BpositionPlayer.x);
         ENEMY.setY(box.BpositionPlayer.y);
         ENEMY.hp= box.Bhp;
         ENEMY.flip=box.flipped;
+        ENEMY.rectangle=box.BrectanglePlayer;
 
-        if (box.BplayerAnimNumber==11) ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_aim_player_2());
-        if (box.BplayerAnimNumber==12) ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_move_player_2());
-        if (box.BplayerAnimNumber==13) ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_jump_player_2());
-        if (box.BplayerAnimNumber==21) ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_aim_player_4());
-        if (box.BplayerAnimNumber==22) ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_move_player_4());
-        if (box.BplayerAnimNumber==23) ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_jump_player_4());
-
-
-        ArenaGame.ENEMY.rectangle=box.BrectanglePlayer;
+        switch (box.BplayerAnimNumber){
+            case 11:{
+                ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_aim_player_2());
+            } break;
+            case 12: {
+                ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_move_player_2());
+            } break;
+            case 13:{
+                ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_jump_player_2());
+            } break;
+            case 14:{
+                ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_dead_player_2());
+            } break;
+            case 21:{
+                ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_aim_player_4());
+            } break;
+            case 22:{
+                ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_move_player_4());
+            } break;
+            case 23:{
+                ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_jump_player_4());
+            }break;
+            case 24:{
+                ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_dead_player_4());
+            } break;
+        }
 
         try {
             Shooting.addEnemyShootingArray(box);

@@ -60,7 +60,11 @@ public class MainMenu implements Screen {
                         && (screenX>butt[1].btn.getX()&&screenX<butt[1].btn.getX()+butt[1].btn.getWidth()))){
                     clickSound.play();
                     try {
-                        game.setScreen(new WaitingMenu(game));
+                        if (!ClientClass.isClientStarted) {
+                            ClientClass.startClient();
+                            game.setScreen(new WaitingMenu(game));
+                            ClientClass.isClientStarted=true;
+                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
@@ -102,9 +106,7 @@ public class MainMenu implements Screen {
     }
 
     @Override
-    public void show() {
-
-    }
+    public void show() {}
 
     @Override
     public void render(float delta) {

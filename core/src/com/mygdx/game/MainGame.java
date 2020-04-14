@@ -29,6 +29,12 @@ public class MainGame extends Game {
             "JumpShoot 4(6).png","JumpShoot 4(7).png",
             "JumpShoot 4(8).png","JumpShoot 4(9).png","JumpShoot 4(10).png"};
 
+    public static final String[] Dead_4 = {
+            "Dead 4(1).png", "Dead 4(2).png",
+            "Dead 4(3).png", "Dead 4(4).png",
+            "Dead 4(5).png", "Dead 4(6).png", "Dead 4(7).png", "Dead 4(8).png",
+            "Dead 4(9).png", "Dead 4(10).png"};
+
 
 
 
@@ -48,6 +54,12 @@ public class MainGame extends Game {
             "JumpShoot (4).png","JumpShoot (5).png",
             "JumpShoot (6).png","JumpShoot (7).png",
             "JumpShoot (8).png","JumpShoot (9).png","JumpShoot (10).png"};
+
+    public static final String[] Dead_2 = {
+            "Dead (1).png", "Dead (2).png",
+            "Dead (3).png", "Dead (4).png",
+            "Dead (5).png", "Dead (6).png", "Dead (7).png", "Dead (8).png",
+            "Dead (9).png", "Dead (10).png"};
 
     @Override
     public void create() {

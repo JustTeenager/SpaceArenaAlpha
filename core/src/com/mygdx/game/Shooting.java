@@ -8,17 +8,11 @@ import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import java.util.ArrayList;
-
 import static com.mygdx.game.ArenaGame.CURRENT_PLAYER;
-import static com.mygdx.game.ArenaGame.ENEMY;
-import static com.mygdx.game.ArenaGame.pl1;
 import static com.mygdx.game.ArenaGame.plat;
 import static com.mygdx.game.ArenaGame.playerStage;
 
 public class Shooting extends ActorObj {
-    public static ArrayList<Double> anglesCurrentPlayer=new ArrayList<>();
-    //public static ArrayList<Double> anglesEnemy=new ArrayList<>();
 
     public static Texture shoot = new Texture("ef_2_00000.png");
     public static Texture shootEnemy=new Texture("ef_2_00000_4.png");
@@ -34,10 +28,10 @@ public class Shooting extends ActorObj {
         this.direction = new Vector2(direction);
         this.velocity = velocity;
 
-       if(CURRENT_PLAYER.getID()==0) sprite = new Sprite(shoot);//поворачиваем пулю на угол, равный углу курсора
+       if(CURRENT_PLAYER.getID()==0) sprite = new Sprite(shoot);
         else sprite=new Sprite(shootEnemy);
         sprite.setOriginCenter();
-        sprite.rotate((float)JoystickRight.angleRight);
+        sprite.rotate((float)JoystickRight.angleRight);//поворачиваем пулю на угол, равный углу курсора
         sprite.setPosition(getX(),getY());
 
         positionGun(CURRENT_PLAYER);
@@ -52,26 +46,17 @@ public class Shooting extends ActorObj {
         this.direction = new Vector2(direction);
         this.velocity = velocity;
 
-        if(CURRENT_PLAYER.getID()==1000) sprite = new Sprite(shoot);//поворачиваем пулю на угол, равный углу курсора
+        if(CURRENT_PLAYER.getID()==1000) sprite = new Sprite(shoot);
         else sprite=new Sprite(shootEnemy);
         sprite.setOriginCenter();
-        sprite.rotate((float) angle);
+        sprite.rotate((float) angle);//поворачиваем пулю на угол, равный углу курсора
         sprite.setPosition(getX(),getY());
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
 
     }
 
-    /*Shooting(Sprite sprite,Stage stage, double angle, Rectangle rectangle){
-        super(sprite.getX(),sprite.getY(),stage);
-        this.sprite = new Sprite(sprite);
-        sprite.setOriginCenter();
-        sprite.setPosition(sprite.getX(),sprite.getY());
-        sprite.rotate((float) angle);
-        sprite.setPosition(getX(),getY());
-        this.rectangle=rectangle;
-        stage.addActor(this);
-    }*/
+
     @Override
     public void collapse(Player player) {
         if (player.hp>0) {
@@ -80,7 +65,17 @@ public class Shooting extends ActorObj {
                 player.hp -= 1;
             }
         }
-        else player.killed=true;
+        if (player.hp<=0 && !player.killed) {
+            player.killed=true;
+            if (player.getID()==0) {
+                player.useAnim(0.1f,false,player.getTextureArray_dead_player_2());
+                player.setAnimationNum(14);
+            }
+            else {
+                player.useAnim(0.1f, false, player.getTextureArray_dead_player_4());
+                player.setAnimationNum(24);
+            }
+        }
 
         for (int i=0;i<plat.length;i++){
             if (rectangle.overlaps(plat[i].rect)){
@@ -109,24 +104,8 @@ public class Shooting extends ActorObj {
         isOut = x > 3420 || x < -1500 || y > 3580 || y < -1500;//надо будет поставить размры нашего экрана
     }
 
-    public static ArrayList<Vector2> getBulletsDirection(ArrayList<Shooting> shootings){
-        ArrayList<Vector2> positionsBullets = new ArrayList<>();
-        for (Shooting shoot: shootings){
-            positionsBullets.add(shoot.direction);
-        }
-        return positionsBullets;
-    }
-
-    public static ArrayList<Rectangle> getBulletsRectangle(ArrayList<Shooting> shootings){
-        ArrayList<Rectangle> rectanglesBullets = new ArrayList<>();
-        for (Shooting shoot:shootings){
-            rectanglesBullets.add(shoot.rectangle);
-        }
-        return rectanglesBullets;
-    }
-
     public static void addEnemyShootingArray(CoordBox coordBox){
-        Shooting enemySh=new Shooting(coordBox.BpositionPlayer.x,coordBox.BpositionPlayer.y, playerStage,coordBox.BbulletsPosition,1000f,coordBox.Bangles);
+        Shooting enemySh=new Shooting(coordBox.BpositionPlayer.x,coordBox.BpositionPlayer.y, playerStage,coordBox.BbulletsPosition,MainGame.VELOCITY_BULLETS,coordBox.Bangles);
         ArenaGame.shootingsEnemy.add(enemySh);
     }
 

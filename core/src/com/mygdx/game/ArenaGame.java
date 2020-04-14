@@ -12,10 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import java.util.ArrayList;
 
-import static com.mygdx.game.Shooting.anglesCurrentPlayer;
-import static com.mygdx.game.Shooting.getBulletsDirection;
-import static com.mygdx.game.Shooting.getBulletsRectangle;
-
 public class ArenaGame extends ScreenAdapter {
 
 	private Texture backTxt;
@@ -78,12 +74,15 @@ public class ArenaGame extends ScreenAdapter {
 		pl1.setAnim(pl1.getTextureArray_aim_player_2(),MainGame.Aim_2);
 		pl1.setAnim(pl1.getTextureArray_move_player_2(),MainGame.RunShoot_2);
 		pl1.setAnim(pl1.getTextureArray_jump_player_2(),MainGame.JumpShoot_2);
+		pl1.setAnim(pl1.getTextureArray_dead_player_2(),MainGame.Dead_2);
 
 		pl2=new Player(1000,50);
 		pl2.setID(1000);
 		pl2.setAnim(pl2.getTextureArray_aim_player_4(),MainGame.Aim_4);
 		pl2.setAnim(pl2.getTextureArray_move_player_4(),MainGame.RunShoot_4);
 		pl2.setAnim(pl2.getTextureArray_jump_player_4(),MainGame.JumpShoot_4);
+		pl2.setAnim(pl2.getTextureArray_dead_player_4(),MainGame.Dead_4);
+
 		switch (MainGame.getPlayerIdentify()){
 			case 1:{
 				CURRENT_PLAYER=pl1;
@@ -150,7 +149,6 @@ public class ArenaGame extends ScreenAdapter {
 		}
 		ENEMY.position=new Vector2(ENEMY.getID(),50);
 		CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
-		System.out.println("VECTORS ENABLED");
 
 
 
@@ -182,8 +180,6 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
-		System.out.println("CURRENT ID: "+CURRENT_PLAYER.getID());
-		System.out.println("ENEMY ID: "+ENEMY.getID());
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 

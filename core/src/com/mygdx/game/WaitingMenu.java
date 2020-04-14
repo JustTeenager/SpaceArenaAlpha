@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
@@ -14,7 +13,7 @@ public class WaitingMenu extends ScreenAdapter {
     SpriteBatch batch;
     Buttons txtbutton;
     Texture backtxt;
-    public WaitingMenu(final MainGame game) throws Exception {
+    public WaitingMenu(final MainGame game){
         this.game=game;
         batch=new SpriteBatch();
         backtxt=new Texture("menuBack.jpg");
@@ -23,7 +22,6 @@ public class WaitingMenu extends ScreenAdapter {
                 "waitingTXT","wait for players",1.15f,st);
 
         st.addActor(txtbutton);
-        ClientClass.startClient();
     }
 
 
