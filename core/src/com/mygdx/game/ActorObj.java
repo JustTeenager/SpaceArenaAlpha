@@ -51,13 +51,13 @@ public abstract class ActorObj extends Group {
             if (other instanceof Player && ((Player) other).flip)
                 centerAtPosition(other.getX() - other.getWidth() / 2 + 20, other.getY() + other.getHeight() / 2 + 4);
             else
-                centerAtPosition(other.getX() + other.getWidth() / 2 + 20, other.getY() + other.getHeight() / 2 - 4);
+                centerAtPosition(other.getX() + other.getWidth() / 2 + 20, other.getY() + other.getHeight() / 2 + 4);
         }
         else{
             if (other instanceof Player && ((Player) other).flip)
-                centerAtPosition(other.getX() - other.getWidth() / 2 + 30, other.getY() + other.getHeight() / 2 );
+                centerAtPosition(other.getX() - other.getWidth() / 2 + 25, other.getY() + other.getHeight() / 2 +15);
             else
-                centerAtPosition(other.getX() + other.getWidth() / 2 + 30, other.getY() + other.getHeight() / 2 );
+                centerAtPosition(other.getX() + other.getWidth() / 2 + 30, other.getY() + other.getHeight() / 2 +15);
         }
     }
 
