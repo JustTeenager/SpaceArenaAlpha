@@ -149,6 +149,7 @@ public class JoystickRight extends BaseJoystick {
         if (JoystickRight.isTouchRight && JoystickLeft.CheckAngleLeft==CheckAngleRight && one-two>=5 && !ArenaGame.CURRENT_PLAYER.killed){
             MainGame.isShooted=true;
             shootTemp=new Shooting(ArenaGame.CURRENT_PLAYER.getX(),ArenaGame.CURRENT_PLAYER.getY(),ArenaGame.playerStage,JoystickRight.direction,MainGame.VELOCITY_BULLETS);
+            shootTemp.setRotation((float)angleRight);
             ArenaGame.shootings.add(shootTemp);
             two=one;
         }
