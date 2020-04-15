@@ -10,6 +10,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import static com.mygdx.game.ArenaGame.CURRENT_PLAYER;
+import static com.mygdx.game.ArenaGame.ENEMY;
 import static com.mygdx.game.ArenaGame.plat;
 import static com.mygdx.game.ArenaGame.playerStage;
 
@@ -54,6 +55,7 @@ public class Shooting extends ActorObj {
 
         if(CURRENT_PLAYER.getID()==1000) sprite = new Sprite(shoot);
         else sprite=new Sprite(shootEnemy);
+        positionGun(ENEMY);
         sprite.setOriginCenter();
         sprite.rotate((float) angle);//поворачиваем пулю на угол, равный углу курсора
         sprite.setPosition(getX(),getY());
