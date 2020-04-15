@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.Sprite;
@@ -22,6 +23,8 @@ public class Shooting extends ActorObj {
     private float velocity;
     private Vector2 direction;
     private Sprite sprite;
+    static Sound shootSound2=Gdx.audio.newSound(Gdx.files.internal("shootSound_2.wav"));
+    static Sound shootSound4=Gdx.audio.newSound(Gdx.files.internal("shootSound_4.wav"));
     public Shooting(float x, float y, Stage s,Vector2 direction,float velocity){
         super(x,y,s);
         setPosition(x,y);
@@ -38,6 +41,9 @@ public class Shooting extends ActorObj {
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
 
+        if (ArenaGame.CURRENT_PLAYER.getID()==0) Shooting.shootSound2.play(MainGame.volume);
+        else Shooting.shootSound4.play(MainGame.volume);
+
     }
 
     public Shooting(float x, float y, Stage s,Vector2 direction,float velocity,double angle){
@@ -53,6 +59,8 @@ public class Shooting extends ActorObj {
         sprite.setPosition(getX(),getY());
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
+        if (ArenaGame.CURRENT_PLAYER.getID()==1000) shootSound2.play(MainGame.volume);
+        else shootSound4.play(MainGame.volume);
 
     }
 

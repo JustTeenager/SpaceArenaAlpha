@@ -62,6 +62,7 @@ public class ArenaGame extends ScreenAdapter {
 		backTxt=new Texture("backGame.jpg");
 		gameMusic=Gdx.audio.newMusic(Gdx.files.internal("gamemusic.mp3"));
 		gameMusic.setLooping(true);
+		gameMusic.setVolume(MainGame.volume);
 		gameMusic.play();
 
 		viewport=new ExtendViewport(MainGame.WORLD_SIZE_X,MainGame.WORLD_SIZE_Y);

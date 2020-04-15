@@ -1,6 +1,8 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
+import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.audio.Sound;
 
 public class MainGame extends Game {
     static final float GRAVITY=300;
@@ -11,6 +13,8 @@ public class MainGame extends Game {
     static boolean jumped=false;
     static int playersNum;
     static int playerIdentify;
+    static float volume=1;
+    //static Sound clickSound= Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
 
     public static final String[] Aim_4 = {
             "Aim 4(1).png", "Aim 4(2).png",

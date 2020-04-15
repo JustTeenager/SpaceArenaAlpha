@@ -23,11 +23,10 @@ public class MainMenu implements Screen {
     private InputProcessor inputProcessor;
     private Sound clickSound;
 
+
     public MainMenu(final MainGame game){
         this.game=game;
-
         clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
-
         batch = new SpriteBatch();
         s=new Stage();
         backtxt=new Texture("menuBack.jpg");
@@ -54,11 +53,12 @@ public class MainMenu implements Screen {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 if ((screenY>butt[0].btn.getY()&&screenY<butt[0].btn.getY()+butt[0].btn.getHeight())
                         && (screenX>butt[0].btn.getX()&&screenX<butt[0].btn.getX()+butt[0].btn.getWidth())){
-                    clickSound.play();
+                    clickSound.play(MainGame.volume);
+                    game.setScreen(new SettingsMenu(game));
                 }
                 else if ((screenY>butt[1].btn.getY()&&screenY<butt[1].btn.getY()+butt[1].btn.getHeight()
                         && (screenX>butt[1].btn.getX()&&screenX<butt[1].btn.getX()+butt[1].btn.getWidth()))){
-                    clickSound.play();
+                    clickSound.play(MainGame.volume);
                     try {
                         if (!ClientClass.isClientStarted) {
                             ClientClass.startClient();
@@ -110,7 +110,6 @@ public class MainMenu implements Screen {
 
     @Override
     public void render(float delta) {
-
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
         Gdx.input.setInputProcessor(inputProcessor);
@@ -150,6 +149,5 @@ public class MainMenu implements Screen {
         batch.dispose();
         s.dispose();
         panel.dispose();
-        clickSound.dispose();
     }
 }
