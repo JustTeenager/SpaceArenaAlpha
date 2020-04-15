@@ -83,38 +83,50 @@ public class ClientClass extends Listener {
        MainGame.setPlayerIdentify(playerNUM);
     }
     public static void boxDeploy(CoordBox box){
-        ENEMY.position= box.BpositionPlayer;
-        ENEMY.setX(box.BpositionPlayer.x);
-        ENEMY.setY(box.BpositionPlayer.y);
-        ENEMY.hp= box.Bhp;
-        ENEMY.flip=box.flipped;
-        ENEMY.rectangle=box.BrectanglePlayer;
+        try {
+            ENEMY.position = box.BpositionPlayer;
+            ENEMY.setX(box.BpositionPlayer.x);
+            ENEMY.setY(box.BpositionPlayer.y);
+            ENEMY.hp = box.Bhp;
+            ENEMY.flip = box.flipped;
+            ENEMY.rectangle = box.BrectanglePlayer;
 
-        switch (box.BplayerAnimNumber){
-            case 11:{
-                ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_aim_player_2());
-            } break;
-            case 12: {
-                ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_move_player_2());
-            } break;
-            case 13:{
-                ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_jump_player_2());
-            } break;
-            case 14:{
-                ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_dead_player_2());
-            } break;
-            case 21:{
-                ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_aim_player_4());
-            } break;
-            case 22:{
-                ENEMY.useAnim(0.1f,true,ENEMY.getTextureArray_move_player_4());
-            } break;
-            case 23:{
-                ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_jump_player_4());
-            }break;
-            case 24:{
-                ENEMY.useAnim(0.1f,false,ENEMY.getTextureArray_dead_player_4());
-            } break;
+            switch (box.BplayerAnimNumber) {
+                case 11: {
+                    ENEMY.useAnim(0.1f, true, ENEMY.getTextureArray_aim_player_2());
+                }
+                break;
+                case 12: {
+                    ENEMY.useAnim(0.1f, true, ENEMY.getTextureArray_move_player_2());
+                }
+                break;
+                case 13: {
+                    ENEMY.useAnim(0.1f, false, ENEMY.getTextureArray_jump_player_2());
+                }
+                break;
+                case 14: {
+                    ENEMY.useAnim(0.1f, false, ENEMY.getTextureArray_dead_player_2());
+                }
+                break;
+                case 21: {
+                    ENEMY.useAnim(0.1f, true, ENEMY.getTextureArray_aim_player_4());
+                }
+                break;
+                case 22: {
+                    ENEMY.useAnim(0.1f, true, ENEMY.getTextureArray_move_player_4());
+                }
+                break;
+                case 23: {
+                    ENEMY.useAnim(0.1f, false, ENEMY.getTextureArray_jump_player_4());
+                }
+                break;
+                case 24: {
+                    ENEMY.useAnim(0.1f, false, ENEMY.getTextureArray_dead_player_4());
+                }
+                break;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
         }
 
         try {
