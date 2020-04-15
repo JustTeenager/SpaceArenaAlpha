@@ -26,7 +26,7 @@ public class Shooting extends ActorObj {
     static Sound shootSound2=Gdx.audio.newSound(Gdx.files.internal("shootSound_2.wav"));
     static Sound shootSound4=Gdx.audio.newSound(Gdx.files.internal("shootSound_4.wav"));
     public Shooting(float x, float y, Stage s,Vector2 direction,float velocity){
-        super(x,y,s);
+        //super(x,y,s);
         setPosition(x,y);
         this.direction = new Vector2(direction);
         this.velocity = velocity;
@@ -47,7 +47,7 @@ public class Shooting extends ActorObj {
     }
 
     public Shooting(float x, float y, Stage s,Vector2 direction,float velocity,double angle){
-        super(x,y,s);
+        //super(x,y,s);
         setPosition(x,y);
         this.direction = new Vector2(direction);
         this.velocity = velocity;
