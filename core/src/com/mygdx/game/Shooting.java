@@ -57,7 +57,7 @@ public class Shooting extends ActorObj {
         else sprite=new Sprite(shootEnemy);
         positionGun(ENEMY);
         sprite.setOriginCenter();
-        sprite.rotate((float) angle);//поворачиваем пулю на угол, равный углу курсора
+        sprite.rotate((float) JoystickRight.angleRight);//поворачиваем пулю на угол, равный углу курсора
         sprite.setPosition(getX(),getY());
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
