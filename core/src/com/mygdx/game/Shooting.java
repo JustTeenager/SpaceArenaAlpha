@@ -37,8 +37,9 @@ public class Shooting extends ActorObj {
         sprite.setOriginCenter();
         sprite.rotate((float)JoystickRight.angleRight);//поворачиваем пулю на угол, равный углу курсора
         sprite.setPosition(getX(),getY());
-
+        if (CURRENT_PLAYER.getID()==0)
         positionGunPL1(CURRENT_PLAYER);
+        else positionGunPL1(ENEMY);
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
 
@@ -55,7 +56,9 @@ public class Shooting extends ActorObj {
 
         if(CURRENT_PLAYER.getID()==1000) sprite = new Sprite(shoot);
         else sprite=new Sprite(shootEnemy);
+        if (CURRENT_PLAYER.getID()==0)
         positionGunPL2(ENEMY);
+        else positionGunPL2(CURRENT_PLAYER);
         sprite.setOriginCenter();
         sprite.rotate((float) angle);//поворачиваем пулю на угол, равный углу курсора
         sprite.setPosition(getX(),getY());
