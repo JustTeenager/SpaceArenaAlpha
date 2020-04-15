@@ -47,10 +47,18 @@ public abstract class ActorObj extends Group {
     }
     public void positionGun(ActorObj other)
     {
-        if (other instanceof Player && ((Player) other).flip)
-            centerAtPosition(other.getX()-other.getWidth()/2+20,other.getY()+other.getHeight()/2+4);
-        else
-            centerAtPosition( other.getX() + other.getWidth()/2+20, other.getY() + other.getHeight()/2-4);
+        if (ArenaGame.CURRENT_PLAYER.getID()==0) {
+            if (other instanceof Player && ((Player) other).flip)
+                centerAtPosition(other.getX() - other.getWidth() / 2 + 20, other.getY() + other.getHeight() / 2 + 4);
+            else
+                centerAtPosition(other.getX() + other.getWidth() / 2 + 20, other.getY() + other.getHeight() / 2 - 4);
+        }
+        else{
+            if (other instanceof Player && ((Player) other).flip)
+                centerAtPosition(other.getX() - other.getWidth() / 2 + 30, other.getY() + other.getHeight() / 2 );
+            else
+                centerAtPosition(other.getX() + other.getWidth() / 2 + 30, other.getY() + other.getHeight() / 2 );
+        }
     }
 
     public abstract void platformReact(Platform pl);
