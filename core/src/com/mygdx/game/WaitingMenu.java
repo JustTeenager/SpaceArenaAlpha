@@ -8,6 +8,10 @@ import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
+import com.badlogic.gdx.utils.Align;
 
 public class WaitingMenu extends ScreenAdapter {
     private MainGame game;
@@ -17,6 +21,7 @@ public class WaitingMenu extends ScreenAdapter {
     Buttons waitButton;
     Texture backtxt;
     Texture replaytxt;
+    Button btn;
     public WaitingMenu(final MainGame game){
         this.game=game;
         batch=new SpriteBatch();
@@ -27,8 +32,14 @@ public class WaitingMenu extends ScreenAdapter {
 
         txtbutton=new Buttons(Gdx.graphics.getWidth()/2.4f,Gdx.graphics.getHeight()/2,
                 "waitingTXT","wait for players",1.15f,st);
-        //waitButton=new Buttons(Gdx.graphics.getWidth()/2.4f,Gdx.graphics.getHeight()/2-400,"waitButton",replaytxt.getWidth(),replaytxt.getHeight(),st,replaytxt,replaytxt);
-        //waitButton=new Sprite(replaytxt);
+
+        waitButton=new Buttons(Gdx.graphics.getWidth()/2.4f,Gdx.graphics.getHeight()/2-400,"circleTxt",replaytxt.getWidth(),replaytxt.getHeight(),st,replaytxt,replaytxt);
+        waitButton.btn.setTransform(true);
+        waitButton.btn.setOrigin(Align.center);
+        waitButton.btn.addAction(Actions.repeat(RepeatAction.FOREVER,
+                Actions.sequence(
+                        Actions.rotateTo(360),
+                        Actions.rotateTo(0,2.5f))));
     }
 
 
@@ -45,7 +56,8 @@ public class WaitingMenu extends ScreenAdapter {
         batch.begin();
         batch.draw(backtxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         batch.end();
-
+        //st.act();
+        waitButton.btn.act(delta);
         st.draw();
 
         ClientClass.sendPlayersWaitingBox(new PlayersWaitingBox());
