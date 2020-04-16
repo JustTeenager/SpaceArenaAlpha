@@ -4,10 +4,14 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+
+import static java.lang.StrictMath.abs;
 
 public class MainMenu implements Screen {
     private MainGame game;
@@ -23,15 +27,24 @@ public class MainMenu implements Screen {
     private InputProcessor inputProcessor;
     private Sound clickSound;
 
+    BitmapFont nameFont;
+
 
     public MainMenu(final MainGame game){
         this.game=game;
+
+        nameFont=new BitmapFont(Gdx.files.internal("liter.fnt"));
+        nameFont.getData().setScale(2.8f);
+        nameFont.setColor(new Color(0,0,0,0.55f));
+
+
         clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
         batch = new SpriteBatch();
         s=new Stage();
         backtxt=new Texture("menuBack.jpg");
         setupX=0;
-        panel=new Texture("Panel 2.png");
+        //panel=new Texture("Panel 2.png");
+        panel=new Texture("Panel 3.png");
         buttTexts= new String[] {"Start Game", "Settings"};
         inputProcessor=new InputProcessor() {
             @Override
@@ -51,13 +64,8 @@ public class MainMenu implements Screen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                if ((screenY>butt[0].btn.getY()&&screenY<butt[0].btn.getY()+butt[0].btn.getHeight())
+                if ((abs(Gdx.graphics.getHeight()-screenY)>butt[0].btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<butt[0].btn.getY()+butt[0].btn.getHeight())
                         && (screenX>butt[0].btn.getX()&&screenX<butt[0].btn.getX()+butt[0].btn.getWidth())){
-                    clickSound.play(MainGame.volume);
-                    game.setScreen(new SettingsMenu(game));
-                }
-                else if ((screenY>butt[1].btn.getY()&&screenY<butt[1].btn.getY()+butt[1].btn.getHeight()
-                        && (screenX>butt[1].btn.getX()&&screenX<butt[1].btn.getX()+butt[1].btn.getWidth()))){
                     clickSound.play(MainGame.volume);
                     try {
                         if (!ClientClass.isClientStarted) {
@@ -68,6 +76,11 @@ public class MainMenu implements Screen {
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
+                }
+                else if ((abs(Gdx.graphics.getHeight()-screenY)>butt[1].btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<butt[1].btn.getY()+butt[1].btn.getHeight()
+                        && (screenX>butt[1].btn.getX()&&screenX<butt[1].btn.getX()+butt[1].btn.getWidth()))){
+                    clickSound.play(MainGame.volume);
+                    game.setScreen(new SettingsMenu(game));
                 }
                 return true;
             }
@@ -98,8 +111,8 @@ public class MainMenu implements Screen {
             if (i!=0 && (buttTexts[i].toCharArray().length<buttTexts[i-1].toCharArray().length)){
                 setupX=buttTexts[i-1].toCharArray().length-buttTexts[i].toCharArray().length;
             }
-            butt[i]=new Buttons(Gdx.graphics.getWidth()/2+Gdx.graphics.getWidth()/150*setupX-50,panel.getHeight()+250-i*100,
-                    "button_"+i,buttTexts[i],1f,s);
+            butt[i]=new Buttons(Gdx.graphics.getWidth()/2+25*setupX-160,Gdx.graphics.getHeight()/4+200-i*MainGame.buttonDistanceFromEachOther,
+                    "button_"+i,buttTexts[i],1.7f,s);
             s.addActor(butt[i]);
             setupX=0;
         }
@@ -116,8 +129,10 @@ public class MainMenu implements Screen {
 
         batch.begin();
         batch.draw(backtxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
-        batch.draw(panel,Gdx.graphics.getWidth()/2-115,400,400,325);
+        batch.draw(panel,Gdx.graphics.getWidth()/2-330,180,760,750);
+        nameFont.draw(batch,"Space Arena",Gdx.graphics.getWidth()/2-240,Gdx.graphics.getHeight()-310);
         batch.end();
+
 
         s.act(delta);
         s.draw();

@@ -14,7 +14,9 @@ public class MainGame extends Game {
     static int playersNum;
     static int playerIdentify;
     static float volume=1;
-    //static Sound clickSound= Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
+
+    static int buttonDistancefromPanel=75;
+    static int buttonDistanceFromEachOther=140;
 
     public static final String[] Aim_4 = {
             "Aim 4(1).png", "Aim 4(2).png",

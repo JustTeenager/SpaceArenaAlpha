@@ -45,8 +45,7 @@ public abstract class ActorObj extends Group {
     {
         setPosition( x - getWidth()/2 , y - getHeight()/2 );
     }
-    public void positionGun(ActorObj other)
-    {
+    public void positionGun(ActorObj other) {
             if (other instanceof Player && ((Player) other).flip)
                 centerAtPosition(other.getX() - other.getWidth() / 2 + 20, other.getY() + other.getHeight() / 2 -5);
             else

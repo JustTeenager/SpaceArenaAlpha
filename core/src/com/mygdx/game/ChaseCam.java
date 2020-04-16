@@ -17,4 +17,3 @@ public class ChaseCam {
         camera.position.y = player.position.y+200;
     }
 }
-

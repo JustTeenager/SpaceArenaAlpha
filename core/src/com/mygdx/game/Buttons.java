@@ -44,7 +44,7 @@ public class Buttons extends Actor {
 
         btn=new TextButton(text,style);
         btn.setName(name);
-        btn.setSize(gl.width+75,gl.height+75);
+        btn.setSize(gl.width+MainGame.buttonDistancefromPanel,gl.height+MainGame.buttonDistancefromPanel);
         btn.setX(x);
         btn.setY(y);
         s.addActor(this);
@@ -69,7 +69,7 @@ public class Buttons extends Actor {
         style.down=off;
         style.checked=on;
 
-        btn=new TextButton(" ",style);
+        btn=new TextButton("",style);
         btn.setName(name);
         btn.setSize(width,height);
         btn.setX(x);
