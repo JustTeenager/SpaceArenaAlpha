@@ -56,6 +56,11 @@ public class ClientClass extends Listener {
         //Проверяем какой отправляется пакет
         if (p instanceof PlayersWaitingBox){
             PlayersWaitingBox box=(PlayersWaitingBox) p;
+            if (box.count==3){
+                playerNUM=box.count;
+            }
+
+
             MainGame.playersNum=box.count;
         }
 

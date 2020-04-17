@@ -35,6 +35,9 @@ public class MainMenu implements Screen {
     public MainMenu(final MainGame game){
         this.game=game;
 
+        MainGame.playersNum=0;
+        MainGame.setPlayerIdentify(0);
+
         nameFont=new BitmapFont(Gdx.files.internal("liter.fnt"));
         nameFont.getData().setScale(2.8f);
         nameFont.setColor(new Color(0,0,0,0.55f));

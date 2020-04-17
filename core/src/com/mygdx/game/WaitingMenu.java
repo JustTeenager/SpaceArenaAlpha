@@ -113,7 +113,7 @@ public class WaitingMenu extends ScreenAdapter {
         ClientClass.sendPlayersWaitingBox(new PlayersWaitingBox());
 
         if (MainGame.playersNum==2){
-            game.setScreen(new ArenaGame());
+            game.setScreen(new ArenaGame(game));
         }
     }
 

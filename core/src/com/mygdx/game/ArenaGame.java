@@ -13,6 +13,7 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import java.util.ArrayList;
 
 public class ArenaGame extends ScreenAdapter {
+	MainGame game;
 
 	private Texture backTxt;
 	Music gameMusic;
@@ -52,7 +53,9 @@ public class ArenaGame extends ScreenAdapter {
 	private Texture jumpbtn;
 
 	private CoordBox coordBox;
-	public ArenaGame () {
+	public ArenaGame (final MainGame game) {
+		this.game=game;
+
 		CURRENT_PLAYER=new Player(0,50);
 		ENEMY=new Player(1000,50);
         shootings = new ArrayList<>();
@@ -207,6 +210,11 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
+		if (!ClientClass.isConnected() || ClientClass.playerNUM==3){
+			game.setScreen(new ConnectMenu(game));
+		}
+
+
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 		System.out.println(JoystickRight.shootTemp.getRotation());
