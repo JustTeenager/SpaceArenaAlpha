@@ -21,6 +21,7 @@ public class WaitingMenu extends ScreenAdapter {
     Buttons waitButton;
     Texture backtxt;
     Texture replaytxt;
+    Texture panel;
     InputProcessor inputProcessor;
     public WaitingMenu(final MainGame game){
         this.game=game;
@@ -28,12 +29,13 @@ public class WaitingMenu extends ScreenAdapter {
         st=new Stage();
 
         backtxt=new Texture("menuBack.jpg");
+        panel=new Texture("loadingPanel.png");
         replaytxt=new Texture("Replay Icon.png");
 
-        txtbutton=new Buttons(Gdx.graphics.getWidth()/2.4f,Gdx.graphics.getHeight()/2,
+        txtbutton=new Buttons(Gdx.graphics.getWidth()/2.3f+15,Gdx.graphics.getHeight()/2+90,
                 "waitingTXT","wait for players",1.15f,st);
 
-        waitButton=new Buttons(Gdx.graphics.getWidth()/2.4f+85,Gdx.graphics.getHeight()/2-400,"circleTxt",replaytxt.getWidth(),replaytxt.getHeight(),st,replaytxt,replaytxt);
+        waitButton=new Buttons(Gdx.graphics.getWidth()/2.2f+60,Gdx.graphics.getHeight()/2-220,"circleTxt",replaytxt.getWidth(),replaytxt.getHeight(),st,replaytxt,replaytxt);
         waitButton.btn.setTransform(true);
         waitButton.btn.setOrigin(Align.center);
         waitButton.btn.addAction(Actions.repeat(RepeatAction.FOREVER,
@@ -98,6 +100,7 @@ public class WaitingMenu extends ScreenAdapter {
 
         batch.begin();
         batch.draw(backtxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        batch.draw(panel,Gdx.graphics.getWidth()/2.4f-50,Gdx.graphics.getHeight()/2-panel.getHeight()-50,600,700);
         batch.end();
         //st.act();
         waitButton.btn.act(delta);
