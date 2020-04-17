@@ -43,8 +43,7 @@ public class MainMenu implements Screen {
         s=new Stage();
         backtxt=new Texture("menuBack.jpg");
         setupX=0;
-        //panel=new Texture("Panel 2.png");
-        panel=new Texture("Panel 3.png");
+        panel=new Texture("mainPanel.png");
         buttTexts= new String[] {"Start Game", "Settings"};
         inputProcessor=new InputProcessor() {
             @Override
@@ -68,11 +67,8 @@ public class MainMenu implements Screen {
                         && (screenX>butt[0].btn.getX()&&screenX<butt[0].btn.getX()+butt[0].btn.getWidth())){
                     clickSound.play(MainGame.volume);
                     try {
-                        if (!ClientClass.isClientStarted) {
                             ClientClass.startClient();
                             game.setScreen(new WaitingMenu(game));
-                            ClientClass.isClientStarted=true;
-                        }
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
