@@ -3,7 +3,9 @@ package com.mygdx.game;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
@@ -17,15 +19,15 @@ import java.awt.Frame;
 
 import javax.xml.soap.Text;
 
-public class SettingsDialog {
+public class SettingsDialog extends Actor {
     Window window;
     Texture backTxt;
+    Texture line;
     private BitmapFont font;
-
-
 
     public SettingsDialog(int size, Stage st){
         backTxt=new Texture("settingsPanel.png");
+        line=new Texture("Shield Bar.png");
         font=new BitmapFont(Gdx.files.internal("liter.fnt"));
         font.getData().setScale(size);
         Drawable drawable=new Image(backTxt).getDrawable();
@@ -34,10 +36,16 @@ public class SettingsDialog {
         window.padTop(64);
         window.setPosition(st.getWidth()/2-window.getWidth()/2,st.getHeight()/2-window.getHeight()/2);
         window.setVisible(false);
-        st.addActor(window);
+        st.addActor(this);
     }
 
     public void addButton(Button button){
         this.window.add(button);
+    }
+
+    @Override
+    public void draw(Batch batch, float parentAlpha) {
+        //batch.draw();
+        window.draw(batch, parentAlpha);
     }
 }
