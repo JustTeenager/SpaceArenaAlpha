@@ -5,8 +5,10 @@ import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.audio.Sound;
+import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -20,11 +22,13 @@ public class SettingsMenu implements Screen {
     Texture volumeTxt;
     Texture volumeScale;
     Texture soundTxt;
+    Texture panel;
     Buttons volumeButton;
     Buttons backButton;
     Stage st;
     InputProcessor inputProcessor;
     Sound clickSound;
+    BitmapFont nameFont;
     static float distance;
     static float distanceGeneral;
     int xScale;
@@ -38,18 +42,23 @@ public class SettingsMenu implements Screen {
         batch=new SpriteBatch();
         st=new Stage();
 
+        nameFont=new BitmapFont(Gdx.files.internal("liter.fnt"));
+        nameFont.getData().setScale(2.7f);
+        nameFont.setColor(new Color(0,0,0,0.55f));
+
         backTxt=new Texture("menuBack.jpg");
         volumeTxt=new Texture("ButtonVol.png");
         volumeScale=new Texture("Shield Bar.png");
         soundTxt=new Texture("Sound Icon.png");
+        panel=new Texture("settingsPanel.png");
 
         xScale=Gdx.graphics.getWidth()/3;
-        yScale=Gdx.graphics.getHeight()/2;
+        yScale=Gdx.graphics.getHeight()-465;
 
         volumeButton=new Buttons(xScale+volumeScale.getWidth()-volumeTxt.getWidth(),yScale-volumeTxt.getHeight()/4,
                 "volButt",volumeTxt.getWidth(),volumeTxt.getHeight(),st,volumeTxt,volumeTxt);
 
-        backButton=new Buttons(Gdx.graphics.getWidth()/2,yScale/3,"backButt","Back",2f,st);
+        backButton=new Buttons(Gdx.graphics.getWidth()/2-120,yScale/3,"backButt","Back",2f,st);
 
         distanceGeneral=volumeScale.getWidth();
         distance=distanceGeneral;
@@ -87,7 +96,7 @@ public class SettingsMenu implements Screen {
 
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
-            if (screenY>=yScale-volumeTxt.getHeight()/2 && screenY<=yScale+volumeScale.getHeight()+volumeTxt.getHeight()/2) {
+            if (abs(Gdx.graphics.getHeight()-screenY)>=volumeButton.btn.getY() && abs(Gdx.graphics.getHeight()-screenY)<=volumeButton.btn.getY()+volumeButton.btn.getHeight()) {
                 Vector2 previous = new Vector2(volumeButton.btn.getX(), volumeButton.btn.getY());
                 volumeButton.btn.setX(screenX);
                 if (volumeButton.btn.getX() <= xScale || volumeButton.btn.getX() >= (xScale + volumeScale.getWidth() - volumeTxt.getWidth()))
@@ -131,6 +140,8 @@ public class SettingsMenu implements Screen {
 
         batch.begin();
         batch.draw(backTxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        batch.draw(panel,350,100);
+        nameFont.draw(batch,"Game Settings",Gdx.graphics.getWidth()/2-340,Gdx.graphics.getHeight()-180);
         batch.draw(volumeScale,xScale,yScale);
         batch.draw(soundTxt,xScale-soundTxt.getWidth()+15,yScale-soundTxt.getHeight()/4-15);
         batch.end();
