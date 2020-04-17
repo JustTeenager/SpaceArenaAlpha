@@ -41,6 +41,11 @@ public class ArenaGame extends ScreenAdapter {
 	public static Platform[] plat;
 	private Texture txtplat;
 	private Texture txtplatFloor;
+	private Texture txtplatLeftWall;
+	private Texture txtplatRightWall;
+	private Texture txtplatRoof;
+	private Texture txtplatCornerLeft;
+	private Texture txtplatCornerRight;
 
 	private GameHUD hud;
 	private Stage hudStage;
@@ -163,10 +168,27 @@ public class ArenaGame extends ScreenAdapter {
 
 		txtplat=new Texture("SciFiPlatformset.png");
 		txtplatFloor=new Texture("SciFiPlatformsetFloor.png");
-		plat= new Platform[]{new Platform(150, 150,txtplat, playerStage),new Platform(550, 200,txtplat, playerStage),
+		txtplatLeftWall=new Texture("LeftWall.png");
+		txtplatRightWall=new Texture("RightWall.png");
+		txtplatRoof=new Texture("Roof.png");
+		txtplatCornerLeft=new Texture("SciFiPlatformset-5.png");
+		txtplatCornerRight=new Texture("SciFiPlatformset-4.png");
+		plat= new Platform[]{
 				new Platform(-850,-25,txtplatFloor,playerStage),new Platform(-640,-25,txtplatFloor,playerStage),new Platform(-430,-25,txtplatFloor,playerStage),
 				new Platform(-220,-25,txtplatFloor,playerStage),new Platform(-10,-25,txtplatFloor,playerStage), new Platform(200,-25,txtplatFloor,playerStage),
-				new Platform(410,-25,txtplatFloor,playerStage),new Platform(620,-25,txtplatFloor,playerStage),new Platform(830,-25,txtplatFloor,playerStage)
+				new Platform(410,-25,txtplatFloor,playerStage),new Platform(620,-25,txtplatFloor,playerStage),new Platform(830,-25,txtplatFloor,playerStage),
+				new Platform(1040,-25,txtplatCornerRight,playerStage), new Platform(-935,-43,txtplatCornerLeft,playerStage),
+				new Platform(1030,-43,txtplatRightWall,playerStage),new Platform(-915,-43,txtplatLeftWall,playerStage),
+				new Platform(1030,-43+210,txtplatRightWall,playerStage),new Platform(-915,-43+210,txtplatLeftWall,playerStage),
+				new Platform(1030,-43+210+210,txtplatRightWall,playerStage),new Platform(-915,-43+210+210,txtplatLeftWall,playerStage),
+				new Platform(1030,-43+210+210+210,txtplatRightWall,playerStage),new Platform(-915,-43+210+210+210,txtplatLeftWall,playerStage),
+				new Platform(1040,-25+210+210+210+250,txtplatCornerRight,playerStage), new Platform(-935,-43+210+210+210+250,txtplatCornerLeft,playerStage),
+				new Platform(-850,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-640,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-430,-25+210+210+210+250,txtplatFloor,playerStage),
+				new Platform(-220,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-10,-25+210+210+210+250,txtplatFloor,playerStage), new Platform(200,-25+210+210+210+250,txtplatFloor,playerStage),
+				new Platform(410,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(620,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(830,-25+210+210+210+250,txtplatFloor,playerStage),
+				new Platform(150, 150,txtplat, playerStage),new Platform(550, 250,txtplat, playerStage),new Platform(830, 330,txtplat, playerStage),
+				new Platform(-200, 200,txtplat, playerStage),new Platform(-870, 430,txtplat, playerStage),new Platform(-500, 300,txtplat, playerStage),
+				new Platform(-750, 150,txtplat, playerStage)
 		};
 
 		inputMultiplexer = new InputMultiplexer();

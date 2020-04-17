@@ -247,11 +247,15 @@ public class Player extends ActorObj {
                 velocityY.y = -10;
             }
         }
-        else if (x && y) {
+        else if (x && y) {// чтобы сбоку не входил в платформу
             if (jumpState!=JumpState.GROUNDED) {
                 position.x = lastFrame.x;
                 setX(position.x);
             }
+        }
+        else if(position.x>1000 || position.x<-810){// чтобы он за границу с краёв не выходил
+            position.x=lastFrame.x;
+            setX(position.x);
         }
         rectangle.setPosition(getX(), getY());
     }

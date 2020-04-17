@@ -111,7 +111,7 @@ public class Shooting extends ActorObj {
         float y = getY() + direction.y * velocity * Gdx.graphics.getDeltaTime();
         setY(y);
         rectangle.setPosition(x,y);
-        isOut = x > 3420 || x < -1500 || y > 3580 || y < -1500;//надо будет поставить размры нашего экрана
+        isOut = x > 1050 || x < -850 || y > 1000 || y < -20;//надо будет поставить размры нашего экрана
     }
 
     public static void addEnemyShootingArray(CoordBox coordBox){
