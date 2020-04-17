@@ -137,5 +137,9 @@ public class ClientClass extends Listener {
         MainGame.setPlayerIdentify(playerNUM);
         System.out.println(MainGame.getPlayerIdentify() + " IS IDENTY FROM THE CLIENT");
     }
+
+    public static boolean isConnected(){
+        return client.isConnected();
+    }
 }
 

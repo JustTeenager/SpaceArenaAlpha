@@ -16,14 +16,16 @@ import static java.lang.StrictMath.abs;
 public class MainMenu implements Screen {
     private MainGame game;
 
-    private Texture backtxt;
-
     SpriteBatch batch;
     private Stage s;
+
+    private Texture backtxt;
     private Texture panel;
+
     private Buttons[] butt;
     private String[] buttTexts;
     private float setupX;
+
     private InputProcessor inputProcessor;
     private Sound clickSound;
 
@@ -71,6 +73,8 @@ public class MainMenu implements Screen {
                             game.setScreen(new WaitingMenu(game));
                     } catch (Exception e) {
                         e.printStackTrace();
+                        game.setScreen(new ConnectMenu(game));
+
                     }
                 }
                 else if ((abs(Gdx.graphics.getHeight()-screenY)>butt[1].btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<butt[1].btn.getY()+butt[1].btn.getHeight()
