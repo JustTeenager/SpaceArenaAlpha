@@ -12,6 +12,8 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+import sun.applet.Main;
+
 import static java.lang.StrictMath.abs;
 
 public class SettingsMenu implements Screen {
@@ -60,7 +62,14 @@ public class SettingsMenu implements Screen {
         backButton=new Buttons(Gdx.graphics.getWidth()/2-120,yScale/3,"backButt","Back",2f,st);
 
         distanceGeneral=volumeScale.getWidth();
-        distance=distanceGeneral;
+        distance=MainGame.volume*distanceGeneral;
+
+        float prevVolumePosition;
+        if (MainGame.volButtonX!=-1){
+            prevVolumePosition=MainGame.volButtonX;
+            volumeButton.btn.setX(prevVolumePosition);
+            System.out.println("changed");
+        }
 
         inputProcessor=new InputProcessor() {
             @Override
@@ -98,16 +107,21 @@ public class SettingsMenu implements Screen {
             if (abs(Gdx.graphics.getHeight()-screenY)>=volumeButton.btn.getY() && abs(Gdx.graphics.getHeight()-screenY)<=volumeButton.btn.getY()+volumeButton.btn.getHeight()) {
                 Vector2 previous = new Vector2(volumeButton.btn.getX(), volumeButton.btn.getY());
                 volumeButton.btn.setX(screenX);
+                //MainGame.volButtonX=volumeButton.btn.getX();
                 if (volumeButton.btn.getX() <= xScale || volumeButton.btn.getX() >= (xScale + volumeScale.getWidth() - volumeTxt.getWidth()))
                     volumeButton.btn.setPosition(previous.x, previous.y);
 
-                if (screenX >= xScale && screenX <= xScale + volumeScale.getWidth())
+                if (screenX >= xScale && screenX <= xScale + volumeScale.getWidth()) {
                     distance = screenX - xScale;
+                    MainGame.volButtonX = volumeButton.btn.getX();
+                }
                 if (screenX <= xScale) {
                     distance = 0;
+                    MainGame.volButtonX=xScale;
                 }
                 if (screenX >= xScale + volumeScale.getWidth() - volumeTxt.getWidth()) {
                     distance = distanceGeneral;
+                    MainGame.volButtonX=xScale +volumeScale.getWidth() - volumeTxt.getWidth();
                 }
             }
                 return false;

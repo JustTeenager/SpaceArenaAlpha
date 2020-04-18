@@ -41,7 +41,7 @@ public class SettingsDialog extends Actor {
         soundTxt=new Texture("Sound Icon.png");
 
         distanceGeneral=volumeScale.getWidth();
-        distance=distanceGeneral;
+        distance=MainGame.volume*distanceGeneral;
 
         font=new BitmapFont(Gdx.files.internal("liter.fnt"));
         font.getData().setScale(size);

@@ -15,6 +15,7 @@ public class MainGame extends Game {
     static int playersNum;
     static int playerIdentify;
     static float volume=1;
+    static float volButtonX=-1;
 
     static int buttonDistancefromPanel=75;
     static int buttonDistanceFromEachOther=140;

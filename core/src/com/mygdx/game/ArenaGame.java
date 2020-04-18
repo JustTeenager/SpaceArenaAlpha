@@ -211,7 +211,7 @@ public class ArenaGame extends ScreenAdapter {
 		playerStage.addActor(ENEMY);
 
 		timer = new Timer();
-		timer.schedule(new TimerPlay(), 0, 5000);
+		timer.schedule(new TimerPlay(), 0, 1000);
 
 	}
 
