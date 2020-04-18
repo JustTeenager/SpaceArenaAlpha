@@ -11,6 +11,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import java.util.ArrayList;
+import java.util.Timer;
 
 public class ArenaGame extends ScreenAdapter {
 	MainGame game;
@@ -54,6 +55,9 @@ public class ArenaGame extends ScreenAdapter {
 	private Texture settingsbtn;
 
 	private CoordBox coordBox;
+
+
+	private Timer timer;
 	public ArenaGame (final MainGame game) {
 		this.game=game;
 
@@ -205,6 +209,10 @@ public class ArenaGame extends ScreenAdapter {
 		hud.setSettings(2.7f);
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
+
+		timer = new Timer();
+		timer.schedule(new TimerPlay(), 0, 5000);
+
 	}
 
 
