@@ -6,6 +6,7 @@ import com.badlogic.gdx.audio.Sound;
 
 public class MainGame extends Game {
     static final float GRAVITY=300;
+    //gravity=425
     static final int WORLD_SIZE_X=1020;
     static final int WORLD_SIZE_Y=800;
     static final float VELOCITY_BULLETS=1000;

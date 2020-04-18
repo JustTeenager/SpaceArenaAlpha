@@ -18,8 +18,10 @@ public class Player extends ActorObj {
     private Texture txt;
     private Vector2 velocityY;
     private float dt=0;
-    private float velocity=150;
+    private float velocity=250;
+    //velocity =300
     private float JUMP=350;
+    //jump=430
     private int ID;
     private int animationNum;
     public boolean flip=false;
