@@ -76,7 +76,6 @@ public class JoystickRight extends BaseJoystick {
         }
     }
     public void changeCur(float x, float y){// функция , которая не даёт курсору выйти за границы большого круга
-        if (JoystickLeft.CheckAngleLeft==CheckAngleRight){
         float dx = x - rad-1550;
         float dy =720-(y - rad);
         float length = (float) Math.sqrt(dx*dx+dy*dy);
@@ -92,7 +91,6 @@ public class JoystickRight extends BaseJoystick {
 
         direction.x = curX/length;
         direction.y = curY/length;
-        }
     }
     public void setAngle(){//функция которая определяет на какой угол отклонён курсор
         angleRight = Math.atan(curY/curX)*180/Math.PI;
