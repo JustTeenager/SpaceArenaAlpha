@@ -51,6 +51,7 @@ public class ArenaGame extends ScreenAdapter {
 	private GameHUD hud;
 	private Stage hudStage;
 	private Texture jumpbtn;
+	private Texture settingsbtn;
 
 	private CoordBox coordBox;
 	public ArenaGame (final MainGame game) {
@@ -198,7 +199,10 @@ public class ArenaGame extends ScreenAdapter {
 
 		hud=new GameHUD(hudStage,viewport,CURRENT_PLAYER);
 		jumpbtn=new Texture("circle.png");
+		settingsbtn=new Texture("Options Icon.png");
 		hud.setjumpButton(1700,450,"jumpbutton",100,100,jumpbtn);
+		hud.setSettingsButton(1700,850,"settingsbutton",112,112,settingsbtn);
+		hud.setSettings(hudStage.getWidth()/2,hudStage.getHeight()/2,2f);
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
 	}
@@ -217,7 +221,6 @@ public class ArenaGame extends ScreenAdapter {
 
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-		System.out.println(JoystickRight.shootTemp.getRotation());
 
 		inputMultiplexer.addProcessor(joystickLeft);
 		inputMultiplexer.addProcessor(joystickRight);
