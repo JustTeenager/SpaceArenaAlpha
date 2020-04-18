@@ -28,8 +28,8 @@ public class SettingsMenu implements Screen {
     InputProcessor inputProcessor;
     Sound clickSound;
     BitmapFont nameFont;
-    static float distance;
-    static float distanceGeneral;
+    private float distance;
+    private float distanceGeneral;
     int xScale;
     int yScale;
 

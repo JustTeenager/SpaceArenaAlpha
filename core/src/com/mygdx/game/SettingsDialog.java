@@ -7,51 +7,71 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
-import com.badlogic.gdx.scenes.scene2d.ui.Skin;
-import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
-import java.awt.Dialog;
-import java.awt.Frame;
-
-import javax.xml.soap.Text;
-
+import java.util.ArrayList;
 public class SettingsDialog extends Actor {
+
+    private float distance;
+    private float distanceGeneral;
     Window window;
     Texture backTxt;
+    Texture soundTxt;
 
-    Texture line;
+    private ArrayList<Buttons> bArray;
+
+    Texture volumeScale;
+    Texture volumeTxt;
     private BitmapFont font;
     private Stage st;
+    int xScale;
+    int yScale;
 
-    public SettingsDialog(float x, float y, float size, Stage st){
+    public SettingsDialog(float size, Stage st){
         this.st=st;
+        xScale=Gdx.graphics.getWidth()/3;
+        yScale=Gdx.graphics.getHeight()-465;
+        bArray=new ArrayList<>();
+
         backTxt=new Texture("settingsPanel.png");
-        line=new Texture("Shield Bar.png");
+        volumeTxt=new Texture("ButtonVol.png");
+        volumeScale=new Texture("Shield Bar.png");
+        soundTxt=new Texture("Sound Icon.png");
+
+        distanceGeneral=volumeScale.getWidth();
+        distance=distanceGeneral;
+
         font=new BitmapFont(Gdx.files.internal("liter.fnt"));
         font.getData().setScale(size);
         Drawable drawable=new Image(backTxt).getDrawable();
         Window.WindowStyle windowstyle=new Window.WindowStyle(font,new Color(0,0,0,0.55f),drawable);
-        window=new Window("Settings",windowstyle);
-        window.padTop(64);
-        window.setSize(600,400);
-        window.setPosition(x,y);
-        //window.setVisible(false);
+        window=new Window("Game Settings",windowstyle);
+        window.padTop(150);
+        window.padLeft(325);
+        window.setSize(backTxt.getWidth(),backTxt.getHeight());
+        window.setPosition(350,100);
         this.setVisible(false);
         st.addActor(this);
     }
 
     public void addButton(Buttons button){
+        button.setVisible(false);
+        bArray.add(button);
         this.window.add(button);
     }
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
         window.draw(batch, parentAlpha);
-        //batch.draw(line,st.getWidth()/2-window.getWidth()/2,st.getHeight()/2-window.getHeight()/2);
+        if (MainGame.isSettingsDialogOpened) {
+            batch.draw(volumeScale,xScale,yScale);
+            batch.draw(soundTxt,xScale-soundTxt.getWidth()+15,yScale-soundTxt.getHeight()/4-15);
+        }
+    }
+    public ArrayList<Buttons> getbArray() {
+        return bArray;
     }
 
     public Window getWindow() {
@@ -63,7 +83,7 @@ public class SettingsDialog extends Actor {
     }
 
     public Texture getLine() {
-        return line;
+        return volumeScale;
     }
 
     public BitmapFont getFont() {
@@ -72,5 +92,21 @@ public class SettingsDialog extends Actor {
 
     public Stage getSt() {
         return st;
+    }
+
+    public float getDistance() {
+        return distance;
+    }
+
+    public void setDistance(float distance) {
+        this.distance = distance;
+    }
+
+    public float getDistanceGeneral() {
+        return distanceGeneral;
+    }
+
+    public void setDistanceGeneral(float distanceGeneral) {
+        this.distanceGeneral = distanceGeneral;
     }
 }

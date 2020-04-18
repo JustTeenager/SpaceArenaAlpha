@@ -16,7 +16,7 @@ public class ArenaGame extends ScreenAdapter {
 	MainGame game;
 
 	private Texture backTxt;
-	Music gameMusic;
+	public static Music gameMusic;
 
 	private InputMultiplexer inputMultiplexer;
 	private SpriteBatch batch;
@@ -202,7 +202,7 @@ public class ArenaGame extends ScreenAdapter {
 		settingsbtn=new Texture("Options Icon.png");
 		hud.setjumpButton(1700,450,"jumpbutton",100,100,jumpbtn);
 		hud.setSettingsButton(1700,850,"settingsbutton",112,112,settingsbtn);
-		hud.setSettings(hudStage.getWidth()/2,hudStage.getHeight()/2,2f);
+		hud.setSettings(2.7f);
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
 	}

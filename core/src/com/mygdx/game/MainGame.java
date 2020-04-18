@@ -11,6 +11,7 @@ public class MainGame extends Game {
     static final float VELOCITY_BULLETS=1000;
     static boolean isShooted=false;
     static boolean jumped=false;
+    static boolean isSettingsDialogOpened=false;
     static int playersNum;
     static int playerIdentify;
     static float volume=1;
