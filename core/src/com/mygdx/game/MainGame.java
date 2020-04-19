@@ -21,6 +21,8 @@ public class MainGame extends Game {
     static int buttonDistancefromPanel=75;
     static int buttonDistanceFromEachOther=140;
 
+    static String time="-1";
+
     public static final String[] Aim_4 = {
             "Aim 4(1).png", "Aim 4(2).png",
             "Aim 4(3).png", "Aim 4(4).png",

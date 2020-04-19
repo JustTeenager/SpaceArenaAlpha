@@ -56,7 +56,7 @@ public class ClientClass extends Listener {
         //Проверяем какой отправляется пакет
         if (p instanceof PlayersWaitingBox){
             PlayersWaitingBox box=(PlayersWaitingBox) p;
-            if (box.count==3){
+            if (box.count==-1){
                 playerNUM=box.count;
             }
 
@@ -145,6 +145,9 @@ public class ClientClass extends Listener {
 
     public static boolean isConnected(){
         return client.isConnected();
+    }
+    public static void close(){
+        client.close();
     }
 }
 

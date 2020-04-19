@@ -56,8 +56,8 @@ public class ArenaGame extends ScreenAdapter {
 
 	private CoordBox coordBox;
 
+	//private Timer timer;
 
-	private Timer timer;
 	public ArenaGame (final MainGame game) {
 		this.game=game;
 
@@ -207,11 +207,9 @@ public class ArenaGame extends ScreenAdapter {
 		hud.setjumpButton(1700,450,"jumpbutton",100,100,jumpbtn);
 		hud.setSettingsButton(1700,850,"settingsbutton",160,160,settingsbtn);
 		hud.setSettings(2.7f);
+		hud.setTimePanel();
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
-
-		timer = new Timer();
-		timer.schedule(new TimerPlay(), 0, 1000);
 
 	}
 
@@ -222,8 +220,9 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
-		if (!ClientClass.isConnected() || ClientClass.playerNUM==3){
+		if (!ClientClass.isConnected() || ClientClass.playerNUM==-1){
 			game.setScreen(new ConnectMenu(game));
+			ClientClass.close();
 		}
 
 
@@ -276,6 +275,9 @@ public class ArenaGame extends ScreenAdapter {
 		batch.draw(backTxt,0,0,2320,1080);//2020?
 		batch.end();
 		playerStage.draw();
+		batch.begin();
+		hud.drawTimer(delta,batch);
+		batch.end();
 		hudStage.draw();
 	}
 
@@ -314,5 +316,8 @@ public class ArenaGame extends ScreenAdapter {
 
 		hudStage.dispose();
 		jumpbtn.dispose();
+		try {
+			hud.getTimer().cancel();
+		}catch (Exception e){}
 	}
 }
