@@ -195,8 +195,7 @@ public class ArenaGame extends ScreenAdapter {
 				new Platform(-220,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-10,-25+210+210+210+250,txtplatFloor,playerStage), new Platform(200,-25+210+210+210+250,txtplatFloor,playerStage),
 				new Platform(410,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(620,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(830,-25+210+210+210+250,txtplatFloor,playerStage),
 				new Platform(150, 150,txtplat, playerStage),new Platform(550, 250,txtplat, playerStage),new Platform(830, 330,txtplat, playerStage),
-				new Platform(-200, 200,txtplat, playerStage),new Platform(-870, 430,txtplat, playerStage),new Platform(-500, 300,txtplat, playerStage),
-				new Platform(-750, 150,txtplat, playerStage)
+				new Platform(-200, 200,txtplat, playerStage),new Platform(-870, 430,txtplat, playerStage),new Platform(-500, 300,txtplat, playerStage)
 		};
 
 		inputMultiplexer = new InputMultiplexer();

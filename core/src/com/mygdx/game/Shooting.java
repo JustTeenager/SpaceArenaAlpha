@@ -74,7 +74,7 @@ public class Shooting extends ActorObj {
         if (player.hp>0) {
             if (this.rectangle.overlaps(player.rectangle)) {
                 this.setVisible(false);
-                player.hp -= 1;
+                player.hp -= 5;
 
             }
         }
