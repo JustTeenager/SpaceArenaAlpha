@@ -7,13 +7,14 @@ public class CoordBox {
 
     private int playerIdentify;
     boolean flipped;
-     Vector2 BpositionPlayer;
-     int BplayerAnimNumber;
-     Rectangle BrectanglePlayer;
-     int Bhp;
-     Vector2 BbulletsPosition;
-     Rectangle BrectangleShoot;
-     Double Bangles;
+    String BplayerName;
+    Vector2 BpositionPlayer;
+    int BplayerAnimNumber;
+    Rectangle BrectanglePlayer;
+    int Bhp;
+    Vector2 BbulletsPosition;
+    Rectangle BrectangleShoot;
+    Double Bangles;
 
     CoordBox(int playerIdentify, Vector2 positionPlayer ,int playerAnimNumber ,boolean flipped, Rectangle rectanglePlayer, int hp,
              Vector2 bulletsPosition,Double angle,Rectangle rectangleShoot){
@@ -29,8 +30,9 @@ public class CoordBox {
         BrectangleShoot = rectangleShoot;
     }
 
-    CoordBox(int playerIdentify){
+    CoordBox(int playerIdentify,String name){
         this.playerIdentify=playerIdentify;
+        this.BplayerName=name;
     }
 
     CoordBox(int playerIdentify, Vector2 positionPlayer ,int playerAnimNumber ,boolean flipped, Rectangle rectanglePlayer, int hp){

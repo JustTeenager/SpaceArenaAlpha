@@ -64,7 +64,7 @@ public class SettingsMenu implements Screen {
                 "volButt",volumeTxt.getWidth(),volumeTxt.getHeight(),st,volumeTxt,volumeTxt);
 
         backButton=new Buttons(Gdx.graphics.getWidth()/2-120,yScale/3,"backButt","Back",2f,st);
-        setNameButton=new Buttons(Gdx.graphics.getWidth()/2-200,yScale/3+180,"namebutt","Set Name",2f,st);
+        setNameButton=new Buttons(Gdx.graphics.getWidth()/2-200,yScale/3+180,"nameButt","Set Name",2f,st);
 
         distanceGeneral=volumeScale.getWidth();
         distance=MainGame.volume*distanceGeneral;
@@ -97,7 +97,7 @@ public class SettingsMenu implements Screen {
                         && (screenX>setNameButton.btn.getX()&&screenX<setNameButton.btn.getX()+setNameButton.btn.getWidth())){
                     clickSound.play(MainGame.volume);
                     NameInput input = new NameInput();
-                    Gdx.input.getTextInput(input, "Enter your name", MainGame.playerName, "Your name");
+                    Gdx.input.getTextInput(input, "Enter your name", MainGame.current_player_name, "Your name");
                 }
 
                 if ((abs(Gdx.graphics.getHeight()-screenY)>backButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<backButton.btn.getY()+backButton.btn.getHeight())

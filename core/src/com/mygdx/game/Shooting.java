@@ -80,6 +80,8 @@ public class Shooting extends ActorObj {
         }
         if (player.hp<=0 && !player.killed) {
             player.killed=true;
+            if (CURRENT_PLAYER.hp==0) MainGame.enemy_score++;
+            if (ENEMY.hp==0) MainGame.current_player_score++;
             if (player.getID()==0) {
                 player.useAnim(0.1f,false,player.getTextureArray_dead_player_2());
                 player.setAnimationNum(14);

@@ -66,7 +66,7 @@ public class ArenaGame extends ScreenAdapter {
         shootings = new ArrayList<>();
         shootingsEnemy = new ArrayList<>();
 		try {
-			ClientClass.sendBox(new CoordBox(0));
+			ClientClass.sendBox(new CoordBox(0,MainGame.current_player_name));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -209,6 +209,7 @@ public class ArenaGame extends ScreenAdapter {
 		hud.setSettings(2.7f);
 		hud.setTimePanel();
 		hud.setHpPanel();
+		hud.setFinalDialog();
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
 

@@ -11,21 +11,26 @@ public class MainGame extends Game {
     static final int WORLD_SIZE_Y=800;
     static final float VELOCITY_BULLETS=1000;
     static final float MAX_HP=100;
+    static final String GAME_OVER="Game Over";
     static boolean isShooted=false;
     static boolean jumped=false;
     static boolean isSettingsDialogOpened=false;
 
     static int playersNum;
     static int playerIdentify;
-    static String playerName="player";
+    static String current_player_name="player";
+    static String enemy_name;
 
     static float volume=1;
     static float volButtonX=-1;
 
     static int buttonDistancefromPanel=75;
     static int buttonDistanceFromEachOther=140;
+    static int current_player_score;
+    static int enemy_score;
 
     static String time="-1";
+    static int seconds=20;
 
 
     public static final String[] Aim_4 = {

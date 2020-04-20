@@ -53,7 +53,7 @@ public class SettingsDialog extends Actor {
         window.padLeft(325);
         window.setSize(backTxt.getWidth(),backTxt.getHeight());
         window.setPosition(350,100);
-        this.setVisible(false);
+        setVisible(false);
         st.addActor(this);
     }
 

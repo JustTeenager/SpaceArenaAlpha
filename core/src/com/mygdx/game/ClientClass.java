@@ -75,6 +75,7 @@ public class ClientClass extends Listener {
         if (p instanceof CoordBox){
             if (MainGame.getPlayerIdentify()==0) {
                 box = (CoordBox) p;
+                MainGame.enemy_name=box.BplayerName;
                 boxNumDeploy(box);
             }
             else {
