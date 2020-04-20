@@ -16,7 +16,6 @@ public class FinalDialog extends Actor {
     private Texture backTxt;
     private BitmapFont font;
     private Stage st;
-
     Buttons backButton;
     String winner;
 
@@ -42,7 +41,11 @@ public class FinalDialog extends Actor {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        if (MainGame.seconds==0){
+        setVisible(true);
+        try {
+            backButton.setVisible(true);
+        }catch (Exception e){}
+        if (MainGame.seconds<=0){
             window.draw(batch,parentAlpha);
             font.draw(batch,winner,st.getWidth()/2,st.getHeight()/2);
             font.draw(batch,MainGame.current_player_name+" score is: "+MainGame.current_player_score,st.getWidth()/2-150,st.getHeight()/2-150);
@@ -53,5 +56,6 @@ public class FinalDialog extends Actor {
     public void addButton(Buttons button){
         button.setVisible(false);
         this.window.add(button);
+        backButton=button;
     }
 }

@@ -32,6 +32,7 @@ public class ClientClass extends Listener {
         client.getKryo().register(com.badlogic.gdx.math.Vector2.class);
         client.getKryo().register(com.badlogic.gdx.math.Rectangle.class);
         client.getKryo().register(PlayersWaitingBox.class);
+        client.getKryo().register(PlayerNameBox.class);
         client.start();
 
         //Клиент подключается к серверу
@@ -48,12 +49,20 @@ public class ClientClass extends Listener {
     public static void sendBox(CoordBox box){
         client.sendTCP(box);
     }
+    public static void sendBox(PlayerNameBox box){
+        client.sendTCP(box);
+    }
     public static void sendPlayersWaitingBox(PlayersWaitingBox box){
         client.sendUDP(box);
     }
 
     public void received(Connection c, Object p){
         //Проверяем какой отправляется пакет
+
+        if (p instanceof PlayerNameBox){
+            PlayerNameBox box= (PlayerNameBox) p;
+        }
+
         if (p instanceof PlayersWaitingBox){
             PlayersWaitingBox box=(PlayersWaitingBox) p;
             if (box.count==-1){

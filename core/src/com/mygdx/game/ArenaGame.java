@@ -66,7 +66,8 @@ public class ArenaGame extends ScreenAdapter {
         shootings = new ArrayList<>();
         shootingsEnemy = new ArrayList<>();
 		try {
-			ClientClass.sendBox(new CoordBox(0,MainGame.current_player_name));
+			ClientClass.sendBox(new CoordBox(0));
+			ClientClass.sendBox(new PlayerNameBox(MainGame.current_player_name));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

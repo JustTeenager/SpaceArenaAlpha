@@ -30,9 +30,8 @@ public class CoordBox {
         BrectangleShoot = rectangleShoot;
     }
 
-    CoordBox(int playerIdentify,String name){
+    CoordBox(int playerIdentify){
         this.playerIdentify=playerIdentify;
-        this.BplayerName=name;
     }
 
     CoordBox(int playerIdentify, Vector2 positionPlayer ,int playerAnimNumber ,boolean flipped, Rectangle rectanglePlayer, int hp){
