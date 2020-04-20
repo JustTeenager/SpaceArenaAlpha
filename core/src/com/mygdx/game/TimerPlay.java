@@ -10,10 +10,13 @@ public class TimerPlay extends TimerTask {
 
     @Override
     public void run() {
-        MainGame.seconds--;
-        int minute = (MainGame.seconds % 3600) / 60;
-        int sec = MainGame.seconds % 60;
-        MainGame.time = String.format(Locale.getDefault(), "%2d:%02d", minute, sec);
-        System.out.println(MainGame.time);
+        if (MainGame.seconds>0) {
+            MainGame.seconds--;
+            int minute = (MainGame.seconds % 3600) / 60;
+            int sec = MainGame.seconds % 60;
+            MainGame.time = String.format(Locale.getDefault(), "%2d %02d", minute, sec);
+            //System.out.println(MainGame.time);
+            System.out.println(MainGame.seconds);
+        }
     }
 }

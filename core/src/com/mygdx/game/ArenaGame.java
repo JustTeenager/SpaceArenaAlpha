@@ -240,6 +240,7 @@ public class ArenaGame extends ScreenAdapter {
 		playerStage.act(delta);
 		joystickRight.checkCreateBullet();
 
+
 		for (int i=0;i<shootings.size();i++){
 			shootings.get(i).update();
 			shootings.get(i).collapse(ENEMY);
