@@ -13,7 +13,7 @@ public class TimerPlay extends TimerTask {
         seconds--;
         int minute = (seconds % 3600) / 60;
         int sec = seconds % 60;
-        MainGame.time = String.format(Locale.getDefault(), "%2d:%02d", minute, sec);
+        MainGame.time = String.format(Locale.getDefault(), "%2d %02d", minute, sec);
         System.out.println(MainGame.time);
     }
 }
