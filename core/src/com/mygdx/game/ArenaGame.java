@@ -208,6 +208,7 @@ public class ArenaGame extends ScreenAdapter {
 		hud.setSettingsButton(1700,850,"settingsbutton",160,160,settingsbtn);
 		hud.setSettings(2.7f);
 		hud.setTimePanel();
+		hud.setHpPanel();
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
 
@@ -277,6 +278,7 @@ public class ArenaGame extends ScreenAdapter {
 		playerStage.draw();
 		batch.begin();
 		hud.drawTimer(delta,batch);
+		hud.drawHpPanel(delta,batch);
 		batch.end();
 		hudStage.draw();
 	}

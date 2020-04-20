@@ -10,6 +10,7 @@ public class MainGame extends Game {
     static final int WORLD_SIZE_X=1020;
     static final int WORLD_SIZE_Y=800;
     static final float VELOCITY_BULLETS=1000;
+    static final float MAX_HP=100;
     static boolean isShooted=false;
     static boolean jumped=false;
     static boolean isSettingsDialogOpened=false;
@@ -22,6 +23,7 @@ public class MainGame extends Game {
     static int buttonDistanceFromEachOther=140;
 
     static String time="-1";
+
 
     public static final String[] Aim_4 = {
             "Aim 4(1).png", "Aim 4(2).png",
