@@ -14,8 +14,11 @@ public class MainGame extends Game {
     static boolean isShooted=false;
     static boolean jumped=false;
     static boolean isSettingsDialogOpened=false;
+
     static int playersNum;
     static int playerIdentify;
+    static String playerName="player";
+
     static float volume=1;
     static float volButtonX=-1;
 

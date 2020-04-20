@@ -18,15 +18,19 @@ import static java.lang.StrictMath.abs;
 
 public class SettingsMenu implements Screen {
     private MainGame game;
+    Stage st;
+
     SpriteBatch batch;
     Texture backTxt;
     Texture volumeTxt;
     Texture volumeScale;
     Texture soundTxt;
     Texture panel;
+
     Buttons volumeButton;
     Buttons backButton;
-    Stage st;
+    Buttons setNameButton;
+
     InputProcessor inputProcessor;
     Sound clickSound;
     BitmapFont nameFont;
@@ -60,6 +64,7 @@ public class SettingsMenu implements Screen {
                 "volButt",volumeTxt.getWidth(),volumeTxt.getHeight(),st,volumeTxt,volumeTxt);
 
         backButton=new Buttons(Gdx.graphics.getWidth()/2-120,yScale/3,"backButt","Back",2f,st);
+        setNameButton=new Buttons(Gdx.graphics.getWidth()/2-200,yScale/3+180,"namebutt","Set Name",2f,st);
 
         distanceGeneral=volumeScale.getWidth();
         distance=MainGame.volume*distanceGeneral;
@@ -88,6 +93,13 @@ public class SettingsMenu implements Screen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                if ((abs(Gdx.graphics.getHeight()-screenY)>setNameButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<setNameButton.btn.getY()+setNameButton.btn.getHeight())
+                        && (screenX>setNameButton.btn.getX()&&screenX<setNameButton.btn.getX()+setNameButton.btn.getWidth())){
+                    clickSound.play(MainGame.volume);
+                    NameInput input = new NameInput();
+                    Gdx.input.getTextInput(input, "Enter your name", MainGame.playerName, "Your name");
+                }
+
                 if ((abs(Gdx.graphics.getHeight()-screenY)>backButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<backButton.btn.getY()+backButton.btn.getHeight())
                         && (screenX>backButton.btn.getX()&&screenX<backButton.btn.getX()+backButton.btn.getWidth())){
                     MainGame.volume=distance/distanceGeneral;
