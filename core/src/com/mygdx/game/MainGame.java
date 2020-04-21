@@ -93,6 +93,6 @@ public class MainGame extends Game {
     }
 
     public static void setPlayerIdentify(int playerIdentify) {
-        MainGame.playerIdentify = playerIdentify;
+        MainGame.playerIdentify = playerIdentify;//
     }
 }
