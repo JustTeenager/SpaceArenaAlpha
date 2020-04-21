@@ -11,7 +11,7 @@ public class MainGame extends Game {
     static final int WORLD_SIZE_Y=800;
     static final float VELOCITY_BULLETS=1000;
     static final float MAX_HP=100;
-    static final String GAME_OVER="Game Over";
+    static final String GAME_OVER="Game Over!";
     static boolean isShooted=false;
     static boolean jumped=false;
     static boolean isSettingsDialogOpened=false;
@@ -26,8 +26,8 @@ public class MainGame extends Game {
 
     static int buttonDistancefromPanel=75;
     static int buttonDistanceFromEachOther=140;
-    static int current_player_score;
-    static int enemy_score;
+    static int current_player_score=0;
+    static int enemy_score=0;
 
     static String time="-1";
     static int seconds=20;

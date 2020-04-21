@@ -13,8 +13,11 @@ import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import java.util.ArrayList;
 import java.util.Timer;
 
+import sun.applet.Main;
+
 public class ArenaGame extends ScreenAdapter {
-	MainGame game;
+
+	private MainGame game;
 
 	private Texture backTxt;
 	public static Music gameMusic;
@@ -60,11 +63,7 @@ public class ArenaGame extends ScreenAdapter {
 
 	public ArenaGame (final MainGame game) {
 		this.game=game;
-
-		CURRENT_PLAYER=new Player(0,50);
-		ENEMY=new Player(1000,50);
-        shootings = new ArrayList<>();
-        shootingsEnemy = new ArrayList<>();
+		setStartSettings();
 		try {
 			ClientClass.sendBox(new CoordBox(0));
 			ClientClass.sendBox(new PlayerNameBox(MainGame.current_player_name));
@@ -207,9 +206,11 @@ public class ArenaGame extends ScreenAdapter {
 		hud.setjumpButton(1700,450,"jumpbutton",100,100,jumpbtn);
 		hud.setSettingsButton(1700,850,"settingsbutton",160,160,settingsbtn);
 		hud.setSettings(2.7f);
+		FinalDialog finalDialog=new FinalDialog(2f,hudStage,game);
+		finalDialog.setVisible(false);
+		hud.setFinalDialog(finalDialog);
 		hud.setTimePanel();
 		hud.setHpPanel();
-		hud.setFinalDialog();
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
 
@@ -222,7 +223,7 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
-		if (!ClientClass.isConnected() || ClientClass.playerNUM==-1){
+		if ((!ClientClass.isConnected() || ClientClass.playerNUM==-1) && MainGame.seconds>0){
 			game.setScreen(new ConnectMenu(game));
 			ClientClass.close();
 		}
@@ -283,6 +284,12 @@ public class ArenaGame extends ScreenAdapter {
 		hud.drawHpPanel(delta,batch);
 		batch.end();
 		hudStage.draw();
+		if (MainGame.seconds==0){
+			hud.getFinalDialog().setVisible(true);
+			try {
+				hud.getBackButtonFinal().setVisible(true);
+			}catch (Exception e){}
+		}
 	}
 
 	@Override
@@ -323,5 +330,20 @@ public class ArenaGame extends ScreenAdapter {
 		try {
 			hud.getTimer().cancel();
 		}catch (Exception e){}
+	}
+
+	public void setStartSettings(){
+		CURRENT_PLAYER=new Player(0,50);
+		ENEMY=new Player(1000,50);
+		shootings = new ArrayList<>();
+		shootingsEnemy = new ArrayList<>();
+		MainGame.seconds=20;
+		MainGame.isShooted=false;
+		MainGame.jumped=false;
+		MainGame.isSettingsDialogOpened=false;
+		MainGame.current_player_score=0;
+		MainGame.enemy_score=0;
+		MainGame.playerIdentify=0;
+
 	}
 }

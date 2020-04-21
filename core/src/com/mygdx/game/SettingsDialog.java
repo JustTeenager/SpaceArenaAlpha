@@ -13,6 +13,9 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
 import java.util.ArrayList;
+
+import sun.nio.cs.ext.MacArabic;
+
 public class SettingsDialog extends Actor {
 
     private float distance;
