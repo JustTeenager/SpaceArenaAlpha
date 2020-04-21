@@ -66,7 +66,10 @@ public class ArenaGame extends ScreenAdapter {
 
 	public ArenaGame (final MainGame game) {
 		this.game=game;
-		setStartSettings();
+		CURRENT_PLAYER=new Player(0,50);
+		ENEMY=new Player(1000,50);
+		shootings = new ArrayList<>();
+		shootingsEnemy = new ArrayList<>();
 		try {
 			ClientClass.sendBox(new CoordBox(0));
 			ClientClass.sendBox(new PlayerNameBox(MainGame.current_player_name));
@@ -216,6 +219,7 @@ public class ArenaGame extends ScreenAdapter {
 		hud.setHpPanel();
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
+		setStartSettings();
 
 	}
 
@@ -295,6 +299,9 @@ public class ArenaGame extends ScreenAdapter {
 			if (MainGame.current_player_score>MainGame.enemy_score){
 				FinalDialog.winner=MainGame.current_player_name+" was victorious!";
 			}
+			else if(MainGame.current_player_score==MainGame.enemy_score){
+				FinalDialog.winner="Draw!!!";
+			}
 			else{
 				FinalDialog.winner=MainGame.enemy_name+" was victorious!";
 			}
@@ -346,10 +353,6 @@ public class ArenaGame extends ScreenAdapter {
 	}
 
 	public void setStartSettings(){
-		CURRENT_PLAYER=new Player(0,50);
-		ENEMY=new Player(1000,50);
-		shootings = new ArrayList<>();
-		shootingsEnemy = new ArrayList<>();
 		MainGame.seconds=20;
 		MainGame.isShooted=false;
 		MainGame.jumped=false;
@@ -357,5 +360,13 @@ public class ArenaGame extends ScreenAdapter {
 		MainGame.current_player_score=0;
 		MainGame.enemy_score=0;
 		MainGame.playerIdentify=0;
+		JoystickLeft.CheckAngleLeft=true;
+		JoystickLeft.isTouchLeft=false;
+		JoystickLeft.angleLeft=0;
+		JoystickRight.CheckAngleRight=true;
+		JoystickRight.angleRight=0;
+		JoystickRight.isTouchRight=false;
+		pl1.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
+		pl2.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
 	}
 }
