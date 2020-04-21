@@ -54,7 +54,13 @@ public class JoystickLeft extends BaseJoystick {
     public void draw(Batch batch, float parentAlpha) {
         batch.setColor(1,1,1,0.5f);
         batch.draw(circle,this.getX(),this.getY(),this.getWidth(),this.getHeight());
-        if (isTouchLeft){
+        if(MainGame.seconds==0){
+            batch.draw(circleCur,this.getX()+rad-CURSOR_RADIUS,
+                    this.getY()+rad - CURSOR_RADIUS,
+                    2*CURSOR_RADIUS,
+                    2*CURSOR_RADIUS);
+        }
+        else if (isTouchLeft){
             batch.draw(circleCur,this.getX()+rad-CURSOR_RADIUS+curX,
                     this.getY()+rad - CURSOR_RADIUS+curY,
                     2*CURSOR_RADIUS,
@@ -103,9 +109,9 @@ public class JoystickLeft extends BaseJoystick {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (screenX<1000 && screenY>700) {
+        if (screenX<1000 && screenY>700 && MainGame.seconds>0) {
             isTouch(screenX, screenY);
-            if (isTouchLeft) {
+            if (isTouchLeft ) {
                 changeCursor(screenX, screenY);
                 setAngle();
                 //setVisible(true);
@@ -116,7 +122,7 @@ public class JoystickLeft extends BaseJoystick {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (screenX<1000  ) {
+        if (screenX<1000 && MainGame.seconds>0 ) {
             isTouchLeft = false;
             angleLeft = 0;
             //setVisible(false);
@@ -126,7 +132,7 @@ public class JoystickLeft extends BaseJoystick {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        if (screenX<1000 && screenY>700) {
+        if (screenX<1000 && screenY>700 && MainGame.seconds>0) {
             changeCursor(screenX, screenY);
             setAngle();
         }

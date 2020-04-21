@@ -160,7 +160,7 @@ public class Player extends ActorObj {
                         break;
                 }
             } else endJump();
-            if (!JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft) {
+            if (!JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft && MainGame.seconds>0) {
                 flip = true;
                 if (this.getID() == 0) {
                     if (!this.killed) {
@@ -175,11 +175,11 @@ public class Player extends ActorObj {
                     }
                 }
                 txt.dispose();
-                if (!this.killed) {
+                if (!this.killed ) {
                     position.x = getX() - velocity * Gdx.graphics.getDeltaTime();
                     setX(position.x);
                 }
-            } else if (JoystickLeft.isTouchLeft) {
+            } else if (JoystickLeft.isTouchLeft && MainGame.seconds>0) {
                 flip = false;
                 if (this.getID() == 0) {
                     if (!this.killed) {

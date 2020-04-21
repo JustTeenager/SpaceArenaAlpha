@@ -238,7 +238,11 @@ public class ArenaGame extends ScreenAdapter {
 		Gdx.input.setInputProcessor(inputMultiplexer);
 		CURRENT_PLAYER.update();
 		ENEMY.update();
-		playerStage.act(delta);
+		try {
+			playerStage.act(delta);
+		} catch (Exception e) {
+			System.out.println("RENDER EXCEPTION!!!");
+		}
 		joystickRight.checkCreateBullet();
 
 

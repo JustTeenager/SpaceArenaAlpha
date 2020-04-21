@@ -63,7 +63,13 @@ public class JoystickRight extends BaseJoystick {
     public void draw(Batch batch, float parentAlpha) {
         batch.setColor(1,1,1,0.5f);
         batch.draw(circle,this.getX(),this.getY(),this.getWidth(),this.getHeight());
-        if (isTouchRight){// если курсор двигается
+        if (MainGame.seconds==0){
+            batch.draw(circleCur,this.getX()+rad-CURSOR_RADIUS,// если курсор не двигают
+                    this.getY()+rad - CURSOR_RADIUS,
+                    2*CURSOR_RADIUS,
+                    2*CURSOR_RADIUS);
+        }
+        else if (isTouchRight){// если курсор двигается
             batch.draw(circleCur,this.getX()+rad-CURSOR_RADIUS+curX,
                     this.getY()+rad - CURSOR_RADIUS+curY,
                     2*CURSOR_RADIUS,
@@ -113,7 +119,7 @@ public class JoystickRight extends BaseJoystick {
     }
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-        if (screenX>1000 && screenY>700) {
+        if (screenX>1000 && screenY>700 && MainGame.seconds>0) {
             isTouch(screenX, screenY);
             if (isTouchRight) {
                 changeCur(screenX, screenY);
@@ -126,7 +132,7 @@ public class JoystickRight extends BaseJoystick {
 
     @Override
     public boolean touchUp(int screenX, int screenY, int pointer, int button) {
-        if (screenX>1000 ) {
+        if (screenX>1000 && MainGame.seconds>0) {
             isTouchRight = false;
             angleRight = 0;
         }
@@ -136,7 +142,7 @@ public class JoystickRight extends BaseJoystick {
 
     @Override
     public boolean touchDragged(int screenX, int screenY, int pointer) {
-        if (screenX>1000 && screenY>700) {
+        if (screenX>1000 && screenY>700 && MainGame.seconds>0) {
             changeCur(screenX, screenY);
             setAngle();
         }
@@ -146,7 +152,7 @@ public class JoystickRight extends BaseJoystick {
     private float one = Gdx.graphics.getDeltaTime();
     private float two = Gdx.graphics.getDeltaTime()-5;
     public void checkCreateBullet(){//функция для создания пуль
-        if (JoystickRight.isTouchRight && JoystickLeft.CheckAngleLeft==CheckAngleRight && one-two>=5 && !ArenaGame.CURRENT_PLAYER.killed){
+        if (JoystickRight.isTouchRight && JoystickLeft.CheckAngleLeft==CheckAngleRight && one-two>=5 && !ArenaGame.CURRENT_PLAYER.killed && MainGame.seconds>0){
             MainGame.isShooted=true;
             shootTemp=new Shooting(ArenaGame.CURRENT_PLAYER.getX(),ArenaGame.CURRENT_PLAYER.getY(),ArenaGame.playerStage,JoystickRight.direction,MainGame.VELOCITY_BULLETS);
             shootTemp.setRotation((float)angleRight);
