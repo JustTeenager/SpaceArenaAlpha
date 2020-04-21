@@ -10,6 +10,9 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
+
+import org.omg.Messaging.SYNC_WITH_TRANSPORT;
+
 import java.util.ArrayList;
 import java.util.Timer;
 
@@ -289,6 +292,12 @@ public class ArenaGame extends ScreenAdapter {
 		batch.end();
 		hudStage.draw();
 		if (MainGame.seconds==0){
+			if (MainGame.current_player_score>MainGame.enemy_score){
+				FinalDialog.winner=MainGame.current_player_name+" was victorious!";
+			}
+			else{
+				FinalDialog.winner=MainGame.enemy_name+" was victorious!";
+			}
 			hud.getFinalDialog().setVisible(true);
 			try {
 				hud.getBackButtonFinal().setVisible(true);
@@ -348,6 +357,5 @@ public class ArenaGame extends ScreenAdapter {
 		MainGame.current_player_score=0;
 		MainGame.enemy_score=0;
 		MainGame.playerIdentify=0;
-
 	}
 }
