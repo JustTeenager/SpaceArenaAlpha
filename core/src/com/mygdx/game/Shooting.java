@@ -74,12 +74,13 @@ public class Shooting extends ActorObj {
         if (player.hp>0) {
             if (this.rectangle.overlaps(player.rectangle)) {
                 this.setVisible(false);
-                player.hp -= 5;
+                player.hp -= MainGame.bulletsDamage;
 
             }
         }
         if (player.hp<=0 && !player.killed) {
             player.killed=true;
+            MainGame.bulletsDamage=0;
             if (CURRENT_PLAYER.hp==0) MainGame.enemy_score++;
             if (ENEMY.hp==0) MainGame.current_player_score++;
             if (player.getID()==0) {

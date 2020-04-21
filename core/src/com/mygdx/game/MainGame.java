@@ -11,6 +11,7 @@ public class MainGame extends Game {
     static final int WORLD_SIZE_Y=800;
     static final float VELOCITY_BULLETS=1000;
     static final float MAX_HP=100;
+    static int bulletsDamage;
     static final String GAME_OVER="Game Over!";
     static boolean isShooted=false;
     static boolean jumped=false;

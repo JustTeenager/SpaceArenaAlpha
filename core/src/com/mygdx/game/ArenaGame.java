@@ -368,5 +368,6 @@ public class ArenaGame extends ScreenAdapter {
 		JoystickRight.isTouchRight=false;
 		pl1.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
 		pl2.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
+		MainGame.bulletsDamage=5;
 	}
 }
