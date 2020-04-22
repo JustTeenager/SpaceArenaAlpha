@@ -223,6 +223,7 @@ public class ArenaGame extends ScreenAdapter {
 		hud.setFinalDialog(finalDialog);
 		hud.setTimePanel();
 		hud.setHpPanel();
+		hud.setScore();
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
 		setStartSettings();
@@ -302,6 +303,7 @@ public class ArenaGame extends ScreenAdapter {
 		batch.begin();
 		hud.drawTimer(delta,batch);
 		hud.drawHpPanel(delta,batch);
+		hud.drawScore(delta,batch);
 		batch.end();
 		hudStage.draw();
 		if (MainGame.seconds==0){
@@ -356,9 +358,6 @@ public class ArenaGame extends ScreenAdapter {
 
 		hudStage.dispose();
 		jumpbtn.dispose();
-		try {
-			hud.getTimer().cancel();
-		}catch (Exception e){}
 	}
 
 	public void setStartSettings(){
