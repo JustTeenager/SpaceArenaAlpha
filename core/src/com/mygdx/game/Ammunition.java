@@ -24,7 +24,6 @@ public class Ammunition extends ActorObj {
         this.addAction(Actions.repeat(RepeatAction.FOREVER,
                 Actions.moveTo(x,y+20,0.2f)
                 ));
-
         this.stage=stage;
         stage.addActor(this);
     }

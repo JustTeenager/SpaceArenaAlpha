@@ -1,8 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.audio.Sound;
 
 public class MainGame extends Game {
     static final float GRAVITY=300;
@@ -32,9 +30,9 @@ public class MainGame extends Game {
     static int enemy_score=0;
 
     static String time="-1";
-    static int seconds=20;
+    static int seconds=50;
 
-    static long timeFromLastKill;
+    static long timeFromLastKill=-1;
 
 
     public static final String[] Aim_4 = {

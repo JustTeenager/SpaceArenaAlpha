@@ -9,14 +9,12 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import org.omg.Messaging.SYNC_WITH_TRANSPORT;
 
 import java.util.ArrayList;
-import java.util.Timer;
-
-import sun.applet.Main;
 
 public class ArenaGame extends ScreenAdapter {
 
@@ -73,6 +71,7 @@ public class ArenaGame extends ScreenAdapter {
 		ENEMY=new Player(1000,50);
 		shootings = new ArrayList<>();
 		shootingsEnemy = new ArrayList<>();
+		MainGame.playerIdentify=0;
 		try {
 			ClientClass.sendBox(new CoordBox(0));
 			ClientClass.sendBox(new PlayerNameBox(MainGame.current_player_name));
@@ -303,6 +302,7 @@ public class ArenaGame extends ScreenAdapter {
 		batch.begin();
 		hud.drawTimer(delta,batch);
 		hud.drawHpPanel(delta,batch);
+		MainGame.timeFromLastKill= TimeUtils.nanoTime();
 		hud.drawScore(delta,batch);
 		batch.end();
 		hudStage.draw();
@@ -318,6 +318,7 @@ public class ArenaGame extends ScreenAdapter {
 			}
 			hud.getFinalDialog().setVisible(true);
 			try {
+				ClientClass.close();
 				hud.getBackButtonFinal().setVisible(true);
 			}catch (Exception e){}
 		}
@@ -361,13 +362,13 @@ public class ArenaGame extends ScreenAdapter {
 	}
 
 	public void setStartSettings(){
-		MainGame.seconds=20;
+		MainGame.seconds=50;
+		MainGame.time="-1";
 		MainGame.isShooted=false;
 		MainGame.jumped=false;
 		MainGame.isSettingsDialogOpened=false;
 		MainGame.current_player_score=0;
 		MainGame.enemy_score=0;
-		MainGame.playerIdentify=0;
 		JoystickLeft.CheckAngleLeft=true;
 		JoystickLeft.isTouchLeft=false;
 		JoystickLeft.angleLeft=0;
@@ -377,5 +378,6 @@ public class ArenaGame extends ScreenAdapter {
 		pl1.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
 		pl2.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
 		MainGame.bulletsDamage=5;
+		MainGame.timeFromLastKill=-1;
 	}
 }
