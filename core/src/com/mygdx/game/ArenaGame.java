@@ -12,8 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
-import org.omg.Messaging.SYNC_WITH_TRANSPORT;
-
 import java.util.ArrayList;
 
 public class ArenaGame extends ScreenAdapter {
@@ -62,8 +60,6 @@ public class ArenaGame extends ScreenAdapter {
 	private Texture settingsbtn;
 
 	private CoordBox coordBox;
-
-	//private Timer timer;
 
 	public ArenaGame (final MainGame game) {
 		this.game=game;
@@ -304,7 +300,6 @@ public class ArenaGame extends ScreenAdapter {
 		batch.begin();
 		hud.drawTimer(delta,batch);
 		hud.drawHpPanel(delta,batch);
-		MainGame.timeFromLastKill= TimeUtils.nanoTime();
 		hud.drawScore(delta,batch);
 		batch.end();
 		hudStage.draw();
