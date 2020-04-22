@@ -16,6 +16,7 @@ public class Player extends ActorObj {
     int hp;
     int amountBullets;
     boolean killed;
+
     private Texture txt;
     private Vector2 velocityY;
     private float dt=0;
@@ -84,6 +85,11 @@ public class Player extends ActorObj {
     public JumpState getJumpState() {
         return jumpState;
     }
+
+    public Texture getTxt() {
+        return txt;
+    }
+
     enum JumpState {
         JUMPING,
         FALLING,

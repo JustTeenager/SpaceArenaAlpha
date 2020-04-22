@@ -6,6 +6,7 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
+import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
@@ -51,6 +52,8 @@ public class ArenaGame extends ScreenAdapter {
 	private Texture txtplatCornerLeft;
 	private Texture txtplatCornerRight;
 
+	HpSmall hpSmall;
+
 	private Texture txtAmmunition;
 	private Ammunition[] ammunitions;
 
@@ -60,6 +63,7 @@ public class ArenaGame extends ScreenAdapter {
 	private Texture settingsbtn;
 
 	private CoordBox coordBox;
+
 
 	public ArenaGame (final MainGame game) {
 		this.game=game;
@@ -185,6 +189,7 @@ public class ArenaGame extends ScreenAdapter {
 		txtplatRoof=new Texture("Roof.png");
 		txtplatCornerLeft=new Texture("SciFiPlatformset-5.png");
 		txtplatCornerRight=new Texture("SciFiPlatformset-4.png");
+
 		plat= new Platform[]{
 				new Platform(-850,-25,txtplatFloor,playerStage),new Platform(-640,-25,txtplatFloor,playerStage),new Platform(-430,-25,txtplatFloor,playerStage),
 				new Platform(-220,-25,txtplatFloor,playerStage),new Platform(-10,-25,txtplatFloor,playerStage), new Platform(200,-25,txtplatFloor,playerStage),
@@ -201,6 +206,8 @@ public class ArenaGame extends ScreenAdapter {
 				new Platform(150, 150,txtplat, playerStage),new Platform(550, 250,txtplat, playerStage),new Platform(830, 330,txtplat, playerStage),
 				new Platform(-200, 200,txtplat, playerStage),new Platform(-870, 430,txtplat, playerStage),new Platform(-500, 300,txtplat, playerStage)
 		};
+
+		hpSmall=new HpSmall(playerStage);
 
 		txtAmmunition = new Texture("ammunition.png");
 		ammunitions = new Ammunition[]{new Ammunition(txtAmmunition,1060,210,playerStage)};
