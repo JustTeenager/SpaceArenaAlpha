@@ -55,6 +55,9 @@ public class ArenaGame extends ScreenAdapter {
 	private Texture txtplatCornerLeft;
 	private Texture txtplatCornerRight;
 
+	private Texture txtAmmunition;
+	private Ammunition[] ammunitions;
+
 	private GameHUD hud;
 	private Stage hudStage;
 	private Texture jumpbtn;
@@ -204,6 +207,9 @@ public class ArenaGame extends ScreenAdapter {
 				new Platform(-200, 200,txtplat, playerStage),new Platform(-870, 430,txtplat, playerStage),new Platform(-500, 300,txtplat, playerStage)
 		};
 
+		txtAmmunition = new Texture("ammunition.png");
+		ammunitions = new Ammunition[]{new Ammunition(txtAmmunition,1060,210,playerStage)};
+
 		inputMultiplexer = new InputMultiplexer();
 
 		hud=new GameHUD(hudStage,viewport,CURRENT_PLAYER);
@@ -271,6 +277,9 @@ public class ArenaGame extends ScreenAdapter {
 			}
 		}
 
+		for (Ammunition ammunition: ammunitions){
+			ammunition.collapse(CURRENT_PLAYER);
+		}
 		if (!MainGame.isShooted){
 			coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.getAnimationNum(),CURRENT_PLAYER.flip,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp);
 			ClientClass.sendBox(coordBox);

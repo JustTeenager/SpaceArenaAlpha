@@ -152,12 +152,13 @@ public class JoystickRight extends BaseJoystick {
     private float one = Gdx.graphics.getDeltaTime();
     private float two = Gdx.graphics.getDeltaTime()-5;
     public void checkCreateBullet(){//функция для создания пуль
-        if (JoystickRight.isTouchRight && JoystickLeft.CheckAngleLeft==CheckAngleRight && one-two>=5 && !ArenaGame.CURRENT_PLAYER.killed && MainGame.seconds>0){
+        if (JoystickRight.isTouchRight && JoystickLeft.CheckAngleLeft==CheckAngleRight && one-two>=5 && !ArenaGame.CURRENT_PLAYER.killed && MainGame.seconds>0 && ArenaGame.CURRENT_PLAYER.amountBullets>0){
             MainGame.isShooted=true;
             shootTemp=new Shooting(ArenaGame.CURRENT_PLAYER.getX(),ArenaGame.CURRENT_PLAYER.getY(),ArenaGame.playerStage,JoystickRight.direction,MainGame.VELOCITY_BULLETS);
             shootTemp.setRotation((float)angleRight);
             ArenaGame.shootings.add(shootTemp);
             two=one;
+            ArenaGame.CURRENT_PLAYER.amountBullets--;
         }
         else{
             one++;

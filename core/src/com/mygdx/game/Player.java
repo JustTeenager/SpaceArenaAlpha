@@ -14,6 +14,7 @@ public class Player extends ActorObj {
     JumpState jumpState;
     Rectangle rectangle;
     int hp;
+    int amountBullets;
     boolean killed;
     private Texture txt;
     private Vector2 velocityY;
@@ -97,6 +98,7 @@ public class Player extends ActorObj {
         lastFrame=new Vector2();
         killed=false;
         this.hp=100;
+        this.amountBullets=MainGame.AMOUNT_BULLETS;
 
         txt=new Texture("Aim (1).png");
         setPosition(x,y);
