@@ -6,11 +6,9 @@ import com.badlogic.gdx.ScreenAdapter;
 import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
-import com.badlogic.gdx.graphics.g2d.Sprite;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.utils.TimeUtils;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 
 import java.util.ArrayList;
@@ -274,7 +272,6 @@ public class ArenaGame extends ScreenAdapter {
 		for (int i=0;i<shootingsEnemy.size();i++){
 			shootingsEnemy.get(i).update();
 			shootingsEnemy.get(i).collapse(CURRENT_PLAYER);
-			// shootings.get(i).collapse(ENEMY);
 			if (shootingsEnemy.get(i).isOut || !shootingsEnemy.get(i).isVisible()){//удаление той пули, которая выышла за экран
 				shootingsEnemy.remove(i);
 				//anglesCurrentPlayer.remove(i);

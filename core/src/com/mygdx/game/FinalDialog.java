@@ -28,7 +28,6 @@ public class FinalDialog extends Actor {
         this.game=game;
 
         backTxt=new Texture("settingsPanel.png");
-        //winner=(MainGame.current_player_score>MainGame.enemy_score ? MainGame.enemy_name+" was victorious!" : MainGame.current_player_name+" was victorious!");
 
         font=new BitmapFont(Gdx.files.internal("liter.fnt"));
         font.getData().setScale(size);

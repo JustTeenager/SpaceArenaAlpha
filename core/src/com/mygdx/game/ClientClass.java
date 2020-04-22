@@ -12,7 +12,6 @@ public class ClientClass extends Listener {
 
     static Client client;
     static CoordBox box;
-    //Порт к которому мы будем подключатся
     static int tcpPort = 54555, udpPort = 54555;
     static InetAddress adr;
 

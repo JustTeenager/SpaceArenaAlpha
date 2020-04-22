@@ -12,8 +12,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-import sun.applet.Main;
-
 import static java.lang.StrictMath.abs;
 
 public class SettingsMenu implements Screen {
@@ -119,7 +117,6 @@ public class SettingsMenu implements Screen {
             if (abs(Gdx.graphics.getHeight()-screenY)>=volumeButton.btn.getY() && abs(Gdx.graphics.getHeight()-screenY)<=volumeButton.btn.getY()+volumeButton.btn.getHeight()) {
                 Vector2 previous = new Vector2(volumeButton.btn.getX(), volumeButton.btn.getY());
                 volumeButton.btn.setX(screenX);
-                //MainGame.volButtonX=volumeButton.btn.getX();
                 if (volumeButton.btn.getX() <= xScale || volumeButton.btn.getX() >= (xScale + volumeScale.getWidth() - volumeTxt.getWidth()))
                     volumeButton.btn.setPosition(previous.x, previous.y);
 

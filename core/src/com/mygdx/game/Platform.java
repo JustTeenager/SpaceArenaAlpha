@@ -56,8 +56,4 @@ public class Platform extends ActorObj {
     public Texture getPlatTexture() {
         return platTexture;
     }
-
-    public void setPlatTexture(Texture platTexture) {
-        this.platTexture = platTexture;
-    }
 }

@@ -5,16 +5,13 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
-import com.badlogic.gdx.graphics.g2d.Sprite;
+
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
-
 import java.util.ArrayList;
-
-import sun.nio.cs.ext.MacArabic;
 
 public class SettingsDialog extends Actor {
 
@@ -78,22 +75,6 @@ public class SettingsDialog extends Actor {
         return bArray;
     }
 
-    public Window getWindow() {
-        return window;
-    }
-
-    public Texture getBackTxt() {
-        return backTxt;
-    }
-
-    public Texture getLine() {
-        return volumeScale;
-    }
-
-    public BitmapFont getFont() {
-        return font;
-    }
-
     public Stage getSt() {
         return st;
     }
@@ -108,9 +89,5 @@ public class SettingsDialog extends Actor {
 
     public float getDistanceGeneral() {
         return distanceGeneral;
-    }
-
-    public void setDistanceGeneral(float distanceGeneral) {
-        this.distanceGeneral = distanceGeneral;
     }
 }
