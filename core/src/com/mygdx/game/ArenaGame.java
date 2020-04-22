@@ -236,6 +236,7 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
+		System.out.println(ammunitions[0].hasActions());
 		if ((!ClientClass.isConnected() || ClientClass.playerNUM==-1) && MainGame.seconds>0){
 			game.setScreen(new ConnectMenu(game));
 			ClientClass.close();

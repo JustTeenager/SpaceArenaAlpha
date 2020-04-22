@@ -7,6 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
+import com.badlogic.gdx.utils.Align;
 
 public class Ammunition extends ActorObj {
     private Texture txtAmmunition;
@@ -16,15 +17,20 @@ public class Ammunition extends ActorObj {
     private Stage stage;
 
     Ammunition(Texture txtAmmunition, float x, float y, Stage  stage){
+        this.stage=stage;
         this.txtAmmunition=txtAmmunition;
         this.x=x;
         this.y=y;
         setPosition(x,y);
-        setTransform(true);
         recAmmunition = new Rectangle();
         recAmmunition.set(getX(),getY(),txtAmmunition.getWidth(),txtAmmunition.getHeight());
-        this.stage=stage;
-        stage.addActor(this);
+        this.setTransform(true);
+        this.setOrigin(Align.center);
+        this.addAction(Actions.repeat(RepeatAction.FOREVER,
+                Actions.sequence(
+                        Actions.moveBy(75,75),
+                        Actions.moveBy(-75,-75,2.5f))));
+        this.stage.addActor(this);
     }
 
     public void collapse(Player player){
@@ -46,7 +52,7 @@ public class Ammunition extends ActorObj {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        super.draw(batch, parentAlpha);
-        batch.draw(txtAmmunition,x,y);
+        //super.draw(batch, parentAlpha);
+        batch.draw(txtAmmunition,this.getX(),this.getY());
     }
 }
