@@ -104,6 +104,8 @@ public class ClientClass extends Listener {
             ENEMY.hp = box.Bhp;
             ENEMY.flip = box.flipped;
             ENEMY.rectangle = box.BrectanglePlayer;
+            MainGame.time=box.Btime;
+            MainGame.seconds=box.seconds;
 
             switch (box.BplayerAnimNumber) {
                 case 11: {
@@ -150,6 +152,8 @@ public class ClientClass extends Listener {
     public static void boxNumDeploy(CoordBox box){
         playerNUM = box.getPlayerIdentify();
         MainGame.setPlayerIdentify(playerNUM);
+        MainGame.time=box.Btime;
+        MainGame.seconds=box.seconds;
         System.out.println(MainGame.getPlayerIdentify() + " IS IDENTY FROM THE CLIENT");
     }
 

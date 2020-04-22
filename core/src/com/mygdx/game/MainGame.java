@@ -33,6 +33,8 @@ public class MainGame extends Game {
     static String time="-1";
     static int seconds=20;
 
+    static long timeFromLastKill;
+
 
     public static final String[] Aim_4 = {
             "Aim 4(1).png", "Aim 4(2).png",
