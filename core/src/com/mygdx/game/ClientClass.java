@@ -94,7 +94,7 @@ public class ClientClass extends Listener {
         }
     }
     public static void setNumToIdentify(){
-       MainGame.setPlayerIdentify(playerNUM);
+        MainGame.setPlayerIdentify(playerNUM);
     }
     public static void boxDeploy(CoordBox box){
         try {

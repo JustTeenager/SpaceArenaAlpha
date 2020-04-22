@@ -19,11 +19,10 @@ public class Ammunition extends ActorObj {
         this.txtAmmunition=txtAmmunition;
         this.x=x;
         this.y=y;
+        setPosition(x,y);
+        setTransform(true);
         recAmmunition = new Rectangle();
-        recAmmunition.set(x,y,txtAmmunition.getWidth(),txtAmmunition.getHeight());
-        this.addAction(Actions.repeat(RepeatAction.FOREVER,
-                Actions.moveTo(x,y+20,0.2f)
-                ));
+        recAmmunition.set(getX(),getY(),txtAmmunition.getWidth(),txtAmmunition.getHeight());
         this.stage=stage;
         stage.addActor(this);
     }

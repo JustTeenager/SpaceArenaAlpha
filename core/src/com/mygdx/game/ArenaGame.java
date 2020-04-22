@@ -279,6 +279,7 @@ public class ArenaGame extends ScreenAdapter {
 
 		for (Ammunition ammunition: ammunitions){
 			ammunition.collapse(CURRENT_PLAYER);
+			ammunition.collapse(ENEMY);
 		}
 		if (!MainGame.isShooted){
 			coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.getAnimationNum(),CURRENT_PLAYER.flip,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp);
