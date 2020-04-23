@@ -298,6 +298,20 @@ public class Player extends ActorObj {
         if (jumpState == JumpState.JUMPING)
             endJump();
     }
+    public void setNextRound(){
+        this.setPosition(this.getID(),50);
+        if (this.hp==0)
+        this.amountBullets=MainGame.AMOUNT_BULLETS;
+        this.hp=100;
+        this.flip=false;
+        this.killed=false;
+        JoystickLeft.isTouchLeft=false;
+        JoystickLeft.angleLeft=0;
+        JoystickLeft.CheckAngleLeft=true;
+        JoystickRight.isTouchRight=false;
+        JoystickRight.angleRight=0;
+        JoystickRight.CheckAngleRight=true;
+    }
 
     public void dispose(){
         txt.dispose();

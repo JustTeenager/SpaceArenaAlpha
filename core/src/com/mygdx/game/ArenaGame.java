@@ -266,7 +266,6 @@ public class ArenaGame extends ScreenAdapter {
 			shootings.get(i).collapse(ENEMY);
 			if (shootings.get(i).isOut || !shootings.get(i).isVisible()){//удаление той пули, которая выышла за экран
 				shootings.remove(i);
-				//anglesCurrentPlayer.remove(i);
 			}
 		}
 		for (int i=0;i<shootingsEnemy.size();i++){
@@ -274,7 +273,6 @@ public class ArenaGame extends ScreenAdapter {
 			shootingsEnemy.get(i).collapse(CURRENT_PLAYER);
 			if (shootingsEnemy.get(i).isOut || !shootingsEnemy.get(i).isVisible()){//удаление той пули, которая выышла за экран
 				shootingsEnemy.remove(i);
-				//anglesCurrentPlayer.remove(i);
 			}
 		}
 
@@ -370,6 +368,7 @@ public class ArenaGame extends ScreenAdapter {
 		MainGame.isSettingsDialogOpened=false;
 		MainGame.current_player_score=0;
 		MainGame.enemy_score=0;
+		CURRENT_PLAYER.amountBullets=MainGame.AMOUNT_BULLETS;
 		JoystickLeft.CheckAngleLeft=true;
 		JoystickLeft.isTouchLeft=false;
 		JoystickLeft.angleLeft=0;
