@@ -91,6 +91,8 @@ public class Shooting extends ActorObj {
                 player.useAnim(0.1f, false, player.getTextureArray_dead_player_4());
                 player.setAnimationNum(24);
             }
+            CURRENT_PLAYER.setNextRound();
+
         }
 
         for (int i=0;i<plat.length;i++){

@@ -30,7 +30,7 @@ public class ArenaGame extends ScreenAdapter {
 	public static Player CURRENT_PLAYER;
 	public static Player ENEMY;
 
-	private ChaseCam chaseCam;
+	public static ChaseCam chaseCam;
 
 	private Texture circle;
 	private Texture circleCur;
@@ -223,7 +223,7 @@ public class ArenaGame extends ScreenAdapter {
 		hud.setFinalDialog(finalDialog);
 		hud.setTimePanel();
 		hud.setHpPanel();
-		hud.setScore();
+		//hud.setScore();
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
 		setStartSettings();
@@ -237,7 +237,6 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
-		System.out.println(ammunitions[0].hasActions());
 		if ((!ClientClass.isConnected() || ClientClass.playerNUM==-1) && MainGame.seconds>0){
 			game.setScreen(new ConnectMenu(game));
 			ClientClass.close();
@@ -302,7 +301,7 @@ public class ArenaGame extends ScreenAdapter {
 		batch.begin();
 		hud.drawTimer(delta,batch);
 		hud.drawHpPanel(delta,batch);
-		hud.drawScore(delta,batch);
+		//hud.drawScore(delta,batch);
 		batch.end();
 		hudStage.draw();
 		if (MainGame.seconds==0){

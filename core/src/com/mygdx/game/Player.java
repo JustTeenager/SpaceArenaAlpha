@@ -299,7 +299,9 @@ public class Player extends ActorObj {
             endJump();
     }
     public void setNextRound(){
-        this.setPosition(this.getID(),50);
+        //this.setPosition(this.getID(),50);
+        this.setX(this.getID());
+        this.setY(50);
         if (this.hp==0)
         this.amountBullets=MainGame.AMOUNT_BULLETS;
         this.hp=100;
@@ -312,6 +314,7 @@ public class Player extends ActorObj {
         JoystickRight.angleRight=0;
         JoystickRight.CheckAngleRight=true;
         MainGame.bulletsDamage=5;
+        ArenaGame.chaseCam.update();
     }
 
     public void dispose(){
