@@ -311,6 +311,7 @@ public class Player extends ActorObj {
         JoystickRight.isTouchRight=false;
         JoystickRight.angleRight=0;
         JoystickRight.CheckAngleRight=true;
+        MainGame.bulletsDamage=5;
     }
 
     public void dispose(){
