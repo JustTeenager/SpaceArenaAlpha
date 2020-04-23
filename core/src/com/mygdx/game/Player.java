@@ -306,7 +306,8 @@ public class Player extends ActorObj {
         this.startPosition = startPosition;
     }
     public void setNextRound(){
-        setPosition(startPosition.x,startPosition.y);
+        this.position.set(startPosition);
+        setPosition(position.x,position.y);
         if (this.hp==0)
         this.amountBullets=MainGame.AMOUNT_BULLETS;
         this.hp=100;

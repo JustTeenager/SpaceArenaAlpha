@@ -92,6 +92,7 @@ public class Shooting extends ActorObj {
                 player.setAnimationNum(24);
             }
             CURRENT_PLAYER.setNextRound();
+            ENEMY.setNextRound();
 
         }
 
