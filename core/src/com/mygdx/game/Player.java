@@ -19,6 +19,9 @@ public class Player extends ActorObj {
 
     private Texture txt;
     private Vector2 velocityY;
+
+
+    private Vector2 startPosition;
     private float dt=0;
     private float velocity=250;
     //velocity =300
@@ -298,10 +301,12 @@ public class Player extends ActorObj {
         if (jumpState == JumpState.JUMPING)
             endJump();
     }
+
+    public void setStartPosition(Vector2 startPosition) {
+        this.startPosition = startPosition;
+    }
     public void setNextRound(){
-        //this.setPosition(this.getID(),50);
-        this.setX(this.getID());
-        this.setY(50);
+        setPosition(startPosition.x,startPosition.y);
         if (this.hp==0)
         this.amountBullets=MainGame.AMOUNT_BULLETS;
         this.hp=100;

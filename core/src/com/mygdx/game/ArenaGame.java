@@ -226,6 +226,8 @@ public class ArenaGame extends ScreenAdapter {
 		//hud.setScore();
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
+		CURRENT_PLAYER.setStartPosition(new Vector2(CURRENT_PLAYER.getX(),CURRENT_PLAYER.getY()));
+		ENEMY.setStartPosition(new Vector2(ENEMY.getX(),ENEMY.getY()));
 		setStartSettings();
 
 	}
