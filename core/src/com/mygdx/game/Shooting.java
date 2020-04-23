@@ -69,7 +69,7 @@ public class Shooting extends ActorObj {
 
     @Override
     public void collapse(Player player) {
-        System.out.println(CURRENT_PLAYER.hp+"  CURRENT HP");
+        //System.out.println(CURRENT_PLAYER.hp+"  CURRENT HP");
         System.out.println(ENEMY.hp+"  ENEMY HP");
         if (player.hp>0) {
             if (this.rectangle.overlaps(player.rectangle)) {
@@ -86,8 +86,6 @@ public class Shooting extends ActorObj {
             else if (ENEMY.hp==0){
                 MainGame.current_player_score++;
             }
-            System.out.println(MainGame.current_player_score+" SCORE CURRENT");
-            System.out.println(MainGame.enemy_score+" SCORE ENEMY");
             if (player.getID()==0) {
                 player.useAnim(0.1f,false,player.getTextureArray_dead_player_2());
                 player.setAnimationNum(14);
@@ -143,8 +141,6 @@ public class Shooting extends ActorObj {
         return rectangle;
     }
 
-    public Vector2 getDirection() {
-        return direction;
-    }
+    public Vector2 getDirection() {return direction;}
 }
 

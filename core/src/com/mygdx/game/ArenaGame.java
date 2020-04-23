@@ -205,7 +205,8 @@ public class ArenaGame extends ScreenAdapter {
 		hpSmall=new HpSmall(playerStage);
 
 		txtAmmunition = new Texture("ammunition.png");
-		ammunitions = new Ammunition[]{new Ammunition(txtAmmunition,1060,210,playerStage)};
+		ammunitions = new Ammunition[]{new Ammunition(txtAmmunition,860,210,playerStage),new Ammunition(txtAmmunition,-600,210,playerStage),
+				new Ammunition(txtAmmunition,300,290,playerStage)};
 
 		inputMultiplexer = new InputMultiplexer();
 
@@ -221,10 +222,12 @@ public class ArenaGame extends ScreenAdapter {
 		hud.setTimePanel();
 		hud.setHpPanel();
 		//hud.setScore();
+
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
 		CURRENT_PLAYER.setStartPosition(new Vector2(CURRENT_PLAYER.getX(),CURRENT_PLAYER.getY()));
 		ENEMY.setStartPosition(new Vector2(ENEMY.getX(),ENEMY.getY()));
+
 		setStartSettings();
 
 	}
@@ -275,9 +278,9 @@ public class ArenaGame extends ScreenAdapter {
 		}
 
 		for (Ammunition ammunition: ammunitions){
-			ammunition.collapse(CURRENT_PLAYER);
-			ammunition.collapse(ENEMY);
+			ammunition.update();
 		}
+
 		if (!MainGame.isShooted){
 			coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.getAnimationNum(),CURRENT_PLAYER.flip,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp);
 			ClientClass.sendBox(coordBox);
@@ -359,7 +362,7 @@ public class ArenaGame extends ScreenAdapter {
 	}
 
 	public void setStartSettings(){
-		MainGame.seconds=50;
+		MainGame.seconds=60;
 		MainGame.time="-1";
 		MainGame.isShooted=false;
 		MainGame.jumped=false;

@@ -12,6 +12,7 @@ public class Ammunition extends ActorObj {
     private Texture txtAmmunition;
     private Rectangle recAmmunition;
     private Stage stage;
+    private int pickedTime;
 
     Ammunition(Texture txtAmmunition, float x, float y, Stage  stage){
         this.stage=stage;
@@ -23,21 +24,30 @@ public class Ammunition extends ActorObj {
         this.setOrigin(Align.center);
         this.addAction(Actions.repeat(RepeatAction.FOREVER,
                 Actions.sequence(
-                        Actions.moveBy(75,75),
-                        Actions.moveBy(-75,-75,2.5f))));
+                        Actions.moveBy(0,-35,1.6f),
+                        Actions.moveBy(0,35,1.6f))));
         this.stage.addActor(this);
     }
 
     public void collapse(Player player){
         if (this.recAmmunition.overlaps(player.rectangle) && this.isVisible()){
+            pickedTime=MainGame.seconds;
             player.amountBullets=MainGame.AMOUNT_BULLETS;//восстанавливаем количество пуль до начального значения
             this.setVisible(false);
         }
+        if (pickedTime-MainGame.seconds>=8){
+            ammoRespawn();
+        }
+    }
+
+    public void ammoRespawn(){
+        this.setVisible(true);
     }
 
     @Override
     public void update() {
-
+        collapse(ArenaGame.CURRENT_PLAYER);
+        collapse(ArenaGame.ENEMY);
     }
 
     @Override
