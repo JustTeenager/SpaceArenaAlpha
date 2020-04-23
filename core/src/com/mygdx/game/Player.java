@@ -310,6 +310,12 @@ public class Player extends ActorObj {
         setPosition(position.x,position.y);
         if (this.hp==0)
         this.amountBullets=MainGame.AMOUNT_BULLETS;
+        if (ArenaGame.CURRENT_PLAYER.hp==0){
+            MainGame.enemy_score++;
+        }
+        else{
+            MainGame.current_player_score++;
+        }
         this.hp=100;
         this.flip=false;
         this.killed=false;

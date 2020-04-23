@@ -81,8 +81,8 @@ public class Shooting extends ActorObj {
         if (player.hp<=0 && !player.killed) {
             player.killed=true;
             MainGame.bulletsDamage=0;
-            if (CURRENT_PLAYER.hp==0) MainGame.enemy_score++;
-            if (ENEMY.hp==0) MainGame.current_player_score++;
+           // if (CURRENT_PLAYER.hp==0) MainGame.enemy_score++;
+           // if (ENEMY.hp==0) MainGame.current_player_score++;
             if (player.getID()==0) {
                 player.useAnim(0.1f,false,player.getTextureArray_dead_player_2());
                 player.setAnimationNum(14);
@@ -95,7 +95,6 @@ public class Shooting extends ActorObj {
             ENEMY.setNextRound();
 
         }
-
         for (int i=0;i<plat.length;i++){
             if (rectangle.overlaps(plat[i].rect)){
                 this.setVisible(false);
