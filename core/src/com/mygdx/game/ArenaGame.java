@@ -10,7 +10,6 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
-
 import java.util.ArrayList;
 
 public class ArenaGame extends ScreenAdapter {
@@ -170,8 +169,6 @@ public class ArenaGame extends ScreenAdapter {
 		ENEMY.position=new Vector2(ENEMY.getID(),50);
 		CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
 
-
-
 		circle = new Texture("circle.png");
 		circleCur = new Texture("circle.png");
 		joystickLeft = new JoystickLeft(circle,circleCur);
@@ -261,19 +258,19 @@ public class ArenaGame extends ScreenAdapter {
 		}
 		joystickRight.checkCreateBullet();
 
+		for (int i=0;i<shootingsEnemy.size();i++){
+			shootingsEnemy.get(i).update();
+			shootingsEnemy.get(i).collapse(CURRENT_PLAYER);
+			if (shootingsEnemy.get(i).isOut || !shootingsEnemy.get(i).isVisible()){//удаление той пули, которая выышла за экран
+				shootingsEnemy.remove(i);
+			}
+		}
 
 		for (int i=0;i<shootings.size();i++){
 			shootings.get(i).update();
 			shootings.get(i).collapse(ENEMY);
 			if (shootings.get(i).isOut || !shootings.get(i).isVisible()){//удаление той пули, которая выышла за экран
 				shootings.remove(i);
-			}
-		}
-		for (int i=0;i<shootingsEnemy.size();i++){
-			shootingsEnemy.get(i).update();
-			shootingsEnemy.get(i).collapse(CURRENT_PLAYER);
-			if (shootingsEnemy.get(i).isOut || !shootingsEnemy.get(i).isVisible()){//удаление той пули, которая выышла за экран
-				shootingsEnemy.remove(i);
 			}
 		}
 

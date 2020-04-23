@@ -42,8 +42,8 @@ public class Shooting extends ActorObj {
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
 
-        if (ArenaGame.CURRENT_PLAYER.getID()==0) Shooting.shootSound2.play(MainGame.volume);
-        else Shooting.shootSound4.play(MainGame.volume);
+        //if (ArenaGame.CURRENT_PLAYER.getID()==0) Shooting.shootSound2.play(MainGame.volume);
+        //else Shooting.shootSound4.play(MainGame.volume);
 
     }
 
@@ -61,28 +61,33 @@ public class Shooting extends ActorObj {
         sprite.setPosition(getX(),getY());
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
-        if (ArenaGame.CURRENT_PLAYER.getID()==1000) shootSound2.play(MainGame.volume);
-        else shootSound4.play(MainGame.volume);
+        //if (ArenaGame.CURRENT_PLAYER.getID()==1000) shootSound2.play(MainGame.volume);
+        //else shootSound4.play(MainGame.volume);
 
     }
 
 
     @Override
     public void collapse(Player player) {
-
-
+        System.out.println(CURRENT_PLAYER.hp+"  CURRENT HP");
+        System.out.println(ENEMY.hp+"  ENEMY HP");
         if (player.hp>0) {
             if (this.rectangle.overlaps(player.rectangle)) {
                 this.setVisible(false);
                 player.hp -= MainGame.bulletsDamage;
-
             }
         }
-        if (player.hp<=0 && !player.killed) {
+        if (player.hp<=0) {
             player.killed=true;
             MainGame.bulletsDamage=0;
-           // if (CURRENT_PLAYER.hp==0) MainGame.enemy_score++;
-           // if (ENEMY.hp==0) MainGame.current_player_score++;
+            if (ArenaGame.CURRENT_PLAYER.hp==0){
+                MainGame.enemy_score++;
+            }
+            else if (ENEMY.hp==0){
+                MainGame.current_player_score++;
+            }
+            System.out.println(MainGame.current_player_score+" SCORE CURRENT");
+            System.out.println(MainGame.enemy_score+" SCORE ENEMY");
             if (player.getID()==0) {
                 player.useAnim(0.1f,false,player.getTextureArray_dead_player_2());
                 player.setAnimationNum(14);
@@ -93,7 +98,6 @@ public class Shooting extends ActorObj {
             }
             CURRENT_PLAYER.setNextRound();
             ENEMY.setNextRound();
-
         }
         for (int i=0;i<plat.length;i++){
             if (rectangle.overlaps(plat[i].rect)){
