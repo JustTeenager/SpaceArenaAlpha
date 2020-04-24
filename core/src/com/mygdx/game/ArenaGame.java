@@ -12,7 +12,6 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import java.util.ArrayList;
 
-import sun.nio.cs.ext.MacArabic;
 
 public class ArenaGame extends ScreenAdapter {
 
@@ -117,8 +116,8 @@ public class ArenaGame extends ScreenAdapter {
 				playerStage.addActor(ENEMY);
 				ENEMY.setX(pl2.getID());
 				ENEMY.setY(50);
-			    ENEMY.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
-			    ENEMY.setAnimationNum(21);
+				ENEMY.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
+				ENEMY.setAnimationNum(21);
 
 				CURRENT_PLAYER.setName("CURRENT_PLAYER");
 				CURRENT_PLAYER.setID(pl1.getID());
@@ -300,9 +299,9 @@ public class ArenaGame extends ScreenAdapter {
 			MainGame.timeFromLastKill=MainGame.seconds;
 			hud.drawScore(delta,batch);
 			if (MainGame.timeFromLastKill-MainGame.seconds>=4) {
-			ENEMY.setNextRound();
-			CURRENT_PLAYER.setNextRound();
-			MainGame.timeFromLastKill=-1;
+				ENEMY.setNextRound();
+				CURRENT_PLAYER.setNextRound();
+				MainGame.timeFromLastKill=-1;
 			}
 		}
 
