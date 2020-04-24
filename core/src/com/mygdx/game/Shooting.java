@@ -42,8 +42,8 @@ public class Shooting extends ActorObj {
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
 
-        //if (ArenaGame.CURRENT_PLAYER.getID()==0) Shooting.shootSound2.play(MainGame.volume);
-        //else Shooting.shootSound4.play(MainGame.volume);
+        if (ArenaGame.CURRENT_PLAYER.getID()==0) Shooting.shootSound2.play(MainGame.volume);
+        else Shooting.shootSound4.play(MainGame.volume);
 
     }
 
@@ -61,8 +61,8 @@ public class Shooting extends ActorObj {
         sprite.setPosition(getX(),getY());
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
-        //if (ArenaGame.CURRENT_PLAYER.getID()==1000) shootSound2.play(MainGame.volume);
-        //else shootSound4.play(MainGame.volume);
+        if (ArenaGame.CURRENT_PLAYER.getID()==1000) shootSound2.play(MainGame.volume);
+        else shootSound4.play(MainGame.volume);
 
     }
 
