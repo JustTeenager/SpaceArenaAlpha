@@ -130,7 +130,7 @@ public class Shooting extends ActorObj {
 
     public static void addEnemyShootingArray(CoordBox coordBox){
         Shooting enemySh=new Shooting(coordBox.BpositionPlayer.x,coordBox.BpositionPlayer.y, playerStage,coordBox.BbulletsPosition,MainGame.VELOCITY_BULLETS,coordBox.Bangles);
-        ArenaGame.shootingsEnemy.add(enemySh);
+        ArenaGame.shootingsEnemy.add(enemySh);//
     }
 
 
