@@ -79,6 +79,7 @@ public class ClientClass extends Listener {
             MessageBox box = (MessageBox) p;
             MainGame.needEnemyReanimate=box.message;
             System.out.println("Ответ от сервера: "+box.message);
+            System.out.println(MainGame.needEnemyReanimate+"IS NEED ROM SERVER");
         }
 
         if (p instanceof CoordBox){

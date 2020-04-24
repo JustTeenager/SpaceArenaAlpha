@@ -281,15 +281,16 @@ public class ArenaGame extends ScreenAdapter {
 			MessageBox box=new MessageBox();
 			box.message=true;
 			ClientClass.sendBox(box);
-			if (ArenaGame.CURRENT_PLAYER.hp<=0){
-				MainGame.enemy_score++;
-			}
-			else if (ENEMY.hp<=0){
-				MainGame.current_player_score++;
-			}
+			MainGame.enemy_score++;
 			CURRENT_PLAYER.setNextRound();
 		}
-		if (MainGame.needEnemyReanimate) ENEMY.setNextRound();
+
+		if (MainGame.needEnemyReanimate) {
+			MainGame.current_player_score++;
+			MainGame.needEnemyReanimate=false;
+			ENEMY.setNextRound();
+			CURRENT_PLAYER.setNextRound();
+		}
 
 		for (Ammunition ammunition: ammunitions){
 			ammunition.update();
@@ -376,7 +377,7 @@ public class ArenaGame extends ScreenAdapter {
 	}
 
 	public void setStartSettings(){
-		MainGame.seconds=60;
+		MainGame.seconds=180;
 		MainGame.time="-1";
 		MainGame.isShooted=false;
 		MainGame.jumped=false;
