@@ -80,12 +80,7 @@ public class Shooting extends ActorObj {
         if (player.hp<=0) {
             player.killed=true;
             MainGame.bulletsDamage=0;
-            if (ArenaGame.CURRENT_PLAYER.hp==0){
-                MainGame.enemy_score++;
-            }
-            else if (ENEMY.hp==0){
-                MainGame.current_player_score++;
-            }
+
             if (player.getID()==0) {
                 player.useAnim(0.1f,false,player.getTextureArray_dead_player_2());
                 player.setAnimationNum(14);
@@ -94,8 +89,8 @@ public class Shooting extends ActorObj {
                 player.useAnim(0.1f, false, player.getTextureArray_dead_player_4());
                 player.setAnimationNum(24);
             }
-            CURRENT_PLAYER.setNextRound();
-            ENEMY.setNextRound();
+            //CURRENT_PLAYER.setNextRound();
+            //ENEMY.setNextRound();
         }
         for (int i=0;i<plat.length;i++){
             if (rectangle.overlaps(plat[i].rect)){

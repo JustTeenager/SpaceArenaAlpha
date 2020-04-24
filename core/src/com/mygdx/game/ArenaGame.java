@@ -277,6 +277,17 @@ public class ArenaGame extends ScreenAdapter {
 			}
 		}
 
+		if (CURRENT_PLAYER.hp<=0 || ENEMY.hp<=0){
+			if (ArenaGame.CURRENT_PLAYER.hp<=0){
+				MainGame.enemy_score++;
+			}
+			else if (ENEMY.hp<=0){
+				MainGame.current_player_score++;
+			}
+			CURRENT_PLAYER.setNextRound();
+			ENEMY.setNextRound();
+		}
+
 		for (Ammunition ammunition: ammunitions){
 			ammunition.update();
 		}
