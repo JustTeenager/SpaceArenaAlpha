@@ -30,7 +30,7 @@ public class MainGame extends Game {
     static int enemy_score=0;
 
     static String time="-1";
-    static int seconds=180;
+    static int seconds=80;
 
     static long timeFromLastKill=-1;
 
