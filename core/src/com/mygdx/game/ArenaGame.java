@@ -169,8 +169,8 @@ public class ArenaGame extends ScreenAdapter {
 		ENEMY.position=new Vector2(ENEMY.getID(),50);
 		CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
 
-		circle = new Texture("circle.png");
-		circleCur = new Texture("circle.png");
+		circle = new Texture("analog_base.png");
+		circleCur = new Texture("analog_button.png");
 		joystickLeft = new JoystickLeft(circle,circleCur);
 		joystickRight = new JoystickRight(circle,circleCur);
 

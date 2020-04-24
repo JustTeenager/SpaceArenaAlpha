@@ -28,7 +28,6 @@ public class Platform extends ActorObj {
         this.right = left + plat.getWidth();
         this.coreX=left+playertxt.getWidth()/2;
         this.coreY=top-platTexture.getHeight()/2;
-
         rect=new Rectangle(left,bottom,platTexture.getWidth()+50,58);
     }
 
