@@ -15,7 +15,7 @@ public class MainGame extends Game {
     static boolean isShooted=false;
     static boolean jumped=false;
     static boolean isSettingsDialogOpened=false;
-
+    static boolean needEnemyReanimate=false;
     static int playersNum;
     static int playerIdentify;
     static String current_player_name="player";

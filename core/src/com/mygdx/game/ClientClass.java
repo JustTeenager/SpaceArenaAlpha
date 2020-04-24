@@ -15,12 +15,9 @@ public class ClientClass extends Listener {
     static int tcpPort = 54555, udpPort = 54555;
     static InetAddress adr;
 
-    static boolean messageReceived;
-
     static int playerNUM;
 
     public static void startClient() throws Exception {
-        messageReceived=false;
         playerNUM=0;
         System.out.println("Подключаемся к серверу");
         adr=InetAddress.getByName("46.39.242.26");
@@ -51,6 +48,9 @@ public class ClientClass extends Listener {
     public static void sendBox(PlayerNameBox box){
         client.sendTCP(box);
     }
+    public static void sendBox(MessageBox box){
+        client.sendTCP(box);
+    }
     public static void sendPlayersWaitingBox(PlayersWaitingBox box){
         client.sendUDP(box);
     }
@@ -77,8 +77,8 @@ public class ClientClass extends Listener {
         if(p instanceof MessageBox){
             //Если мы получили PacketMessage .
             MessageBox box = (MessageBox) p;
+            MainGame.needEnemyReanimate=box.message;
             System.out.println("Ответ от сервера: "+box.message);
-            messageReceived = true;
         }
 
         if (p instanceof CoordBox){

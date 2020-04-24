@@ -277,7 +277,10 @@ public class ArenaGame extends ScreenAdapter {
 			}
 		}
 
-		if (CURRENT_PLAYER.hp<=0 || ENEMY.hp<=0){
+		if (CURRENT_PLAYER.hp<=0){
+			MessageBox box=new MessageBox();
+			box.message=true;
+			ClientClass.sendBox(box);
 			if (ArenaGame.CURRENT_PLAYER.hp<=0){
 				MainGame.enemy_score++;
 			}
@@ -285,8 +288,8 @@ public class ArenaGame extends ScreenAdapter {
 				MainGame.current_player_score++;
 			}
 			CURRENT_PLAYER.setNextRound();
-			ENEMY.setNextRound();
 		}
+		if (MainGame.needEnemyReanimate) ENEMY.setNextRound();
 
 		for (Ammunition ammunition: ammunitions){
 			ammunition.update();
