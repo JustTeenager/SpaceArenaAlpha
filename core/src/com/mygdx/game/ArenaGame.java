@@ -222,7 +222,7 @@ public class ArenaGame extends ScreenAdapter {
 		hud.setFinalDialog(finalDialog);
 		hud.setTimePanel();
 		hud.setHpPanel();
-		hud.setScore();
+		//hud.setScore();
 
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
@@ -284,25 +284,17 @@ public class ArenaGame extends ScreenAdapter {
 			ClientClass.sendBox(box);
 			MainGame.enemy_score++;
 
-			MainGame.timeFromLastKill=MainGame.seconds;
-			hud.drawScore(delta,batch);
-			if (MainGame.timeFromLastKill-MainGame.seconds>=4) {
 				CURRENT_PLAYER.setNextRound();
 				MainGame.timeFromLastKill=-1;
-			}
 		}
 
 		if (MainGame.needEnemyReanimate) {
 			MainGame.current_player_score++;
 			MainGame.needEnemyReanimate=false;
 
-			MainGame.timeFromLastKill=MainGame.seconds;
-			hud.drawScore(delta,batch);
-			if (MainGame.timeFromLastKill-MainGame.seconds>=4) {
 				ENEMY.setNextRound();
 				CURRENT_PLAYER.setNextRound();
 				MainGame.timeFromLastKill=-1;
-			}
 		}
 
 		for (Ammunition ammunition: ammunitions){
