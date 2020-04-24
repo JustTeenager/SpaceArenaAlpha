@@ -211,7 +211,7 @@ public class ArenaGame extends ScreenAdapter {
 		inputMultiplexer = new InputMultiplexer();
 
 		hud=new GameHUD(hudStage,viewport,CURRENT_PLAYER);
-		jumpbtn=new Texture("circle.png");
+		jumpbtn=new Texture("analog_button.png");
 		settingsbtn=new Texture("Options Icon.png");
 		hud.setjumpButton(1700,450,"jumpbutton",100,100,jumpbtn);
 		hud.setSettingsButton(1700,850,"settingsbutton",160,160,settingsbtn);
