@@ -70,7 +70,7 @@ public class Shooting extends ActorObj {
     @Override
     public void collapse(Player player) {
         //System.out.println(CURRENT_PLAYER.hp+"  CURRENT HP");
-        System.out.println(ENEMY.hp+"  ENEMY HP");
+        //System.out.println(ENEMY.hp+"  ENEMY HP");
         if (player.hp>0) {
             if (this.rectangle.overlaps(player.rectangle)) {
                 this.setVisible(false);

@@ -222,7 +222,7 @@ public class ArenaGame extends ScreenAdapter {
 		hud.setFinalDialog(finalDialog);
 		hud.setTimePanel();
 		hud.setHpPanel();
-		//hud.setScore();
+		hud.setScore();
 
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
@@ -279,22 +279,46 @@ public class ArenaGame extends ScreenAdapter {
 		}
 
 		if (CURRENT_PLAYER.hp<=0){
-			MessageBox box=new MessageBox();
-			box.message=true;
-			ClientClass.sendBox(box);
-			MainGame.enemy_score++;
+			if (!MainGame.flag){
+				GameHUD.scoreLogs.setVisible(true);
+				MainGame.enemy_score++;
+				MainGame.timeFromLastKill=MainGame.seconds;
+				MainGame.flag=true;
+				MessageBox box=new MessageBox();
+				box.message=true;
+				ClientClass.sendBox(box);
+			}
+
+			if (MainGame.timeFromLastKill - MainGame.seconds >= 4) {
+				System.out.println("TIME LESS THEN 4 CURRENT");
+				GameHUD.scoreLogs.setVisible(false);
+				MainGame.flag=false;
+				MainGame.timeFromLastKill = -1;
 
 				CURRENT_PLAYER.setNextRound();
-				MainGame.timeFromLastKill=-1;
+			}
 		}
 
-		if (MainGame.needEnemyReanimate) {
-			MainGame.current_player_score++;
-			MainGame.needEnemyReanimate=false;
+		else if (MainGame.needEnemyReanimate) {
 
-				ENEMY.setNextRound();
+			if (!MainGame.flag){
+				GameHUD.scoreLogs.setVisible(true);
+				MainGame.current_player_score++;
+				MainGame.timeFromLastKill=MainGame.seconds;
+				MainGame.flag=true;
+			}
+
+			//hud.drawScore(delta,batch);
+			if (MainGame.timeFromLastKill - MainGame.seconds >= 4) {
+				System.out.println("TIME LESS THEN 4 ENEMY");
+				GameHUD.scoreLogs.setVisible(false);
+				MainGame.needEnemyReanimate=false;
+				MainGame.flag=false;
+				MainGame.timeFromLastKill = -1;
 				CURRENT_PLAYER.setNextRound();
-				MainGame.timeFromLastKill=-1;
+				ENEMY.setNextRound();
+			}
+				//MainGame.timeFromLastKill = -1;
 		}
 
 		for (Ammunition ammunition: ammunitions){
@@ -400,5 +424,6 @@ public class ArenaGame extends ScreenAdapter {
 		pl2.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
 		MainGame.bulletsDamage=5;
 		MainGame.timeFromLastKill=-1;
+		MainGame.flag=false;
 	}
 }

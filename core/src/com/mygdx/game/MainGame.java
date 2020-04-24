@@ -33,6 +33,7 @@ public class MainGame extends Game {
     static int seconds=80;
 
     static long timeFromLastKill=-1;
+    public static boolean flag=false;
 
 
     public static final String[] Aim_4 = {

@@ -319,6 +319,9 @@ public class Player extends ActorObj {
             MainGame.current_player_score++;
         }*/
         this.hp=100;
+
+        MainGame.flag=false;
+
         this.flip=false;
         this.killed=false;
         JoystickLeft.isTouchLeft=false;
