@@ -8,8 +8,9 @@ public class MainGame extends Game {
     //gravity=425
     static final int WORLD_SIZE_X=1020;
     static final int WORLD_SIZE_Y=800;
-    static final int AMOUNT_BULLETS=40;
-    static final float VELOCITY_BULLETS=1000;
+    static final int AMOUNT_BULLETS=25;
+    static final int TIME_SECONDS=120;
+    static final float VELOCITY_BULLETS=1200;
     static final float MAX_HP=100;
     static int bulletsDamage;
     static final String GAME_OVER="Game Over!";
@@ -31,7 +32,7 @@ public class MainGame extends Game {
     static int enemy_score=0;
 
     static String time="-1";
-    static int seconds=80;
+    static int seconds=TIME_SECONDS;
 
     static long timeFromLastKill=-1;
     public static boolean flag=false;

@@ -406,7 +406,7 @@ public class ArenaGame extends ScreenAdapter {
 	}
 
 	public void setStartSettings(){
-		MainGame.seconds=80;
+		MainGame.seconds=MainGame.TIME_SECONDS;
 		MainGame.time="-1";
 		MainGame.isShooted=false;
 		MainGame.jumped=false;
