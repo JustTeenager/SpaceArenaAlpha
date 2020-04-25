@@ -8,7 +8,7 @@ public class MainGame extends Game {
     //gravity=425
     static final int WORLD_SIZE_X=1020;
     static final int WORLD_SIZE_Y=800;
-    static final int AMOUNT_BULLETS=25;
+    static final int AMOUNT_BULLETS=30;
     static final int TIME_SECONDS=120;
     static final float VELOCITY_BULLETS=1200;
     static final float MAX_HP=100;
