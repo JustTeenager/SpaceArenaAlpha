@@ -216,13 +216,13 @@ public class ArenaGame extends ScreenAdapter {
 		settingsbtn=new Texture("Options Icon.png");
 		hud.setjumpButton(1700,450,"jumpbutton",100,100,jumpbtn);
 		hud.setSettingsButton(1700,850,"settingsbutton",160,160,settingsbtn);
+		hud.setScore();
 		hud.setSettings(2.7f);
 		FinalDialog finalDialog=new FinalDialog(2f,hudStage,game);
 		finalDialog.setVisible(false);
 		hud.setFinalDialog(finalDialog);
 		hud.setTimePanel();
 		hud.setHpPanel();
-		hud.setScore();
 
 		playerStage.addActor(CURRENT_PLAYER);
 		playerStage.addActor(ENEMY);
@@ -265,6 +265,7 @@ public class ArenaGame extends ScreenAdapter {
 		for (int i=0;i<shootingsEnemy.size();i++){
 			shootingsEnemy.get(i).update();
 			shootingsEnemy.get(i).collapse(CURRENT_PLAYER);
+			if (ENEMY.hp<=0 || CURRENT_PLAYER.hp<=0)shootingsEnemy.get(i).setVisible(false);
 			if (shootingsEnemy.get(i).isOut || !shootingsEnemy.get(i).isVisible()){//удаление той пули, которая выышла за экран
 				shootingsEnemy.remove(i);
 			}
@@ -273,13 +274,14 @@ public class ArenaGame extends ScreenAdapter {
 		for (int i=0;i<shootings.size();i++){
 			shootings.get(i).update();
 			shootings.get(i).collapse(ENEMY);
+			if (ENEMY.hp<=0 || CURRENT_PLAYER.hp<=0)shootings.get(i).setVisible(false);
 			if (shootings.get(i).isOut || !shootings.get(i).isVisible()){//удаление той пули, которая выышла за экран
 				shootings.remove(i);
 			}
 		}
 
 		if (CURRENT_PLAYER.hp<=0){
-			if (!MainGame.flag){
+			if (!MainGame.flag ){
 				GameHUD.scoreLogs.setVisible(true);
 				MainGame.enemy_score++;
 				MainGame.timeFromLastKill=MainGame.seconds;
@@ -289,8 +291,7 @@ public class ArenaGame extends ScreenAdapter {
 				ClientClass.sendBox(box);
 			}
 
-			if (MainGame.timeFromLastKill - MainGame.seconds >= 4) {
-				System.out.println("TIME LESS THEN 4 CURRENT");
+			if (MainGame.timeFromLastKill - MainGame.seconds >= 3) {
 				GameHUD.scoreLogs.setVisible(false);
 				MainGame.flag=false;
 				MainGame.timeFromLastKill = -1;
@@ -309,8 +310,7 @@ public class ArenaGame extends ScreenAdapter {
 			}
 
 			//hud.drawScore(delta,batch);
-			if (MainGame.timeFromLastKill - MainGame.seconds >= 4) {
-				System.out.println("TIME LESS THEN 4 ENEMY");
+			if (MainGame.timeFromLastKill - MainGame.seconds >= 3) {
 				GameHUD.scoreLogs.setVisible(false);
 				MainGame.needEnemyReanimate=false;
 				MainGame.flag=false;

@@ -30,7 +30,7 @@ public class Ammunition extends ActorObj {
     }
 
     public void collapse(Player player){
-        if (this.recAmmunition.overlaps(player.rectangle) && this.isVisible()){
+        if (this.recAmmunition.overlaps(player.rectangle) && this.isVisible() && !GameHUD.scoreLogs.isVisible()){
             pickedTime=MainGame.seconds;
             player.amountBullets=MainGame.AMOUNT_BULLETS;//восстанавливаем количество пуль до начального значения
             this.setVisible(false);
