@@ -94,7 +94,7 @@ public class MainMenu implements Screen {
                 if ((abs(Gdx.graphics.getHeight()-screenY)>autoDialog.getLogInButton().btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<autoDialog.getLogInButton().btn.getY()+autoDialog.getLogInButton().btn.getHeight())
                         && (screenX>autoDialog.getLogInButton().btn.getX()&&screenX<autoDialog.getLogInButton().btn.getX()+autoDialog.getLogInButton().btn.getWidth())){
                     System.out.println("LIBGDX LOGIN");
-                    autoDialog.becomeInvisible();
+                    autoDialog.becomeInvisible();//
                 }
                 else if ((abs(Gdx.graphics.getHeight()-screenY)>autoDialog.getRegisterButton().btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<autoDialog.getRegisterButton().btn.getY()+autoDialog.getRegisterButton().btn.getHeight())
                         && (screenX>autoDialog.getRegisterButton().btn.getX()&&screenX<autoDialog.getRegisterButton().btn.getX()+autoDialog.getRegisterButton().btn.getWidth())){
