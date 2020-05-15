@@ -19,7 +19,7 @@ public class MainGame extends Game {
     static boolean isSettingsDialogOpened=false;
     static boolean needEnemyReanimate=false;
     static int playersNum;
-    static int playerIdentify;
+    private static int playerIdentify;
     static String current_player_name="player";
     static String enemy_name;
 

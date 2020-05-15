@@ -15,6 +15,8 @@ public class ClientClass extends Listener {
     static int tcpPort = 54555, udpPort = 54555;
     static InetAddress adr;
 
+    private static int safeID;
+
     static int playerNUM;
 
     public static void startClient() throws Exception {
@@ -39,6 +41,7 @@ public class ClientClass extends Listener {
     @Override
     public void connected(Connection connection) {
         super.connected(connection);
+        safeID=connection.getID()%2;
         System.out.println("Вы подключились к серверу!");
     }
 
@@ -150,8 +153,9 @@ public class ClientClass extends Listener {
         }catch (Exception e){}
     }
     public static void boxNumDeploy(CoordBox box){
+        //System.out.println(a+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         playerNUM = box.getPlayerIdentify();
-        MainGame.setPlayerIdentify(playerNUM);
+        MainGame.setPlayerIdentify(safeID);
         MainGame.time=box.Btime;
         MainGame.seconds=box.seconds;
         System.out.println(MainGame.getPlayerIdentify() + " IS IDENTY FROM THE CLIENT");
