@@ -14,7 +14,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 
 public class AuthorizationDialog extends Actor {
-    private Stage st;
     private Window window;
     private BitmapFont font;
     private TextField emailField;
@@ -25,7 +24,6 @@ public class AuthorizationDialog extends Actor {
     private Buttons logInButton;
 
     public AuthorizationDialog(int size, Stage st){
-        this.st=st;
         backTxt=new Texture("settingsPanel.png");
         font=new BitmapFont(Gdx.files.internal("liter.fnt"));
         font.getData().setScale(size);
