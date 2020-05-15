@@ -83,7 +83,7 @@ public class ClientClass extends Listener {
         }
 
         if (p instanceof CoordBox){
-            if (MainGame.getPlayerIdentify()==0) {
+            if (MainGame.getPlayerIdentify()==-1) {
                 box = (CoordBox) p;
                 boxNumDeploy(box);
             }
