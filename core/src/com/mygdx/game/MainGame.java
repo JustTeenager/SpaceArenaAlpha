@@ -89,8 +89,8 @@ public class MainGame extends Game {
 
     @Override
     public void create() {
-        NameInput input = new NameInput();
-        Gdx.input.getTextInput(input, "Enter your name", MainGame.current_player_name, "Your name");
+       /* NameInput input = new NameInput();
+        Gdx.input.getTextInput(input, "Enter your name", MainGame.current_player_name, "Your name");*/
         setScreen(new MainMenu(this));
     }
 
