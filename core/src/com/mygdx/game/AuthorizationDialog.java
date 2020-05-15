@@ -89,4 +89,20 @@ public class AuthorizationDialog extends Actor {
     public Buttons getLogInButton() {
         return logInButton;
     }
+
+    public void becomeInvisible(){
+        setVisible(false);
+        registerButton.setVisible(false);
+        logInButton.setVisible(false);
+        emailField.setVisible(false);
+        passwordField.setVisible(false);
+    }
+
+    public void becomeVisible(){
+        setVisible(true);
+        registerButton.setVisible(true);
+        logInButton.setVisible(true);
+        emailField.setVisible(true);
+        passwordField.setVisible(true);
+    }
 }
