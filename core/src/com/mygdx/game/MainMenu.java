@@ -95,13 +95,13 @@ public class MainMenu implements Screen {
                         && (screenX>autoDialog.getLogInButton().btn.getX()&&screenX<autoDialog.getLogInButton().btn.getX()+autoDialog.getLogInButton().btn.getWidth())){
                     System.out.println("LIBGDX LOGIN");
                     FireBaseClass.signIn(autoDialog.getEmailField().getText(),autoDialog.getPasswordField().getText().toCharArray());
+                    if (MainGame.authorized)
+                        autoDialog.becomeInvisible();
                 }
                 else if ((abs(Gdx.graphics.getHeight()-screenY)>autoDialog.getRegisterButton().btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<autoDialog.getRegisterButton().btn.getY()+autoDialog.getRegisterButton().btn.getHeight())
                         && (screenX>autoDialog.getRegisterButton().btn.getX()&&screenX<autoDialog.getRegisterButton().btn.getX()+autoDialog.getRegisterButton().btn.getWidth())){
                     System.out.println("LIBGDX REGISTER");
                     FireBaseClass.register(autoDialog.getEmailField().getText(),autoDialog.getPasswordField().getText().toCharArray());
-                    if (MainGame.authorized)
-                    autoDialog.becomeInvisible();
                 }
 
 
