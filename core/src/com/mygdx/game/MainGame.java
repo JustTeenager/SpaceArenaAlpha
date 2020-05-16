@@ -94,7 +94,7 @@ public class MainGame extends Game {
         GdxFIRApp.inst().configure();
        /* NameInput input = new NameInput();
         Gdx.input.getTextInput(input, "Enter your name", MainGame.current_player_name, "Your name");*/
-        setScreen(new MainMenu(this));
+        setScreen(new MainMenu(this));//
     }
 
     public static int getPlayerIdentify() {
