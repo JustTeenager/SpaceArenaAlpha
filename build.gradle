@@ -1,5 +1,5 @@
 buildscript {
-    
+
 
     repositories {
         mavenLocal()
@@ -11,7 +11,7 @@ buildscript {
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:3.5.3'
-        
+        classpath 'com.google.gms:google-services:4.3.3'
 
     }
 }
@@ -47,17 +47,21 @@ project(":desktop") {
         api "com.badlogicgames.gdx:gdx-backend-lwjgl:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-desktop"
         api "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-desktop"
-        
+
     }
 }
 
 project(":android") {
     apply plugin: "android"
+    apply plugin: 'com.android.application'
+    apply plugin: 'com.google.gms.google-services'
 
     configurations { natives }
 
     dependencies {
         implementation project(":core")
+        implementation 'com.google.firebase:firebase-analytics:17.2.2'
+        implementation 'pl.mk5.gdx-fireapp:gdx-fireapp-android:2.1.1'
         api "com.badlogicgames.gdx:gdx-backend-android:$gdxVersion"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi"
         natives "com.badlogicgames.gdx:gdx-platform:$gdxVersion:natives-armeabi-v7a"
@@ -70,7 +74,7 @@ project(":android") {
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-arm64-v8a"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86"
         natives "com.badlogicgames.gdx:gdx-box2d-platform:$gdxVersion:natives-x86_64"
-        
+
     }
 }
 
@@ -80,8 +84,10 @@ project(":core") {
 
     dependencies {
         implementation "com.esotericsoftware:kryonet:2.22.0-RC1"
+        implementation 'pl.mk5.gdx-fireapp:gdx-fireapp-core:2.1.1'
         api "com.badlogicgames.gdx:gdx:$gdxVersion"
         api "com.badlogicgames.gdx:gdx-box2d:$gdxVersion"
-        
+
+
     }
 }

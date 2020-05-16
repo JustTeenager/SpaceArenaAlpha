@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "263254236861",
+    "firebase_url": "https://space-arena-75344.firebaseio.com",
+    "project_id": "space-arena-75344",
+    "storage_bucket": "space-arena-75344.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:263254236861:android:55f1eaf6a9b0f18e9821d4",
+        "android_client_info": {
+          "package_name": "com.mygdx.game"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "263254236861-tudenchln4nmd73351hmep2jidipi45g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAv8KxdHK_F2wQsRxDeMTIe9eNbSjtr5v0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "263254236861-tudenchln4nmd73351hmep2jidipi45g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
