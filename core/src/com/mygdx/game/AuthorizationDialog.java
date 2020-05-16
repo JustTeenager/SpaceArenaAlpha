@@ -7,6 +7,7 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
@@ -16,46 +17,54 @@ import com.badlogic.gdx.utils.Align;
 public class AuthorizationDialog extends Actor {
     private Window window;
     private BitmapFont font;
+    private BitmapFont fontText;
     private TextField emailField;
     private TextField passwordField;
     private Texture backTxt;
+    private Texture cursorTxt;
 
     private Buttons registerButton;
     private Buttons logInButton;
 
     public AuthorizationDialog(int size, Stage st){
-        backTxt=new Texture("settingsPanel.png");
+        backTxt=new Texture("regPanel.png");
+        cursorTxt=new Texture("cursor.png");
         font=new BitmapFont(Gdx.files.internal("registerLit.fnt"));
+        fontText=new BitmapFont(Gdx.files.internal("liter.fnt"));
         font.getData().setScale(size);
-        Drawable drawable=new Image(backTxt).getDrawable();
+        fontText.getData().setScale(2f);
+        Drawable drawableback=new Image(backTxt).getDrawable();
+        Drawable drawablecursor=new Image(cursorTxt).getDrawable();
 
-        Window.WindowStyle windowstyle=new Window.WindowStyle(font,new Color(0,0,0,0.55f),drawable);
+        Window.WindowStyle windowstyle=new Window.WindowStyle(fontText,new Color(1,1,1,0.5f),drawableback);
         window=new Window("Log in or Sign up",windowstyle);
-        window.padTop(150);
-        window.padLeft(340);
-        window.setSize(backTxt.getWidth(),backTxt.getHeight());
-        window.setPosition(350,100);
+        window.padTop(105);
+        window.padLeft(415);
+        window.setSize(1400,950);
+        window.setPosition(350,50);
 
 
-        TextField.TextFieldStyle style=new TextField.TextFieldStyle(font,new Color(0,0,0,0.55f),null,null,drawable);
+        TextField.TextFieldStyle style=new TextField.TextFieldStyle(font,new Color(0,0,0,0.55f),drawablecursor,null,drawableback);
         emailField=new TextField("",style);
         emailField.setAlignment(Align.center);
         emailField.setMessageText("email");
        // emailField.setText("alexey.e.kotov@gmail.com");
         passwordField=new TextField("",style);
+        passwordField.setPasswordMode(true);
+        passwordField.setPasswordCharacter('*');
         passwordField.setAlignment(Align.center);
         passwordField.setMessageText("password");
 
 
-        emailField.setPosition(window.getX()+100,600);
-        passwordField.setPosition(window.getX()+100,400);
+        emailField.setPosition(window.getX()+150,680);
+        passwordField.setPosition(window.getX()+150,480);
         emailField.setWidth(window.getWidth()-300);
         emailField.setHeight(170);
         passwordField.setWidth(window.getWidth()-300);
         passwordField.setHeight(175);
 
-        registerButton=new Buttons(window.getX()+140,220,"Register","Register",2.5f,st);
-        logInButton=new Buttons(window.getWidth()-250,220,"Log in","Log in",2.5f,st);
+        registerButton=new Buttons(window.getX()+220,320,"Register","Register",2.5f,st);
+        logInButton=new Buttons(window.getWidth()-220,320,"Log in","Log in",2.5f,st);
 
         st.addActor(this);
         st.addActor(emailField);
@@ -95,6 +104,17 @@ public class AuthorizationDialog extends Actor {
         logInButton.setVisible(false);
         emailField.setVisible(false);
         passwordField.setVisible(false);
+    }
+
+    public void setAction(){
+        window.setTransform(true);
+        //emailField.addAction();
+        //passwordField.addAction();
+        registerButton.btn.setTransform(true);
+        logInButton.btn.setTransform(true);
+
+        this.setOrigin(Align.center);
+
     }
 
     public void becomeVisible(){
