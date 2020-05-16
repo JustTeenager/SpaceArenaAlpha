@@ -25,7 +25,7 @@ public class AuthorizationDialog extends Actor {
 
     public AuthorizationDialog(int size, Stage st){
         backTxt=new Texture("settingsPanel.png");
-        font=new BitmapFont(Gdx.files.internal("liter.fnt"));
+        font=new BitmapFont(Gdx.files.internal("registerLit.fnt"));
         font.getData().setScale(size);
         Drawable drawable=new Image(backTxt).getDrawable();
 
@@ -41,6 +41,7 @@ public class AuthorizationDialog extends Actor {
         emailField=new TextField("",style);
         emailField.setAlignment(Align.center);
         emailField.setMessageText("email");
+       // emailField.setText("alexey.e.kotov@gmail.com");
         passwordField=new TextField("",style);
         passwordField.setAlignment(Align.center);
         passwordField.setMessageText("password");

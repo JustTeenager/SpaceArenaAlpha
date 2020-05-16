@@ -14,7 +14,7 @@ public class FireBaseClass {
                 .then(new Consumer<GdxFirebaseUser>() {
                     @Override
                     public void accept(GdxFirebaseUser gdxFirebaseUser) {
-                        if (gdxFirebaseUser.getUserInfo()!=null)
+                        //if (gdxFirebaseUser.getUserInfo()!=null)
                         success();
                     }
                 });
