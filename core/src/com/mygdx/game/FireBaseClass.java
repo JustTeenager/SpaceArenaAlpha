@@ -54,12 +54,14 @@ public class FireBaseClass {
                     });
     }
 
-    public static void signOut(){
+    public static void signOut( final AuthorizationDialog dialog){
+        FireBaseClass.disableAutoButtons(dialog);
         GdxFIRAuth.instance().signOut()
                 .then(new Consumer<Void>() {
                     @Override
                     public void accept(Void o) {
-                        MainGame.authorized=false;
+                        enableAutoButtons(dialog);
+                        successSignOut();
                     }
                 });
     }
@@ -67,6 +69,12 @@ public class FireBaseClass {
     private static void successLogin(){
         MainGame.authorized=true;
         System.out.println("LOGGED");
+    }
+
+    private static void successSignOut(){
+        MainGame.authorized=false;
+        System.out.println("SIGNED OUT");
+
     }
 
     private static void successRegister(){
@@ -101,7 +109,7 @@ public class FireBaseClass {
         System.out.println("added kd");
     }
 
-    public static void disableAutoButtons(AuthorizationDialog dialog){
+    private static void disableAutoButtons(AuthorizationDialog dialog){
         dialog.getLogInButton().setTouchable(Touchable.disabled);
         dialog.getRegisterButton().setTouchable(Touchable.disabled);
     }

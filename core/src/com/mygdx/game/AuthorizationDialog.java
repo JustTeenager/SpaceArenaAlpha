@@ -26,7 +26,7 @@ public class AuthorizationDialog extends Actor {
     private Buttons registerButton;
     private Buttons logInButton;
 
-    public AuthorizationDialog(int size, Stage st){
+    public AuthorizationDialog(float size, Stage st){
         backTxt=new Texture("regPanel.png");
         cursorTxt=new Texture("cursor.png");
         font=new BitmapFont(Gdx.files.internal("registerLit.fnt"));

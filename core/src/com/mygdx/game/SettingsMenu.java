@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
 import com.badlogic.gdx.audio.Sound;
@@ -11,8 +12,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 
 import static java.lang.StrictMath.abs;
+import static java.lang.StrictMath.log;
 
 public class SettingsMenu implements Screen {
     private MainGame game;
@@ -30,7 +33,10 @@ public class SettingsMenu implements Screen {
     Buttons setNameButton;
     Buttons logOutButton;
 
+    private AuthorizationDialog autoDialog;
+
     InputProcessor inputProcessor;
+    InputMultiplexer inputMultiplexer;
     Sound clickSound;
     BitmapFont nameFont;
     private float distance;
@@ -63,10 +69,14 @@ public class SettingsMenu implements Screen {
                 "volButt",volumeTxt.getWidth(),volumeTxt.getHeight(),st,volumeTxt,volumeTxt);
 
         backButton=new Buttons(Gdx.graphics.getWidth()/2-120,yScale/3,"backButt","Back",2f,st);
-        setNameButton=new Buttons(Gdx.graphics.getWidth()/2-200,yScale/3+180,"nameButt","Set Name",2f,st);
+        logOutButton=new Buttons(Gdx.graphics.getWidth()/2+100,yScale/3+180,"logOutButt","Log out",2f,st);
+        setNameButton=new Buttons(Gdx.graphics.getWidth()/2-500,yScale/3+180,"nameButt","Set Name",2f,st);
 
         distanceGeneral=volumeScale.getWidth();
         distance=MainGame.volume*distanceGeneral;
+
+        autoDialog=new AuthorizationDialog(2f,st);
+        autoDialog.becomeInvisible();
 
         float prevVolumePosition;
         if (MainGame.volButtonX!=-1){
@@ -74,6 +84,8 @@ public class SettingsMenu implements Screen {
             volumeButton.btn.setX(prevVolumePosition);
             System.out.println("changed");
         }
+
+        inputMultiplexer=new InputMultiplexer();
 
         inputProcessor=new InputProcessor() {
             @Override
@@ -92,15 +104,39 @@ public class SettingsMenu implements Screen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                if ((abs(Gdx.graphics.getHeight()-screenY)>setNameButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<setNameButton.btn.getY()+setNameButton.btn.getHeight())
-                        && (screenX>setNameButton.btn.getX()&&screenX<setNameButton.btn.getX()+setNameButton.btn.getWidth())){
+
+                if ((abs(Gdx.graphics.getHeight()-screenY)>logOutButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<logOutButton.btn.getY()+logOutButton.btn.getHeight())
+                        && (screenX>logOutButton.btn.getX()&&screenX<logOutButton.btn.getX()+logOutButton.btn.getWidth()) && !autoDialog.isVisible()){
+                    System.out.println("FB LOGOUT");
+                    FireBaseClass.signOut(autoDialog);
+                }
+                if (autoDialog.isVisible()) {
+                    System.out.println(autoDialog.isTouchable());
+                    System.out.println("auth is visible");
+                    if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getLogInButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getLogInButton().btn.getY() + autoDialog.getLogInButton().btn.getHeight())
+                            && (screenX > autoDialog.getLogInButton().btn.getX() && screenX < autoDialog.getLogInButton().btn.getX() + autoDialog.getLogInButton().btn.getWidth()) && (autoDialog.getLogInButton().isTouchable())) {
+                        System.out.println("FB LOGIN");
+                        MainGame.playerLogin = autoDialog.getEmailField().getText();
+                        MainGame.playerPassword = autoDialog.getPasswordField().getText();
+                        FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
+                    } else if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getRegisterButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getRegisterButton().btn.getY() + autoDialog.getRegisterButton().btn.getHeight())
+                            && (screenX > autoDialog.getRegisterButton().btn.getX() && screenX < autoDialog.getRegisterButton().btn.getX() + autoDialog.getRegisterButton().btn.getWidth()) && autoDialog.getRegisterButton().isTouchable()) {
+                        System.out.println("FB REGISTER");
+                        MainGame.playerLogin = autoDialog.getEmailField().getText();
+                        MainGame.playerPassword = autoDialog.getPasswordField().getText();
+                        FireBaseClass.register(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
+                    }
+                }
+
+                else if ((abs(Gdx.graphics.getHeight()-screenY)>setNameButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<setNameButton.btn.getY()+setNameButton.btn.getHeight())
+                        && (screenX>setNameButton.btn.getX()&&screenX<setNameButton.btn.getX()+setNameButton.btn.getWidth()) && setNameButton.isTouchable()){
                     clickSound.play(MainGame.volume);
                     NameInput input = new NameInput();
                     Gdx.input.getTextInput(input, "Enter your name", MainGame.current_player_name, "Your name");
                 }
 
-                if ((abs(Gdx.graphics.getHeight()-screenY)>backButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<backButton.btn.getY()+backButton.btn.getHeight())
-                        && (screenX>backButton.btn.getX()&&screenX<backButton.btn.getX()+backButton.btn.getWidth())){
+                else if ((abs(Gdx.graphics.getHeight()-screenY)>backButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<backButton.btn.getY()+backButton.btn.getHeight())
+                        && (screenX>backButton.btn.getX()&&screenX<backButton.btn.getX()+backButton.btn.getWidth()) && backButton.isTouchable()){
                     MainGame.volume=distance/distanceGeneral;
                     clickSound.play(MainGame.volume);
                     game.setScreen(new MainMenu(game));
@@ -115,25 +151,27 @@ public class SettingsMenu implements Screen {
 
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
-            if (abs(Gdx.graphics.getHeight()-screenY)>=volumeButton.btn.getY() && abs(Gdx.graphics.getHeight()-screenY)<=volumeButton.btn.getY()+volumeButton.btn.getHeight()) {
-                Vector2 previous = new Vector2(volumeButton.btn.getX(), volumeButton.btn.getY());
-                volumeButton.btn.setX(screenX);
-                if (volumeButton.btn.getX() <= xScale || volumeButton.btn.getX() >= (xScale + volumeScale.getWidth() - volumeTxt.getWidth()))
-                    volumeButton.btn.setPosition(previous.x, previous.y);
+                if (!autoDialog.isVisible()) {
+                    if (abs(Gdx.graphics.getHeight() - screenY) >= volumeButton.btn.getY() && abs(Gdx.graphics.getHeight() - screenY) <= volumeButton.btn.getY() + volumeButton.btn.getHeight() && volumeButton.isTouchable()) {
+                        Vector2 previous = new Vector2(volumeButton.btn.getX(), volumeButton.btn.getY());
+                        volumeButton.btn.setX(screenX);
+                        if (volumeButton.btn.getX() <= xScale || volumeButton.btn.getX() >= (xScale + volumeScale.getWidth() - volumeTxt.getWidth()))
+                            volumeButton.btn.setPosition(previous.x, previous.y);
 
-                if (screenX >= xScale && screenX <= xScale + volumeScale.getWidth()) {
-                    distance = screenX - xScale;
-                    MainGame.volButtonX = volumeButton.btn.getX();
+                        if (screenX >= xScale && screenX <= xScale + volumeScale.getWidth()) {
+                            distance = screenX - xScale;
+                            MainGame.volButtonX = volumeButton.btn.getX();
+                        }
+                        if (screenX <= xScale) {
+                            distance = 0;
+                            MainGame.volButtonX = xScale;
+                        }
+                        if (screenX >= xScale + volumeScale.getWidth() - volumeTxt.getWidth()) {
+                            distance = distanceGeneral;
+                            MainGame.volButtonX = xScale + volumeScale.getWidth() - volumeTxt.getWidth();
+                        }
+                    }
                 }
-                if (screenX <= xScale) {
-                    distance = 0;
-                    MainGame.volButtonX=xScale;
-                }
-                if (screenX >= xScale + volumeScale.getWidth() - volumeTxt.getWidth()) {
-                    distance = distanceGeneral;
-                    MainGame.volButtonX=xScale +volumeScale.getWidth() - volumeTxt.getWidth();
-                }
-            }
                 return false;
             }
 
@@ -147,6 +185,23 @@ public class SettingsMenu implements Screen {
                 return false;
             }
         };
+        checkAuto();
+    }
+    private void checkAuto(){
+        if (MainGame.authorized) {
+            autoDialog.becomeInvisible();
+                backButton.setTouchable(Touchable.enabled);
+                volumeButton.setTouchable(Touchable.enabled);
+                logOutButton.setTouchable(Touchable.enabled);
+                setNameButton.setTouchable(Touchable.enabled);
+        }
+        else {
+            autoDialog.becomeVisible();
+            backButton.setTouchable(Touchable.disabled);
+            volumeButton.setTouchable(Touchable.disabled);
+            logOutButton.setTouchable(Touchable.disabled);
+            setNameButton.setTouchable(Touchable.disabled);
+        }
     }
 
 
@@ -159,7 +214,13 @@ public class SettingsMenu implements Screen {
     public void render(float delta) {
         Gdx.gl.glClearColor(0, 0, 0, 1);
         Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
-        Gdx.input.setInputProcessor(inputProcessor);
+
+        inputMultiplexer.addProcessor(this.st);
+        inputMultiplexer.addProcessor(inputProcessor);
+
+        checkAuto();
+
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
         batch.begin();
         batch.draw(backTxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());

@@ -92,7 +92,7 @@ public class MainMenu implements Screen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                if (autoDialog.getLogInButton().isVisible()) {
+                if (autoDialog.isVisible()) {
                     if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getLogInButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getLogInButton().btn.getY() + autoDialog.getLogInButton().btn.getHeight())
                             && (screenX > autoDialog.getLogInButton().btn.getX() && screenX < autoDialog.getLogInButton().btn.getX() + autoDialog.getLogInButton().btn.getWidth()) && (autoDialog.getLogInButton().isTouchable())) {
                         System.out.println("FB LOGIN");
@@ -104,7 +104,6 @@ public class MainMenu implements Screen {
                         System.out.println("FB REGISTER");
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
-                        FireBaseClass.disableAutoButtons(autoDialog);
                         FireBaseClass.register(MainGame.playerLogin, MainGame.playerPassword.toCharArray(),autoDialog);
                     }
                 }
@@ -163,7 +162,7 @@ public class MainMenu implements Screen {
             setupX=0;
         }
 
-        autoDialog=new AuthorizationDialog(2,s);
+        autoDialog=new AuthorizationDialog(2f,s);
         checkAuto();
     }
 
