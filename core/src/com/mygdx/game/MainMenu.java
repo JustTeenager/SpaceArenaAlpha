@@ -14,6 +14,9 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import static java.lang.StrictMath.abs;
 
 public class MainMenu implements Screen {
@@ -123,6 +126,7 @@ public class MainMenu implements Screen {
                     } else if ((abs(Gdx.graphics.getHeight() - screenY) > butt[1].btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < butt[1].btn.getY() + butt[1].btn.getHeight()
                             && (screenX > butt[1].btn.getX() && screenX < butt[1].btn.getX() + butt[1].btn.getWidth())) && butt[1].isTouchable()) {
                         clickSound.play(MainGame.volume);
+                        //FireBaseClass.updateChild();
                         game.setScreen(new SettingsMenu(game));
                     }
                 }
