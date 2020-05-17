@@ -94,24 +94,25 @@ public class MainMenu implements Screen {
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
                 if (autoDialog.getLogInButton().isVisible()) {
                     if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getLogInButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getLogInButton().btn.getY() + autoDialog.getLogInButton().btn.getHeight())
-                            && (screenX > autoDialog.getLogInButton().btn.getX() && screenX < autoDialog.getLogInButton().btn.getX() + autoDialog.getLogInButton().btn.getWidth())) {
+                            && (screenX > autoDialog.getLogInButton().btn.getX() && screenX < autoDialog.getLogInButton().btn.getX() + autoDialog.getLogInButton().btn.getWidth()) && (autoDialog.getLogInButton().isTouchable())) {
                         System.out.println("FB LOGIN");
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
-                        FireBaseClass.signIn(autoDialog.getEmailField().getText(), autoDialog.getPasswordField().getText().toCharArray());
+                        FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(),autoDialog);
                     } else if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getRegisterButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getRegisterButton().btn.getY() + autoDialog.getRegisterButton().btn.getHeight())
-                            && (screenX > autoDialog.getRegisterButton().btn.getX() && screenX < autoDialog.getRegisterButton().btn.getX() + autoDialog.getRegisterButton().btn.getWidth())) {
+                            && (screenX > autoDialog.getRegisterButton().btn.getX() && screenX < autoDialog.getRegisterButton().btn.getX() + autoDialog.getRegisterButton().btn.getWidth()) && autoDialog.getRegisterButton().isTouchable()) {
                         System.out.println("FB REGISTER");
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
-                        FireBaseClass.register(autoDialog.getEmailField().getText(), autoDialog.getPasswordField().getText().toCharArray());
+                        FireBaseClass.disableAutoButtons(autoDialog);
+                        FireBaseClass.register(MainGame.playerLogin, MainGame.playerPassword.toCharArray(),autoDialog);
                     }
                 }
 
 
                 else {
                     if ((abs(Gdx.graphics.getHeight() - screenY) > butt[0].btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < butt[0].btn.getY() + butt[0].btn.getHeight())
-                            && (screenX > butt[0].btn.getX() && screenX < butt[0].btn.getX() + butt[0].btn.getWidth())) {
+                            && (screenX > butt[0].btn.getX() && screenX < butt[0].btn.getX() + butt[0].btn.getWidth()) && butt[0].isTouchable()) {
                         clickSound.play(MainGame.volume);
                         try {
                             ClientClass.startClient();
@@ -121,7 +122,7 @@ public class MainMenu implements Screen {
                             game.setScreen(new ConnectMenu(game));
                         }
                     } else if ((abs(Gdx.graphics.getHeight() - screenY) > butt[1].btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < butt[1].btn.getY() + butt[1].btn.getHeight()
-                            && (screenX > butt[1].btn.getX() && screenX < butt[1].btn.getX() + butt[1].btn.getWidth()))) {
+                            && (screenX > butt[1].btn.getX() && screenX < butt[1].btn.getX() + butt[1].btn.getWidth())) && butt[1].isTouchable()) {
                         clickSound.play(MainGame.volume);
                         game.setScreen(new SettingsMenu(game));
                     }
@@ -232,7 +233,7 @@ public class MainMenu implements Screen {
         }
         else {autoDialog.becomeVisible();
             for (Buttons button:butt){
-                button.setTouchable(Touchable.enabled);
+                button.setTouchable(Touchable.disabled);
             }
         }
     }

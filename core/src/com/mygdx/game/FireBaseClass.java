@@ -1,5 +1,7 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.scenes.scene2d.Touchable;
+
 import pl.mk5.gdx.fireapp.GdxFIRAuth;
 import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 import pl.mk5.gdx.fireapp.auth.GdxFirebaseUser;
@@ -10,33 +12,44 @@ import pl.mk5.gdx.fireapp.functional.Function;
 
 public class FireBaseClass {
 
-    public static void signIn(final String playerEmail, final char[] playerPassword) {
+    public static void signIn(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog) {
         // Sign in via username/email and password
+        FireBaseClass.disableAutoButtons(dialog);
         GdxFIRAuth.instance()
                 .signInWithEmailAndPassword(playerEmail, playerPassword)
                 .then(new Consumer<GdxFirebaseUser>() {
                     @Override
                     public void accept(GdxFirebaseUser gdxFirebaseUser) {
-                        //if (gdxFirebaseUser.getUserInfo()!=null)
+                        //if (gdxFirebaseUser.getUserInfo()!=
+                        enableAutoButtons(dialog);
                         successLogin();
                     }
-                });
+                }).fail(new BiConsumer<String, Throwable>() {
+            @Override
+            public void accept(String s, Throwable throwable) {
+                System.out.println("ERROR DURING LOGIN");
+                enableAutoButtons(dialog);
+            }
+        });
     }
 
 
-    public static void register(final String playerEmail, final char[] playerPassword){
+    public static void register(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog){
+        FireBaseClass.disableAutoButtons(dialog);
             GdxFIRAuth.instance()
                     .createUserWithEmailAndPassword(playerEmail, playerPassword).then(new Consumer<GdxFirebaseUser>() {
                         @Override
                         public void accept(GdxFirebaseUser gdxFirebaseUser) {
+                            enableAutoButtons(dialog);
                             successRegister();
                         }
                     })
                     .fail(new BiConsumer<String, Throwable>() {
                         @Override
                         public void accept(String s, Throwable throwable) {
-                                GdxFIRAuth.inst().getCurrentUser().delete().subscribe();
+                                //GdxFIRAuth.inst().getCurrentUser().delete().subscribe();
                                 System.out.println("ERROR DURING REG");
+                                enableAutoButtons(dialog);
                         }
                     });
     }
@@ -88,5 +101,13 @@ public class FireBaseClass {
         System.out.println("added kd");
     }
 
+    public static void disableAutoButtons(AuthorizationDialog dialog){
+        dialog.getLogInButton().setTouchable(Touchable.disabled);
+        dialog.getRegisterButton().setTouchable(Touchable.disabled);
+    }
+    private static void enableAutoButtons(AuthorizationDialog dialog){
+        dialog.getLogInButton().setTouchable(Touchable.enabled);
+        dialog.getRegisterButton().setTouchable(Touchable.enabled);
+    }
 
 }
