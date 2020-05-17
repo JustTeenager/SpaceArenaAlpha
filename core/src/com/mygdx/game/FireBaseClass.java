@@ -29,6 +29,12 @@ public class FireBaseClass {
             public void accept(String s, Throwable throwable) {
                 System.out.println("ERROR DURING LOGIN");
                 enableAutoButtons(dialog);
+                try {
+                    throw throwable;
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                    dialog.setErrorText("Something with email or pass");
+                }
             }
         });
     }
@@ -42,17 +48,32 @@ public class FireBaseClass {
                         public void accept(GdxFirebaseUser gdxFirebaseUser) {
                             enableAutoButtons(dialog);
                             successRegister();
+                            dialog.setErrorText("Now log in!");
                         }
                     })
                     .fail(new BiConsumer<String, Throwable>() {
                         @Override
                         public void accept(String s, Throwable throwable) {
                                 //GdxFIRAuth.inst().getCurrentUser().delete().subscribe();
-                                System.out.println("ERROR DURING REG");
+                            System.out.println("REGISTRATION ERROR");
                                 enableAutoButtons(dialog);
+                            try {
+                                throw throwable;
+                            } catch (Throwable e) {
+                                e.printStackTrace();
+                                dialog.setErrorText("Something with email or pass");
+                            }
                         }
                     });
     }
+
+    //email:
+    //com.google.firebase.auth.FirebaseAuthInvalidCredentialsException -- The email is badly formatted
+    //com.google.firebase.auth.FirebaseAuthUserCollisionException --  The email is already in use
+    //com.google.firebase.auth.FirebaseAuthWeakPasswordException -- The given password is invalid
+    //
+
+
 
     public static void signOut( final AuthorizationDialog dialog){
         FireBaseClass.disableAutoButtons(dialog);

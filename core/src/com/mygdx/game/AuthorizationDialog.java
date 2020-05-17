@@ -18,6 +18,9 @@ public class AuthorizationDialog extends Actor {
     private Window window;
     private BitmapFont font;
     private BitmapFont fontText;
+    private BitmapFont fontErr;
+
+    private String errorText;
     private TextField emailField;
     private TextField passwordField;
     private Texture backTxt;
@@ -29,8 +32,13 @@ public class AuthorizationDialog extends Actor {
     public AuthorizationDialog(float size, Stage st){
         backTxt=new Texture("regPanel.png");
         cursorTxt=new Texture("cursor.png");
+        errorText="";
+
         font=new BitmapFont(Gdx.files.internal("registerLit.fnt"));
         fontText=new BitmapFont(Gdx.files.internal("liter.fnt"));
+        fontErr=fontText;
+        fontErr.getData().setScale(0.8f);
+        fontErr.setColor(new Color(1,1,1,0.5f));
         font.getData().setScale(size);
         fontText.getData().setScale(2f);
         Drawable drawableback=new Image(backTxt).getDrawable();
@@ -91,6 +99,7 @@ public class AuthorizationDialog extends Actor {
         passwordField.draw(batch,parentAlpha);
         registerButton.btn.draw(batch,parentAlpha);
         logInButton.btn.draw(batch,parentAlpha);
+        fontErr.draw(batch,errorText,window.getX()+220,250);
     }
 
     public TextField getEmailField() {
@@ -124,4 +133,13 @@ public class AuthorizationDialog extends Actor {
         emailField.setVisible(true);
         passwordField.setVisible(true);
     }
+
+    public void setErrorText(String errorText) {
+        this.errorText = errorText;
+    }
+
+    public String getErrorText() {
+        return errorText;
+    }
+
 }
