@@ -52,7 +52,6 @@ public class Ammunition extends ActorObj {
 
     @Override
     public void platformReact(Platform pl) {
-
     }
 
     @Override

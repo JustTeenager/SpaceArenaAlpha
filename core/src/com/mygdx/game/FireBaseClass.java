@@ -1,59 +1,92 @@
 package com.mygdx.game;
 
 import pl.mk5.gdx.fireapp.GdxFIRAuth;
+import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 import pl.mk5.gdx.fireapp.auth.GdxFirebaseUser;
+import pl.mk5.gdx.fireapp.distributions.DatabaseDistribution;
 import pl.mk5.gdx.fireapp.functional.BiConsumer;
 import pl.mk5.gdx.fireapp.functional.Consumer;
+import pl.mk5.gdx.fireapp.functional.Function;
 
 public class FireBaseClass {
 
-    public static void signIn(String playerEmail,char[] playerPassword) {
+    public static void signIn(final String playerEmail, final char[] playerPassword) {
         // Sign in via username/email and password
-        GdxFIRAuth.inst()
+        GdxFIRAuth.instance()
                 .signInWithEmailAndPassword(playerEmail, playerPassword)
                 .then(new Consumer<GdxFirebaseUser>() {
                     @Override
                     public void accept(GdxFirebaseUser gdxFirebaseUser) {
                         //if (gdxFirebaseUser.getUserInfo()!=null)
-                        success();
+                        successLogin();
                     }
                 });
     }
 
 
-    public static void register(String playerEmail,char[] playerPassword){
-            GdxFIRAuth.inst()
-                    .createUserWithEmailAndPassword(playerEmail, playerPassword)
-                    .then(new Consumer<GdxFirebaseUser>() {
+    public static void register(final String playerEmail, final char[] playerPassword){
+            GdxFIRAuth.instance()
+                    .createUserWithEmailAndPassword(playerEmail, playerPassword).then(new Consumer<GdxFirebaseUser>() {
                         @Override
                         public void accept(GdxFirebaseUser gdxFirebaseUser) {
-                            success();
+                            successRegister();
                         }
                     })
                     .fail(new BiConsumer<String, Throwable>() {
                         @Override
                         public void accept(String s, Throwable throwable) {
-                            if( s.contains("The email address is already in use by another account") ){
                                 GdxFIRAuth.inst().getCurrentUser().delete().subscribe();
-                                System.out.println("error reg");
-                            }
+                                System.out.println("ERROR DURING REG");
                         }
                     });
     }
 
     public static void signOut(){
-        GdxFIRAuth.inst().signOut()
+        GdxFIRAuth.instance().signOut()
                 .then(new Consumer<Void>() {
                     @Override
                     public void accept(Void o) {
-                        success();
+                        MainGame.authorized=false;
                     }
                 });
     }
 
-    private static void success(){
+    private static void successLogin(){
         MainGame.authorized=true;
-        System.out.println("LIBGDX GOVNINA");
+        System.out.println("LOGGED");
     }
+
+    private static void successRegister(){
+        MainGame.registered=true;
+        System.out.println("REGISTERED");
+    }
+
+    public static void updateKDInDataBase(final int addKills,final int addDeath) {
+        GdxFIRDatabase.instance().inReference("/Kills/"+MainGame.playerPassword)
+                .transaction(Long.class, new Function<Long, Long>() {
+                    @Override
+                    public Long apply(Long i) {
+                        return i + addKills;
+                    }
+                }).then( GdxFIRDatabase.inst().inReference("/Death/"+MainGame.playerPassword)
+                .transaction(Long.class, new Function<Long, Long>() {
+                    @Override
+                    public Long apply(Long i) {
+                        return i + addDeath;
+                    }
+                }));
+        System.out.println("updated kd");
+    }
+
+    public static void addKDInDataBase() {
+        GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
+                        GdxFIRDatabase.instance()
+                                .inReference("/Death/"+MainGame.playerPassword).setValue(0));
+        GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
+                GdxFIRDatabase.instance()
+                        .inReference("/Kills/"+MainGame.playerPassword).setValue(0));
+        System.out.println("added kd");
+    }
+
 
 }

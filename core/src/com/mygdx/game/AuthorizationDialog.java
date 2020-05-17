@@ -54,6 +54,17 @@ public class AuthorizationDialog extends Actor {
         passwordField.setPasswordCharacter('*');
         passwordField.setAlignment(Align.center);
         passwordField.setMessageText("password");
+        passwordField.setTextFieldFilter(new TextField.TextFieldFilter() {
+            @Override
+            public boolean acceptChar(TextField textField, char c) {
+                for (char wrChar:MainGame.wrongChars)
+                    if (c==wrChar){
+                        System.out.println("TEXTFIELD GOVNINA");
+                        return false;
+                    }
+                return true;
+            }
+        });
 
 
         emailField.setPosition(window.getX()+150,680);
@@ -104,17 +115,6 @@ public class AuthorizationDialog extends Actor {
         logInButton.setVisible(false);
         emailField.setVisible(false);
         passwordField.setVisible(false);
-    }
-
-    public void setAction(){
-        window.setTransform(true);
-        //emailField.addAction();
-        //passwordField.addAction();
-        registerButton.btn.setTransform(true);
-        logInButton.btn.setTransform(true);
-
-        this.setOrigin(Align.center);
-
     }
 
     public void becomeVisible(){

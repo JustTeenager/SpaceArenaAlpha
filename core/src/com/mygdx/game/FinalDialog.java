@@ -60,6 +60,7 @@ public class FinalDialog extends Actor {
 
 
     public void returnToMenu(){
+        FireBaseClass.updateKDInDataBase(MainGame.current_player_score,MainGame.enemy_score);
         game.setScreen(new MainMenu(game));
     }
 }

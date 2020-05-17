@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 
 import static java.lang.StrictMath.abs;
@@ -91,34 +92,39 @@ public class MainMenu implements Screen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                if ((abs(Gdx.graphics.getHeight()-screenY)>autoDialog.getLogInButton().btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<autoDialog.getLogInButton().btn.getY()+autoDialog.getLogInButton().btn.getHeight())
-                        && (screenX>autoDialog.getLogInButton().btn.getX()&&screenX<autoDialog.getLogInButton().btn.getX()+autoDialog.getLogInButton().btn.getWidth())){
-                    System.out.println("LIBGDX LOGIN");
-                    FireBaseClass.signIn(autoDialog.getEmailField().getText(),autoDialog.getPasswordField().getText().toCharArray());
-                }
-                else if ((abs(Gdx.graphics.getHeight()-screenY)>autoDialog.getRegisterButton().btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<autoDialog.getRegisterButton().btn.getY()+autoDialog.getRegisterButton().btn.getHeight())
-                        && (screenX>autoDialog.getRegisterButton().btn.getX()&&screenX<autoDialog.getRegisterButton().btn.getX()+autoDialog.getRegisterButton().btn.getWidth())){
-                    System.out.println("LIBGDX REGISTER");
-                    FireBaseClass.register(autoDialog.getEmailField().getText(),autoDialog.getPasswordField().getText().toCharArray());
-                }
-
-
-
-               else if ((abs(Gdx.graphics.getHeight()-screenY)>butt[0].btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<butt[0].btn.getY()+butt[0].btn.getHeight())
-                        && (screenX>butt[0].btn.getX()&&screenX<butt[0].btn.getX()+butt[0].btn.getWidth())){
-                    clickSound.play(MainGame.volume);
-                    try {
-                            ClientClass.startClient();
-                            game.setScreen(new WaitingMenu(game));
-                    } catch (Exception e) {
-                        e.printStackTrace();
-                        game.setScreen(new ConnectMenu(game));
+                if (autoDialog.getLogInButton().isVisible()) {
+                    if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getLogInButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getLogInButton().btn.getY() + autoDialog.getLogInButton().btn.getHeight())
+                            && (screenX > autoDialog.getLogInButton().btn.getX() && screenX < autoDialog.getLogInButton().btn.getX() + autoDialog.getLogInButton().btn.getWidth())) {
+                        System.out.println("FB LOGIN");
+                        MainGame.playerLogin = autoDialog.getEmailField().getText();
+                        MainGame.playerPassword = autoDialog.getPasswordField().getText();
+                        FireBaseClass.signIn(autoDialog.getEmailField().getText(), autoDialog.getPasswordField().getText().toCharArray());
+                    } else if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getRegisterButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getRegisterButton().btn.getY() + autoDialog.getRegisterButton().btn.getHeight())
+                            && (screenX > autoDialog.getRegisterButton().btn.getX() && screenX < autoDialog.getRegisterButton().btn.getX() + autoDialog.getRegisterButton().btn.getWidth())) {
+                        System.out.println("FB REGISTER");
+                        MainGame.playerLogin = autoDialog.getEmailField().getText();
+                        MainGame.playerPassword = autoDialog.getPasswordField().getText();
+                        FireBaseClass.register(autoDialog.getEmailField().getText(), autoDialog.getPasswordField().getText().toCharArray());
                     }
                 }
-                else if ((abs(Gdx.graphics.getHeight()-screenY)>butt[1].btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<butt[1].btn.getY()+butt[1].btn.getHeight()
-                        && (screenX>butt[1].btn.getX()&&screenX<butt[1].btn.getX()+butt[1].btn.getWidth()))){
-                    clickSound.play(MainGame.volume);
-                    game.setScreen(new SettingsMenu(game));
+
+
+                else {
+                    if ((abs(Gdx.graphics.getHeight() - screenY) > butt[0].btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < butt[0].btn.getY() + butt[0].btn.getHeight())
+                            && (screenX > butt[0].btn.getX() && screenX < butt[0].btn.getX() + butt[0].btn.getWidth())) {
+                        clickSound.play(MainGame.volume);
+                        try {
+                            ClientClass.startClient();
+                            game.setScreen(new WaitingMenu(game));
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                            game.setScreen(new ConnectMenu(game));
+                        }
+                    } else if ((abs(Gdx.graphics.getHeight() - screenY) > butt[1].btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < butt[1].btn.getY() + butt[1].btn.getHeight()
+                            && (screenX > butt[1].btn.getX() && screenX < butt[1].btn.getX() + butt[1].btn.getWidth()))) {
+                        clickSound.play(MainGame.volume);
+                        game.setScreen(new SettingsMenu(game));
+                    }
                 }
                 return true;
             }
@@ -152,10 +158,12 @@ public class MainMenu implements Screen {
             butt[i]=new Buttons(Gdx.graphics.getWidth()/2+25*setupX-160,Gdx.graphics.getHeight()/4+200-i*MainGame.buttonDistanceFromEachOther,
                    "button_"+i,buttTexts[i],1.7f,s);
             s.addActor(butt[i]);
+            butt[i].setTouchable(Touchable.disabled);
             setupX=0;
         }
 
         autoDialog=new AuthorizationDialog(2,s);
+        checkAuto();
     }
 
     @Override
@@ -168,10 +176,10 @@ public class MainMenu implements Screen {
         inputMultiplexer.addProcessor(this.s);
         inputMultiplexer.addProcessor(inputProcessor);
 
-        Gdx.input.setInputProcessor(inputMultiplexer);
+        if (MainGame.registered) {FireBaseClass.addKDInDataBase();MainGame.registered=false;}
+        checkAuto();
 
-        if (MainGame.authorized)
-            autoDialog.becomeInvisible();
+        Gdx.input.setInputProcessor(inputMultiplexer);
 
 
         //Gdx.input.setInputProcessor(inputProcessor);
@@ -214,5 +222,18 @@ public class MainMenu implements Screen {
         batch.dispose();
         s.dispose();
         panel.dispose();
+    }
+    private void checkAuto(){
+        if (MainGame.authorized) {
+            autoDialog.becomeInvisible();
+            for (Buttons button:butt){
+                button.setTouchable(Touchable.enabled);
+            }
+        }
+        else {autoDialog.becomeVisible();
+            for (Buttons button:butt){
+                button.setTouchable(Touchable.enabled);
+            }
+        }
     }
 }

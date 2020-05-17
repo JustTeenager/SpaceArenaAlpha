@@ -28,6 +28,7 @@ public class SettingsMenu implements Screen {
     Buttons volumeButton;
     Buttons backButton;
     Buttons setNameButton;
+    Buttons logOutButton;
 
     InputProcessor inputProcessor;
     Sound clickSound;

@@ -21,10 +21,16 @@ public class MainGame extends Game {
     static boolean isSettingsDialogOpened=false;
     static boolean needEnemyReanimate=false;
     static boolean authorized=false;
+    static boolean registered=false;
     static int playersNum;
     private static int playerIdentify;
     static String current_player_name="player";
+
     static String enemy_name;
+    static String playerLogin;
+    static final char[] wrongChars={'.','#', '$', '[', ']'};
+
+    static String playerPassword;
 
     static float volume=1;
     static float volButtonX=-1;
