@@ -99,15 +99,29 @@ public class MainMenu implements Screen {
                     if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getLogInButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getLogInButton().btn.getY() + autoDialog.getLogInButton().btn.getHeight())
                             && (screenX > autoDialog.getLogInButton().btn.getX() && screenX < autoDialog.getLogInButton().btn.getX() + autoDialog.getLogInButton().btn.getWidth()) && (autoDialog.getLogInButton().isTouchable())) {
                         System.out.println("FB LOGIN");
+                        clickSound.play(MainGame.volume);
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
-                        FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(),autoDialog);
+                        try {
+                            FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
+                        }catch (IllegalArgumentException e){
+                            autoDialog.setErrorText("empty pass or email");
+                            autoDialog.getRegisterButton().setTouchable(Touchable.enabled);
+                            autoDialog.getLogInButton().setTouchable(Touchable.enabled);
+                        }
                     } else if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getRegisterButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getRegisterButton().btn.getY() + autoDialog.getRegisterButton().btn.getHeight())
                             && (screenX > autoDialog.getRegisterButton().btn.getX() && screenX < autoDialog.getRegisterButton().btn.getX() + autoDialog.getRegisterButton().btn.getWidth()) && autoDialog.getRegisterButton().isTouchable()) {
                         System.out.println("FB REGISTER");
+                        clickSound.play(MainGame.volume);
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
-                        FireBaseClass.register(MainGame.playerLogin, MainGame.playerPassword.toCharArray(),autoDialog);
+                        try {
+                            FireBaseClass.register(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
+                        }catch (IllegalArgumentException e){
+                            autoDialog.setErrorText("empty pass or email");
+                            autoDialog.getRegisterButton().setTouchable(Touchable.enabled);
+                            autoDialog.getLogInButton().setTouchable(Touchable.enabled);
+                        }
                     }
                 }
 
@@ -227,6 +241,7 @@ public class MainMenu implements Screen {
         s.dispose();
         panel.dispose();
     }
+
     private void checkAuto(){
         if (MainGame.authorized) {
             autoDialog.becomeInvisible();
