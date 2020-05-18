@@ -19,7 +19,7 @@ public class JoystickRight extends BaseJoystick {
     public static Shooting shootTemp=new Shooting(5000,5000,ArenaGame.playerStage,new Vector2(5000,5000),MainGame.VELOCITY_BULLETS);
 
 
-    private static final float CURSOR_RADIUS = 40;
+    private static final float CURSOR_RADIUS = 60;
     public JoystickRight(Texture circle, Texture circleCur){
         super();
         this.circle = circle;

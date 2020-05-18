@@ -14,7 +14,7 @@ public class JoystickLeft extends BaseJoystick {
     private float rad = 0;
     public static double angleLeft=0;
 
-    private static final float CURSOR_RADIUS = 40;
+    private static final float CURSOR_RADIUS = 60;
     public JoystickLeft(Texture circle, Texture circleCur){
         super();
         this.circle = circle;
