@@ -24,7 +24,7 @@ public class MainGame extends Game {
     static boolean registered=false;
     static int playersNum;
     private static int playerIdentify;
-    static String current_player_name="player";
+    static String current_player_name;
 
     static String enemy_name;
     static String playerLogin;

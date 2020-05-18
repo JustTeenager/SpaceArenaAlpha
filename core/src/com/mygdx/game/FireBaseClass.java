@@ -24,6 +24,7 @@ public class FireBaseClass {
                     @Override
                     public void accept(GdxFirebaseUser gdxFirebaseUser) {
                         //if (gdxFirebaseUser.getUserInfo()!=
+                        uID=gdxFirebaseUser.getUserInfo().getUid();
                         enableAutoButtons(dialog);
                         successLogin();
                     }
@@ -146,7 +147,7 @@ public class FireBaseClass {
                         .inReference(uID+"/Kills").setValue(0));
         GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
                 GdxFIRDatabase.instance()
-                        .inReference(uID+"/Name").setValue(MainGame.current_player_name));
+                        .inReference(uID+"/Name").setValue("player"));
         System.out.println("added kd");
     }
 
@@ -166,10 +167,17 @@ public class FireBaseClass {
                 .then(new Consumer<String>() {
                     @Override
                     public void accept(String string) {
+                        System.out.println("USERNAME GOVINA");
+                        System.out.println(string);
                         MainGame.current_player_name=string;
                     }
                 });
     }
+
+    public static String getuID() {
+        return uID;
+    }
+
 
 
 }

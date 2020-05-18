@@ -17,6 +17,8 @@ import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import java.util.HashMap;
 import java.util.Map;
 
+import sun.applet.Main;
+
 import static java.lang.StrictMath.abs;
 
 public class MainMenu implements Screen {
@@ -104,7 +106,7 @@ public class MainMenu implements Screen {
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
                         try {
                             FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
-                            FireBaseClass.getUserName();
+                            //FireBaseClass.getUserName();
                         }catch (IllegalArgumentException e){
                             autoDialog.setErrorText("empty pass or email");
                             autoDialog.getRegisterButton().setTouchable(Touchable.enabled);
@@ -196,6 +198,7 @@ public class MainMenu implements Screen {
         inputMultiplexer.addProcessor(inputProcessor);
 
         if (MainGame.registered) {FireBaseClass.addKDInDataBase();MainGame.registered=false;}
+        if (MainGame.authorized && MainGame.current_player_name==null) FireBaseClass.getUserName();
         checkAuto();
 
         Gdx.input.setInputProcessor(inputMultiplexer);
