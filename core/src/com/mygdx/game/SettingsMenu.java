@@ -234,6 +234,7 @@ public class SettingsMenu implements Screen {
         inputMultiplexer.addProcessor(this.st);
         inputMultiplexer.addProcessor(inputProcessor);
 
+        if (MainGame.authorized && MainGame.current_player_name==null) FireBaseClass.getUserName();
         checkAuto();
 
         Gdx.input.setInputProcessor(inputMultiplexer);

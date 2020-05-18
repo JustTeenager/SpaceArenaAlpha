@@ -14,6 +14,8 @@ import pl.mk5.gdx.fireapp.functional.Function;
 public class FireBaseClass {
 
     private static String uID;
+    private static float kills;
+    private static float death;
 
     public static void signIn(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog) {
         // Sign in via username/email and password
@@ -45,6 +47,7 @@ public class FireBaseClass {
 
 
     public static void register(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog){
+        MainGame.current_player_name="player";
         FireBaseClass.disableAutoButtons(dialog);
             GdxFIRAuth.instance()
                     .createUserWithEmailAndPassword(playerEmail, playerPassword).then(new Consumer<GdxFirebaseUser>() {
@@ -99,7 +102,7 @@ public class FireBaseClass {
 
     private static void successSignOut(){
         MainGame.authorized=false;
-        MainGame.current_player_name="player";
+        MainGame.current_player_name=null;
         System.out.println("SIGNED OUT");
 
     }
@@ -117,7 +120,13 @@ public class FireBaseClass {
                     public String apply(String name) {
                         return nameActual;
                     }
-                });
+                }) .fail(new BiConsumer<String, Throwable>() {
+            @Override
+            public void accept(String s, Throwable throwable) {
+                //GdxFIRAuth.inst().getCurrentUser().delete().subscribe();
+                System.out.println("GETTING NAME ERROR");
+            }
+        });
 
     }
 
@@ -126,15 +135,27 @@ public class FireBaseClass {
                 .transaction(Long.class, new Function<Long, Long>() {
                     @Override
                     public Long apply(Long i) {
+                        kills=i+addKills;
                         return i + addKills;
                     }
                 }).then( GdxFIRDatabase.inst().inReference(uID+"/Death")
                 .transaction(Long.class, new Function<Long, Long>() {
                     @Override
                     public Long apply(Long i) {
+                        death=i+addDeath;
                         return i + addDeath;
                     }
                 }));
+        GdxFIRDatabase.instance().inReference(uID+"/KD")
+                .transaction(Float.class, new Function<Float, Float>() {
+                    @Override
+                    public Float apply(Float i) {
+                        float kd=kills/death;
+                        kills=0;
+                        death=0;
+                        return kd;
+                    }
+                });
         System.out.println("updated kd");
     }
 
@@ -148,6 +169,9 @@ public class FireBaseClass {
         GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
                 GdxFIRDatabase.instance()
                         .inReference(uID+"/Name").setValue("player"));
+        GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
+                GdxFIRDatabase.instance()
+                        .inReference(uID+"/KD").setValue(0));
         System.out.println("added kd");
     }
 
