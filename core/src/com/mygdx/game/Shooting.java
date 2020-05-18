@@ -102,11 +102,13 @@ public class Shooting extends ActorObj {
 
     @Override
     public void draw(Batch batch, float parentAlpha) {
-        float x = getX() + direction.x * velocity * Gdx.graphics.getDeltaTime();
-        sprite.setX(x);
-        float y = getY() + direction.y * velocity * Gdx.graphics.getDeltaTime();
-        sprite.setY(y);
-        sprite.draw(batch);
+        try {
+            float x = getX() + direction.x * velocity * Gdx.graphics.getDeltaTime();
+            sprite.setX(x);
+            float y = getY() + direction.y * velocity * Gdx.graphics.getDeltaTime();
+            sprite.setY(y);
+            sprite.draw(batch);
+        }catch (Exception e){}
     }
 
     @Override

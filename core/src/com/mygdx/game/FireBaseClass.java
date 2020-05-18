@@ -136,19 +136,30 @@ public class FireBaseClass {
                     @Override
                     public Long apply(Long i) {
                         kills=i+addKills;
-                        return i + addKills;
+                        return (long) kills;
                     }
                 }).then( GdxFIRDatabase.inst().inReference(uID+"/Death")
                 .transaction(Long.class, new Function<Long, Long>() {
                     @Override
                     public Long apply(Long i) {
                         death=i+addDeath;
-                        return i + addDeath;
+                        return (long) death;
                     }
                 }));
-        GdxFIRDatabase.instance().inReference(uID+"/KD").setValue(kills/death);
-        kills=0;
-        death=0;
+
+        GdxFIRDatabase.instance().inReference(uID+"/KD")
+                .transaction(String.class, new Function<String, String>() {
+                    @Override
+                    public String apply(String name) {
+                        return String.valueOf(kills/death);
+                    }
+                }) .fail(new BiConsumer<String, Throwable>() {
+            @Override
+            public void accept(String s, Throwable throwable) {
+                //GdxFIRAuth.inst().getCurrentUser().delete().subscribe();
+                System.out.println("GETTING KD ERROR");
+            }
+        });
         System.out.println("updated kd");
     }
 
@@ -164,7 +175,7 @@ public class FireBaseClass {
                         .inReference(uID+"/Name").setValue("player"));
         GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
                 GdxFIRDatabase.instance()
-                        .inReference(uID+"/KD").setValue(0f));
+                        .inReference(uID+"/KD").setValue(String.valueOf(0)));
         System.out.println("added kd");
     }
 
