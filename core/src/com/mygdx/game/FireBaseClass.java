@@ -98,6 +98,7 @@ public class FireBaseClass {
 
     private static void successSignOut(){
         MainGame.authorized=false;
+        MainGame.current_player_name="player";
         System.out.println("SIGNED OUT");
 
     }
@@ -157,5 +158,18 @@ public class FireBaseClass {
         dialog.getLogInButton().setTouchable(Touchable.enabled);
         dialog.getRegisterButton().setTouchable(Touchable.enabled);
     }
+
+    public static void getUserName() {
+        GdxFIRDatabase.inst()
+                .inReference(uID+"/Name")
+                .readValue(String.class)
+                .then(new Consumer<String>() {
+                    @Override
+                    public void accept(String string) {
+                        MainGame.current_player_name=string;
+                    }
+                });
+    }
+
 
 }

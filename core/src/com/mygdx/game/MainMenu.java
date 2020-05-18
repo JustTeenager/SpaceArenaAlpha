@@ -104,6 +104,7 @@ public class MainMenu implements Screen {
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
                         try {
                             FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
+                            FireBaseClass.getUserName();
                         }catch (IllegalArgumentException e){
                             autoDialog.setErrorText("empty pass or email");
                             autoDialog.getRegisterButton().setTouchable(Touchable.enabled);
