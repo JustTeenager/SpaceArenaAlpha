@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 
+import pl.mk5.gdx.fireapp.GdxFIRApp;
 import pl.mk5.gdx.fireapp.GdxFIRAuth;
 import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 import pl.mk5.gdx.fireapp.auth.GdxFirebaseUser;
@@ -11,6 +12,8 @@ import pl.mk5.gdx.fireapp.functional.Consumer;
 import pl.mk5.gdx.fireapp.functional.Function;
 
 public class FireBaseClass {
+
+    private static String uID;
 
     public static void signIn(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog) {
         // Sign in via username/email and password
@@ -46,6 +49,7 @@ public class FireBaseClass {
                     .createUserWithEmailAndPassword(playerEmail, playerPassword).then(new Consumer<GdxFirebaseUser>() {
                         @Override
                         public void accept(GdxFirebaseUser gdxFirebaseUser) {
+                            uID=gdxFirebaseUser.getUserInfo().getUid();
                             enableAutoButtons(dialog);
                             successRegister();
                             dialog.setErrorText("Now log in!");
@@ -103,14 +107,26 @@ public class FireBaseClass {
         System.out.println("REGISTERED");
     }
 
+
+    public static void updatePLayerName(final String nameActual){
+        GdxFIRDatabase.instance().inReference(uID+"/Name")
+                .transaction(String.class, new Function<String, String>() {
+                    @Override
+                    public String apply(String name) {
+                        return nameActual;
+                    }
+                });
+
+    }
+
     public static void updateKDInDataBase(final int addKills,final int addDeath) {
-        GdxFIRDatabase.instance().inReference("/Kills/"+MainGame.playerPassword)
+        GdxFIRDatabase.instance().inReference(uID+"/Kills")
                 .transaction(Long.class, new Function<Long, Long>() {
                     @Override
                     public Long apply(Long i) {
                         return i + addKills;
                     }
-                }).then( GdxFIRDatabase.inst().inReference("/Death/"+MainGame.playerPassword)
+                }).then( GdxFIRDatabase.inst().inReference(uID+"/Death")
                 .transaction(Long.class, new Function<Long, Long>() {
                     @Override
                     public Long apply(Long i) {
@@ -123,10 +139,13 @@ public class FireBaseClass {
     public static void addKDInDataBase() {
         GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
                         GdxFIRDatabase.instance()
-                                .inReference("/Death/"+MainGame.playerPassword).setValue(0));
+                                .inReference(uID+"/Death").setValue(0));
         GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
                 GdxFIRDatabase.instance()
-                        .inReference("/Kills/"+MainGame.playerPassword).setValue(0));
+                        .inReference(uID+"/Kills").setValue(0));
+        GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
+                GdxFIRDatabase.instance()
+                        .inReference(uID+"/Name").setValue(MainGame.current_player_name));
         System.out.println("added kd");
     }
 
