@@ -151,7 +151,9 @@ public class FireBaseClass {
                 .transaction(String.class, new Function<String, String>() {
                     @Override
                     public String apply(String name) {
-                        return String.valueOf(kills/death);
+                        float kd=kills/death;
+                        if (death==0) return String.valueOf(kills);
+                        else return String.format("%.2f",String.valueOf(kills/death));
                     }
                 }) .fail(new BiConsumer<String, Throwable>() {
             @Override
