@@ -5,6 +5,7 @@ import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
+import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
@@ -12,6 +13,7 @@ public class ScoreLogs extends Actor {
 
     private Stage stage;
 
+    private GlyphLayout gl;
     private Texture backTxt;
     private BitmapFont scoreFont;
 
@@ -22,6 +24,7 @@ public class ScoreLogs extends Actor {
         scoreFont=new BitmapFont(Gdx.files.internal("liter.fnt"));
         scoreFont.getData().setScale(size);
         scoreFont.setColor(new Color(0,1,0,0.4f));
+        gl.setText(scoreFont,MainGame.current_player_name);
         stage.addActor(this);
         setVisible(false);
     }
