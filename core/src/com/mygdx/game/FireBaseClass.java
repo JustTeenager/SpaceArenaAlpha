@@ -146,16 +146,9 @@ public class FireBaseClass {
                         return i + addDeath;
                     }
                 }));
-        GdxFIRDatabase.instance().inReference(uID+"/KD")
-                .transaction(Float.class, new Function<Float, Float>() {
-                    @Override
-                    public Float apply(Float i) {
-                        float kd=kills/death;
-                        kills=0;
-                        death=0;
-                        return kd;
-                    }
-                });
+        GdxFIRDatabase.instance().inReference(uID+"/KD").setValue(kills/death);
+        kills=0;
+        death=0;
         System.out.println("updated kd");
     }
 
@@ -171,7 +164,7 @@ public class FireBaseClass {
                         .inReference(uID+"/Name").setValue("player"));
         GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
                 GdxFIRDatabase.instance()
-                        .inReference(uID+"/KD").setValue(0));
+                        .inReference(uID+"/KD").setValue(0f));
         System.out.println("added kd");
     }
 
