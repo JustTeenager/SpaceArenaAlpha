@@ -12,7 +12,6 @@ import pl.mk5.gdx.fireapp.functional.Function;
 
 public class FireBaseClass {
 
-    private static String KEY="key";
     private static String uID;
     private static float kills=-1;
     private static float death=-1;
@@ -178,7 +177,7 @@ public class FireBaseClass {
                 }
             });
         }
-            System.out.println("updated kd");
+        System.out.println("updated kd");
     }
 
     public static void updateKDInDatabase(){

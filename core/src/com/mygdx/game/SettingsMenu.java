@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -90,21 +91,21 @@ public class SettingsMenu implements Screen {
         inputProcessor=new InputProcessor() {
             @Override
             public boolean keyDown(int keycode) {
-                return false;
+                return true;
             }
 
             @Override
-            public boolean keyUp(int keycode) { return false;
+            public boolean keyUp(int keycode) {
+                return true;
             }
 
             @Override
             public boolean keyTyped(char character) {
-                return false;
+                return true;
             }
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-
                 if ((abs(Gdx.graphics.getHeight()-screenY)>logOutButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<logOutButton.btn.getY()+logOutButton.btn.getHeight())
                         && (screenX>logOutButton.btn.getX()&&screenX<logOutButton.btn.getX()+logOutButton.btn.getWidth()) && !autoDialog.isVisible()){
                     System.out.println("FB LOGOUT");
@@ -146,7 +147,7 @@ public class SettingsMenu implements Screen {
                 else if ((abs(Gdx.graphics.getHeight()-screenY)>setNameButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<setNameButton.btn.getY()+setNameButton.btn.getHeight())
                         && (screenX>setNameButton.btn.getX()&&screenX<setNameButton.btn.getX()+setNameButton.btn.getWidth()) && setNameButton.isTouchable()){
                     clickSound.play(MainGame.volume);
-                    NameInput input = new NameInput();
+                    NameInput input = new NameInput(inputMultiplexer);
                     Gdx.input.getTextInput(input, "Enter your name", MainGame.current_player_name, "Your name");
                 }
 
@@ -233,6 +234,10 @@ public class SettingsMenu implements Screen {
 
         inputMultiplexer.addProcessor(this.st);
         inputMultiplexer.addProcessor(inputProcessor);
+
+        /*if (Gdx.input.isButtonPressed(Input.Keys.ANY_KEY))System.out.println("KLAVA");
+        if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) System.out.println("KLAVA");
+        if (Gdx.input.isTouched()) System.out.println("KLAVA");*/
 
         if (MainGame.authorized && MainGame.current_player_name==null) FireBaseClass.getUserName();
         checkAuto();

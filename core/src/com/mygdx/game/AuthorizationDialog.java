@@ -1,6 +1,7 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
@@ -56,7 +57,6 @@ public class AuthorizationDialog extends Actor {
         emailField=new TextField("",style);
         emailField.setAlignment(Align.center);
         emailField.setMessageText("email");
-       // emailField.setText("alexey.e.kotov@gmail.com");
         passwordField=new TextField("",style);
         passwordField.setPasswordMode(true);
         passwordField.setPasswordCharacter('*');
