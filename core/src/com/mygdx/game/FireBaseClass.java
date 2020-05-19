@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-
 import pl.mk5.gdx.fireapp.GdxFIRApp;
 import pl.mk5.gdx.fireapp.GdxFIRAuth;
 import pl.mk5.gdx.fireapp.GdxFIRDatabase;
@@ -13,9 +12,10 @@ import pl.mk5.gdx.fireapp.functional.Function;
 
 public class FireBaseClass {
 
+    private static String KEY="key";
     private static String uID;
-    private static float kills;
-    private static float death;
+    private static float kills=-1;
+    private static float death=-1;
 
     public static void signIn(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog) {
         // Sign in via username/email and password
@@ -47,12 +47,12 @@ public class FireBaseClass {
 
 
     public static void register(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog){
-        MainGame.current_player_name="player";
         FireBaseClass.disableAutoButtons(dialog);
             GdxFIRAuth.instance()
                     .createUserWithEmailAndPassword(playerEmail, playerPassword).then(new Consumer<GdxFirebaseUser>() {
                         @Override
                         public void accept(GdxFirebaseUser gdxFirebaseUser) {
+                            MainGame.current_player_name="player";
                             uID=gdxFirebaseUser.getUserInfo().getUid();
                             enableAutoButtons(dialog);
                             successRegister();
@@ -130,39 +130,82 @@ public class FireBaseClass {
 
     }
 
-    public static void updateKDInDataBase(final int addKills,final int addDeath) {
-        GdxFIRDatabase.instance().inReference(uID+"/Kills")
-                .transaction(Long.class, new Function<Long, Long>() {
-                    @Override
-                    public Long apply(Long i) {
-                        kills=i+addKills;
-                        return (long) kills;
+    public static void updateStatInDataBase(final int addKills,final int addDeath) {
+        synchronized (GdxFIRDatabase.class) {
+            GdxFIRDatabase.instance().inReference(uID + "/Kills")
+                    .transaction(Long.class, new Function<Long, Long>() {
+                        @Override
+                        public Long apply(Long i) {
+                            kills = i + addKills;
+                            return (long) kills;
+                        }
+                    });
+            GdxFIRDatabase.instance().inReference(uID + "/Death")
+                    .transaction(Long.class, new Function<Long, Long>() {
+                        @Override
+                        public Long apply(Long i) {
+                            death = i + addDeath;
+                            return (long) death;
+                        }
+                    });
+            GdxFIRDatabase.instance().inReference(uID + "/KD")
+                    .transaction(String.class, new Function<String, String>() {
+                        @Override
+                        public String apply(String kdLast) {
+                            System.out.println(kills / death);
+                            System.out.println(kills);
+                            System.out.println(death);
+                            if (kills != -1 && death != -1) {
+                                    float kd=kills/death;
+                                    kills = -1;
+                                    death = -1;
+                                    return String.format("%.2f", kd);
+                            }
+                            else {
+                                System.out.println("FUCK YOU");
+                                return String.valueOf(kills);
+                            }
+                        }
+                    }).fail(new BiConsumer<String, Throwable>() {
+                @Override
+                public void accept(String s, Throwable throwable) {
+                    System.out.println("GETTING KD ERROR");
+                    try {
+                        throw throwable;
+                    } catch (Throwable e) {
+                        e.printStackTrace();
                     }
-                }).then( GdxFIRDatabase.inst().inReference(uID+"/Death")
-                .transaction(Long.class, new Function<Long, Long>() {
-                    @Override
-                    public Long apply(Long i) {
-                        death=i+addDeath;
-                        return (long) death;
-                    }
-                }));
+                }
+            });
+        }
+            System.out.println("updated kd");
+    }
 
-        GdxFIRDatabase.instance().inReference(uID+"/KD")
+    public static void updateKDInDatabase(){
+        GdxFIRDatabase.instance().inReference(uID + "/KD")
                 .transaction(String.class, new Function<String, String>() {
                     @Override
-                    public String apply(String name) {
-                        float kd=kills/death;
-                        if (death==0) return String.valueOf(kills);
-                        else return String.format("%.2f",String.valueOf(kills/death));
+                    public String apply(String kd) {
+                        System.out.println(kd);
+                        System.out.println(kills / death);
+                        System.out.println(kills);
+                        System.out.println(death);
+                        if (kills != -1 && death != -1) {
+                            kills = -1;
+                            death = -1;
+                            return String.format("%.2f", String.valueOf(kills / death));
+                        }
+                        else {
+                            System.out.println("FUCK YOU");
+                            return String.valueOf(kills);
+                        }
                     }
-                }) .fail(new BiConsumer<String, Throwable>() {
+                }).fail(new BiConsumer<String, Throwable>() {
             @Override
             public void accept(String s, Throwable throwable) {
-                //GdxFIRAuth.inst().getCurrentUser().delete().subscribe();
                 System.out.println("GETTING KD ERROR");
             }
         });
-        System.out.println("updated kd");
     }
 
     public static void addKDInDataBase() {
