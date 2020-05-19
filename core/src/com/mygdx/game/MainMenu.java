@@ -143,8 +143,9 @@ public class MainMenu implements Screen {
                     } else if ((abs(Gdx.graphics.getHeight() - screenY) > butt[1].btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < butt[1].btn.getY() + butt[1].btn.getHeight()
                             && (screenX > butt[1].btn.getX() && screenX < butt[1].btn.getX() + butt[1].btn.getWidth())) && butt[1].isTouchable()) {
                         clickSound.play(MainGame.volume);
-                        //FireBaseClass.updateChild();
                         game.setScreen(new SettingsMenu(game));
+                        //FireBaseClass.readList();
+                        //game.setScreen(new Leaderboard(game));
                     }
                 }
                 return true;

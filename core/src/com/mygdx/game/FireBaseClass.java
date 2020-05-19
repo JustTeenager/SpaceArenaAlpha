@@ -1,9 +1,13 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.scenes.scene2d.Touchable;
+import com.badlogic.gdx.scenes.scene2d.ui.List;
+
+
 import pl.mk5.gdx.fireapp.GdxFIRApp;
 import pl.mk5.gdx.fireapp.GdxFIRAuth;
 import pl.mk5.gdx.fireapp.GdxFIRDatabase;
+import pl.mk5.gdx.fireapp.annotations.MapConversion;
 import pl.mk5.gdx.fireapp.auth.GdxFirebaseUser;
 import pl.mk5.gdx.fireapp.distributions.DatabaseDistribution;
 import pl.mk5.gdx.fireapp.functional.BiConsumer;
@@ -250,6 +254,19 @@ public class FireBaseClass {
         return uID;
     }
 
+    public static void readList() {
+        GdxFIRDatabase.instance().inReference(uID+"/Name")
+                .readValue(List.class)
+                .after(GdxFIRAuth.inst().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()))
+                .then(new Consumer<List<String>>() {
+                    @Override
+                    @MapConversion(FireBaseClass.class)
+                    public void accept(List<String> list) {
+                        System.out.println(list.getItems().items.length);
+                        System.out.println("READ LIST");
+                    }
+                });
+    }
 
 
 }
