@@ -155,7 +155,9 @@ public class SettingsMenu implements Screen {
                         && (screenX>backButton.btn.getX()&&screenX<backButton.btn.getX()+backButton.btn.getWidth()) && backButton.isTouchable()){
                     MainGame.volume=distance/distanceGeneral;
                     clickSound.play(MainGame.volume);
-                    FireBaseClass.updatePLayerName(MainGame.current_player_name);
+                    try {
+                        FireBaseClass.updatePLayerName(MainGame.current_player_name);
+                    }catch (Exception e){e.printStackTrace();}
                     game.setScreen(new MainMenu(game));
                 }
                 return true;

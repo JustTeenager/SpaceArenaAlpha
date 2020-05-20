@@ -1,15 +1,27 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
+import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
+
+import java.util.Vector;
+
+import sun.applet.Main;
+
+import static java.lang.Math.abs;
+
 public class Player extends ActorObj {
     Vector2 lastFrame;
     Vector2 position;
+
+    private ShapeRenderer shapeRenderer = new ShapeRenderer();
 
     JumpState jumpState;
     Rectangle rectangle;
@@ -25,11 +37,13 @@ public class Player extends ActorObj {
     private float dt=0;
     private float velocity=250;
     //velocity =300
-    private float JUMP=350;
+    //private float JUMP=350;
+    private float JUMP=450;
     //jump=430
     private int ID;
     private int animationNum;
     public boolean flip=false;
+    boolean flag=false;
 
     private Array<TextureRegion> aim_player_2= new Array<>();
     private Array<TextureRegion> move_player_2= new Array<>();
@@ -113,8 +127,10 @@ public class Player extends ActorObj {
         setPosition(x,y);
         setWidth(txt.getWidth());
         setHeight(txt.getHeight());
-        setOrigin(getWidth()/2,getHeight());
-        rectangle = new Rectangle(getX()-30, getY(),getWidth(),getHeight());
+        //setOrigin(getWidth()/2,getHeight());
+        setOrigin(getWidth()/2,getHeight()/2);
+        rectangle = new Rectangle(getX()-10, getY()+15,getWidth()-20,getHeight()-15);
+        //rectangle = new Rectangle(getX()-30, getY(),getWidth(),getHeight());
     }
 
 
@@ -152,12 +168,18 @@ public class Player extends ActorObj {
             position.mulAdd(velocityY, delta);
             setY(position.y);
 
-
-            if (position.y - txt.getHeight() / 2 < 0) {
-                jumpState = JumpState.GROUNDED;
-                position.y = txt.getHeight() / 2;
-                velocityY.y = 0;
+            if (this.killed) {
+                position.x=lastFrame.x;
+                position.y=lastFrame.y;
+                setPosition(position.x,position.y);
             }
+
+            //floor
+            /*if (position.y - txt.getHeight()/3+50 < 0) {
+                jumpState = JumpState.GROUNDED;
+                position.y = txt.getHeight()+15;
+                velocityY.y = 0;
+            }*/
 
             if (MainGame.jumped) {
                 switch (jumpState) {
@@ -210,7 +232,7 @@ public class Player extends ActorObj {
                     setX(position.x);
                 }
             }
-            if (!this.killed) rectangle.setPosition(getX(), getY());
+            if (!this.killed) rectangle.setPosition(getX(), getY()+15);
 
             if ((!JoystickLeft.isTouchLeft) && (jumpState == JumpState.GROUNDED)) {
                 if (this.getID() == 0) {
@@ -227,9 +249,8 @@ public class Player extends ActorObj {
                 }
                 txt.dispose();
             }
-
-            for (Platform pl : ArenaGame.plat) {
-                platformReact(pl);
+                for (Platform pl : ArenaGame.plat) {
+                    platformReact(pl);
             }
         }
     }
@@ -240,37 +261,52 @@ public class Player extends ActorObj {
         float y1=lastFrame.y;
         float x2=lastFrame.x+txt.getWidth();
         float y2=lastFrame.y+txt.getHeight();
-
-        float x3=pl.coreX;
-        float y3=pl.coreY;
-        float x4=pl.coreX+pl.getPlatTexture().getWidth();
-        float y4=pl.coreY+pl.getPlatTexture().getHeight();
+        float x3=pl.left;
+        float y3=pl.rect.y;
+        float x4=pl.left+pl.getPlatTexture().getWidth();
+        float y4=pl.rect.y+pl.getPlatTexture().getHeight();
 
         boolean x=((x3 > x1 && x3 < x2) || (x4 > x1 && x4 < x2) || (x1 > x3 && x1 < x4) || (x2 > x3 && x2 < x4));
         boolean y=((y3 > y1 && y3 < y2) || (y4 > y1 && y4 < y2) || (y1 > y3 && y1 < y4) || (y2 > y3 && y2 < y4));
 
-        if (lastFrame.x >= pl.left && lastFrame.x <= pl.right && lastFrame.y >= pl.top && (position.y - pl.top < 0.2f)) {//запрыгивать
+        /*if (lastFrame.x >= pl.left && lastFrame.x <= pl.right && lastFrame.y >= pl.top && (position.y - pl.top < 0.2f)) {//запрыгивать
             if (velocityY.y <= 0) {
                 velocityY.y = 0;
                 jumpState = JumpState.GROUNDED;
                 position.y = pl.top;
             }
-        } else if (lastFrame.x >= pl.left && lastFrame.x <= pl.right && position.y <= pl.top) {//стукаться головой о нижнюю грань
-            if (pl.coreY - (position.y + txt.getHeight()) <= 0.2f) {
-                velocityY.y = -10;
-            }
+        }*/
+        //////////////////////////////////////
+        //position.y = lastFrame.y - (velocityY.y > 0 ? 1 : -1) * 0.5f;
+        //&& !(lastFrame.x >= pl.left && lastFrame.x <= pl.right && lastFrame.y >= pl.top && (position.y - pl.top < 0.2f))
+        if (rectangle.overlaps(pl.rect)) {
+            //System.out.println("OVERLAPSED");
+                    if (y && rectangle.y >= pl.rect.y) {
+                        if (velocityY.y <= 0) {
+                            System.out.println(0);
+                            velocityY.y = 0;
+                            jumpState = JumpState.GROUNDED;
+                            position.y = pl.rect.y + pl.rect.getHeight()-15;
+                        }
+                    } else {
+                        if (y && rectangle.y <= pl.rect.y) {
+                            System.out.println(1);
+                                if (velocityY.y>0){
+                                    System.out.println("CAPTURED "+velocityY.y);
+                                    velocityY.y = -3;
+                                }
+                                velocityY.y-=1;
+                        }
+                        //else if (x && this.getOriginY() >= pl.rect.y && this.)
+                        if (x) {
+                            System.out.println(2);
+                            position.x = lastFrame.x - (JoystickLeft.CheckAngleLeft ? 1 : -1) * 0.3f;
+                        }
+                    }
+
+                    setPosition(position.x, position.y);
+                    rectangle.setPosition(position.x, position.y+15);
         }
-        else if (x && y) {// чтобы сбоку не входил в платформу
-            if (jumpState!=JumpState.GROUNDED) {
-                position.x = lastFrame.x;
-                setX(position.x);
-            }
-        }
-        else if(position.x>1000 || position.x<-810){// чтобы он за границу с краёв не выходил
-            position.x=lastFrame.x;
-            setX(position.x);
-        }
-        rectangle.setPosition(getX(), getY());
     }
     private void endJump() {
         if (jumpState == JumpState.JUMPING) {

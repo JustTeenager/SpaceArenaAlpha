@@ -7,6 +7,7 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
+import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
@@ -19,6 +20,8 @@ public class ArenaGame extends ScreenAdapter {
 
 	private Texture backTxt;
 	public static Music gameMusic;
+
+	private ShapeRenderer shapeRenderer=new ShapeRenderer();
 
 	private InputMultiplexer inputMultiplexer;
 	private SpriteBatch batch;
@@ -199,8 +202,8 @@ public class ArenaGame extends ScreenAdapter {
 				new Platform(-850,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-640,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-430,-25+210+210+210+250,txtplatFloor,playerStage),
 				new Platform(-220,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-10,-25+210+210+210+250,txtplatFloor,playerStage), new Platform(200,-25+210+210+210+250,txtplatFloor,playerStage),
 				new Platform(410,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(620,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(830,-25+210+210+210+250,txtplatFloor,playerStage),
-				new Platform(150, 150,txtplat, playerStage),new Platform(550, 250,txtplat, playerStage),new Platform(830, 330,txtplat, playerStage),
-				new Platform(-200, 200,txtplat, playerStage),new Platform(-870, 430,txtplat, playerStage),new Platform(-500, 300,txtplat, playerStage)
+				new Platform(150, 150+100,txtplat, playerStage),new Platform(550, 250+100,txtplat, playerStage),new Platform(830, 330+100,txtplat, playerStage),
+				new Platform(-200, 200+100,txtplat, playerStage),new Platform(-870, 430+100,txtplat, playerStage),new Platform(-500, 300+100,txtplat, playerStage)
 		};
 
 		hpSmall=new HpSmall(playerStage);
@@ -249,6 +252,8 @@ public class ArenaGame extends ScreenAdapter {
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
+
+
 		inputMultiplexer.addProcessor(joystickLeft);
 		inputMultiplexer.addProcessor(joystickRight);
 		inputMultiplexer.addProcessor(hud);
@@ -295,7 +300,6 @@ public class ArenaGame extends ScreenAdapter {
 				GameHUD.scoreLogs.setVisible(false);
 				MainGame.flag=false;
 				MainGame.timeFromLastKill = -1;
-
 				CURRENT_PLAYER.setNextRound();
 			}
 		}
@@ -366,6 +370,18 @@ public class ArenaGame extends ScreenAdapter {
 				hud.getBackButtonFinal().setVisible(true);
 			}catch (Exception e){}
 		}
+		//отладка платформ
+		Gdx.gl.glEnable(GL20.GL_BLEND);
+		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
+		shapeRenderer.setProjectionMatrix(chaseCam.camera.combined);
+		shapeRenderer.setColor(0, 1, 1, 0.5f);
+		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
+		shapeRenderer.rect(CURRENT_PLAYER.rectangle.getX(),CURRENT_PLAYER.rectangle.getY(),CURRENT_PLAYER.rectangle.getWidth(), CURRENT_PLAYER.rectangle.getHeight());
+		for (Platform plat:plat){
+			shapeRenderer.rect(plat.rect.getX(),plat.rect.getY(),plat.rect.getWidth(), plat.rect.getHeight());
+		}
+		shapeRenderer.end();
+		Gdx.gl.glDisable(GL20.GL_BLEND);
 	}
 
 	@Override

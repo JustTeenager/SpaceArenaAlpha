@@ -3,7 +3,7 @@ package com.mygdx.game;
 import com.badlogic.gdx.graphics.Camera;
 
 public class ChaseCam {
-    private Camera camera;
+    public Camera camera;
 
     private Player player;
 

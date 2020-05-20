@@ -82,11 +82,11 @@ public class Shooting extends ActorObj {
             MainGame.bulletsDamage=0;
 
             if (player.getID()==0) {
-                player.useAnim(0.1f,false,player.getTextureArray_dead_player_2());
+                player.useAnim(0.2f,false,player.getTextureArray_dead_player_2());
                 player.setAnimationNum(14);
             }
             else {
-                player.useAnim(0.1f, false, player.getTextureArray_dead_player_4());
+                player.useAnim(0.2f, false, player.getTextureArray_dead_player_4());
                 player.setAnimationNum(24);
             }
             //CURRENT_PLAYER.setNextRound();
