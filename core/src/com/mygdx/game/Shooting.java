@@ -32,7 +32,7 @@ public class Shooting extends ActorObj {
         this.direction = new Vector2(direction);
         this.velocity = velocity;
 
-       if(CURRENT_PLAYER.getID()==0) sprite = new Sprite(shoot);
+       if(CURRENT_PLAYER.getID()==-100) sprite = new Sprite(shoot);
         else sprite=new Sprite(shootEnemy);
         sprite.setOriginCenter();
         sprite.rotate((float)JoystickRight.angleRight);//поворачиваем пулю на угол, равный углу курсора
@@ -42,7 +42,7 @@ public class Shooting extends ActorObj {
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
 
-        if (ArenaGame.CURRENT_PLAYER.getID()==0) Shooting.shootSound2.play(MainGame.volume);
+        if (ArenaGame.CURRENT_PLAYER.getID()==-100) Shooting.shootSound2.play(MainGame.volume);
         else Shooting.shootSound4.play(MainGame.volume);
 
     }
@@ -53,7 +53,7 @@ public class Shooting extends ActorObj {
         this.direction = new Vector2(direction);
         this.velocity = velocity;
 
-        if(CURRENT_PLAYER.getID()==1000) sprite = new Sprite(shoot);
+        if(CURRENT_PLAYER.getID()==700) sprite = new Sprite(shoot);
         else sprite=new Sprite(shootEnemy);
         positionGun(ENEMY);
         sprite.setOriginCenter();
@@ -61,7 +61,7 @@ public class Shooting extends ActorObj {
         sprite.setPosition(getX(),getY());
         rectangle = new Rectangle(getX(), getY(),getWidth(),getHeight());
         s.addActor(this);
-        if (ArenaGame.CURRENT_PLAYER.getID()==1000) shootSound2.play(MainGame.volume);
+        if (ArenaGame.CURRENT_PLAYER.getID()==700) shootSound2.play(MainGame.volume);
         else shootSound4.play(MainGame.volume);
 
     }
@@ -81,7 +81,7 @@ public class Shooting extends ActorObj {
             player.killed=true;
             MainGame.bulletsDamage=0;
 
-            if (player.getID()==0) {
+            if (player.getID()==-100) {
                 player.useAnim(0.2f,false,player.getTextureArray_dead_player_2());
                 player.setAnimationNum(14);
             }

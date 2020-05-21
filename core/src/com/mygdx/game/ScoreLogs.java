@@ -24,7 +24,12 @@ public class ScoreLogs extends Actor {
         scoreFont=new BitmapFont(Gdx.files.internal("liter.fnt"));
         scoreFont.getData().setScale(size);
         scoreFont.setColor(new Color(0,1,0,0.4f));
-        gl=new GlyphLayout(scoreFont,(MainGame.current_player_name.length() >= MainGame.enemy_name.length() ? MainGame.current_player_name : MainGame.enemy_name));
+        try {
+            gl = new GlyphLayout(scoreFont, (MainGame.current_player_name.length() >= MainGame.enemy_name.length() ? MainGame.current_player_name : MainGame.enemy_name));
+        } catch (Exception e) {
+            e.printStackTrace();
+            gl = new GlyphLayout(scoreFont,"player");
+        }
         stage.addActor(this);
         setVisible(false);
     }

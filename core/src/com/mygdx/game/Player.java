@@ -195,7 +195,7 @@ public class Player extends ActorObj {
             } else endJump();
             if (!JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft && MainGame.seconds>0) {
                 flip = true;
-                if (this.getID() == 0) {
+                if (this.getID() == -100) {
                     if (!this.killed) {
                         useAnim(0.1f, true, move_player_2);
                         animationNum = 12;
@@ -214,7 +214,7 @@ public class Player extends ActorObj {
                 }
             } else if (JoystickLeft.isTouchLeft && MainGame.seconds>0) {
                 flip = false;
-                if (this.getID() == 0) {
+                if (this.getID() == -100) {
                     if (!this.killed) {
                         useAnim(0.1f, true, move_player_2);
                         animationNum = 12;
@@ -235,7 +235,7 @@ public class Player extends ActorObj {
             if (!this.killed) rectangle.setPosition(getX(), getY()+15);
 
             if ((!JoystickLeft.isTouchLeft) && (jumpState == JumpState.GROUNDED)) {
-                if (this.getID() == 0) {
+                if (this.getID() == -100) {
                     if (!this.killed) {
                         useAnim(0.1f, true, aim_player_2);
                         animationNum = 11;
@@ -279,6 +279,10 @@ public class Player extends ActorObj {
         //////////////////////////////////////
         //position.y = lastFrame.y - (velocityY.y > 0 ? 1 : -1) * 0.5f;
         //&& !(lastFrame.x >= pl.left && lastFrame.x <= pl.right && lastFrame.y >= pl.top && (position.y - pl.top < 0.2f))
+        if(position.x>915 || position.x<-835){// чтобы он за границу с краёв не выходил
+            position.x=lastFrame.x;
+            setX(position.x);
+        }
         if (rectangle.overlaps(pl.rect)) {
             //System.out.println("OVERLAPSED");
                     if (y && rectangle.y >= pl.rect.y) {
@@ -318,7 +322,7 @@ public class Player extends ActorObj {
     private void startJump(){
         jumpState=JumpState.JUMPING;
         if (!this.killed) velocityY.y+=JUMP;
-        if (this.getID()==0) {
+        if (this.getID()==-100) {
             if (!this.killed) {
                 useAnim(0.1f, false, jump_player_2);
                 animationNum = 13;

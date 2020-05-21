@@ -46,28 +46,30 @@ public class FireBaseClass {
                 }
             }
         });
+
     }
 
 
     public static void register(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog){
-        FireBaseClass.disableAutoButtons(dialog);
+        synchronized (GdxFIRDatabase.class) {
+            FireBaseClass.disableAutoButtons(dialog);
             GdxFIRAuth.instance()
                     .createUserWithEmailAndPassword(playerEmail, playerPassword).then(new Consumer<GdxFirebaseUser>() {
-                        @Override
-                        public void accept(GdxFirebaseUser gdxFirebaseUser) {
-                            MainGame.current_player_name="player";
-                            uID=gdxFirebaseUser.getUserInfo().getUid();
-                            enableAutoButtons(dialog);
-                            successRegister();
-                            dialog.setErrorText("Now log in!");
-                        }
-                    })
+                @Override
+                public void accept(GdxFirebaseUser gdxFirebaseUser) {
+                    MainGame.current_player_name = "player";
+                    uID = gdxFirebaseUser.getUserInfo().getUid();
+                    enableAutoButtons(dialog);
+                    successRegister();
+                    dialog.setErrorText("Now log in!");
+                }
+            })
                     .fail(new BiConsumer<String, Throwable>() {
                         @Override
                         public void accept(String s, Throwable throwable) {
-                                //GdxFIRAuth.inst().getCurrentUser().delete().subscribe();
+                            //GdxFIRAuth.inst().getCurrentUser().delete().subscribe();
                             System.out.println("REGISTRATION ERROR");
-                                enableAutoButtons(dialog);
+                            enableAutoButtons(dialog);
                             try {
                                 throw throwable;
                             } catch (Throwable e) {
@@ -76,6 +78,17 @@ public class FireBaseClass {
                             }
                         }
                     });
+            if (MainGame.registered) {
+                GdxFIRDatabase.instance().inReference("count")
+                        .transaction(Long.class, new Function<Long, Long>() {
+                            @Override
+                            public Long apply(Long i) {
+                                i++;
+                                return i;
+                            }
+                        });
+            }
+        }
     }
 
     //email:
@@ -84,6 +97,16 @@ public class FireBaseClass {
     //com.google.firebase.auth.FirebaseAuthWeakPasswordException -- The given password is invalid
     //
 
+    private static void setCountPlayer(){
+        GdxFIRDatabase.instance().inReference("count")
+                .transaction(Long.class, new Function<Long, Long>() {
+                    @Override
+                    public Long apply(Long i) {
+                        i++;
+                        return i;
+                    }
+                });
+    }
 
 
     public static void signOut( final AuthorizationDialog dialog){

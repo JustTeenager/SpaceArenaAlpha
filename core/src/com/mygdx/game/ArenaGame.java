@@ -68,8 +68,8 @@ public class ArenaGame extends ScreenAdapter {
 
 	public ArenaGame (final MainGame game) {
 		this.game=game;
-		CURRENT_PLAYER=new Player(0,50);
-		ENEMY=new Player(1000,50);
+		CURRENT_PLAYER=new Player(-100,50);
+		ENEMY=new Player(700,50);
 		shootings = new ArrayList<>();
 		shootingsEnemy = new ArrayList<>();
 		MainGame.setPlayerIdentify(-1);
@@ -92,15 +92,15 @@ public class ArenaGame extends ScreenAdapter {
 		playerStage=new Stage(viewport);
 		hudStage = new Stage();
 
-		pl1=new Player(0,50);
-		pl1.setID(0);
+		pl1=new Player(-100,50);
+		pl1.setID(-100);
 		pl1.setAnim(pl1.getTextureArray_aim_player_2(),MainGame.Aim_2);
 		pl1.setAnim(pl1.getTextureArray_move_player_2(),MainGame.RunShoot_2);
 		pl1.setAnim(pl1.getTextureArray_jump_player_2(),MainGame.JumpShoot_2);
 		pl1.setAnim(pl1.getTextureArray_dead_player_2(),MainGame.Dead_2);
 
-		pl2=new Player(1000,50);
-		pl2.setID(1000);
+		pl2=new Player(700,50);
+		pl2.setID(700);
 		pl2.setAnim(pl2.getTextureArray_aim_player_4(),MainGame.Aim_4);
 		pl2.setAnim(pl2.getTextureArray_move_player_4(),MainGame.RunShoot_4);
 		pl2.setAnim(pl2.getTextureArray_jump_player_4(),MainGame.JumpShoot_4);
@@ -371,7 +371,7 @@ public class ArenaGame extends ScreenAdapter {
 			}catch (Exception e){}
 		}
 		//отладка платформ
-		Gdx.gl.glEnable(GL20.GL_BLEND);
+		/*Gdx.gl.glEnable(GL20.GL_BLEND);
 		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
 		shapeRenderer.setProjectionMatrix(chaseCam.camera.combined);
 		shapeRenderer.setColor(0, 1, 1, 0.5f);
@@ -381,7 +381,7 @@ public class ArenaGame extends ScreenAdapter {
 			shapeRenderer.rect(plat.rect.getX(),plat.rect.getY(),plat.rect.getWidth(), plat.rect.getHeight());
 		}
 		shapeRenderer.end();
-		Gdx.gl.glDisable(GL20.GL_BLEND);
+		Gdx.gl.glDisable(GL20.GL_BLEND);*/
 	}
 
 	@Override
