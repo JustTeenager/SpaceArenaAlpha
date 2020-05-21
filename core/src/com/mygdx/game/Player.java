@@ -37,8 +37,8 @@ public class Player extends ActorObj {
     private float dt=0;
     private float velocity=250;
     //velocity =300
-    //private float JUMP=350;
-    private float JUMP=450;
+    private float JUMP=350;
+    //private float JUMP=450;
     //jump=430
     private int ID;
     private int animationNum;
@@ -295,11 +295,11 @@ public class Player extends ActorObj {
                     } else {
                         if (y && rectangle.y <= pl.rect.y) {
                             System.out.println(1);
-                                if (velocityY.y>0){
+                                if (velocityY.y>0 && jumpState==JumpState.FALLING){
                                     System.out.println("CAPTURED "+velocityY.y);
-                                    velocityY.y = -3;
+                                    velocityY.y = -2;
                                 }
-                                velocityY.y-=1;
+                                velocityY.y-=0.6f;
                         }
                         //else if (x && this.getOriginY() >= pl.rect.y && this.)
                         if (x) {

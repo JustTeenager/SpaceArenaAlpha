@@ -193,17 +193,17 @@ public class ArenaGame extends ScreenAdapter {
 				new Platform(-850,-25,txtplatFloor,playerStage),new Platform(-640,-25,txtplatFloor,playerStage),new Platform(-430,-25,txtplatFloor,playerStage),
 				new Platform(-220,-25,txtplatFloor,playerStage),new Platform(-10,-25,txtplatFloor,playerStage), new Platform(200,-25,txtplatFloor,playerStage),
 				new Platform(410,-25,txtplatFloor,playerStage),new Platform(620,-25,txtplatFloor,playerStage),new Platform(830,-25,txtplatFloor,playerStage),
-				new Platform(1040,-25,txtplatCornerRight,playerStage), new Platform(-935,-43,txtplatCornerLeft,playerStage),
-				new Platform(1030,-43,txtplatRightWall,playerStage),new Platform(-915,-43,txtplatLeftWall,playerStage),
-				new Platform(1030,-43+210,txtplatRightWall,playerStage),new Platform(-915,-43+210,txtplatLeftWall,playerStage),
-				new Platform(1030,-43+210+210,txtplatRightWall,playerStage),new Platform(-915,-43+210+210,txtplatLeftWall,playerStage),
-				new Platform(1030,-43+210+210+210,txtplatRightWall,playerStage),new Platform(-915,-43+210+210+210,txtplatLeftWall,playerStage),
-				new Platform(1040,-25+210+210+210+250,txtplatCornerRight,playerStage), new Platform(-935,-43+210+210+210+250,txtplatCornerLeft,playerStage),
+				new Platform(1040,-25,txtplatCornerRight,playerStage), new Platform(-935,-43+15,txtplatCornerLeft,playerStage),
+				new Platform(1030,-43+80,txtplatRightWall,playerStage),new Platform(-915,-43+80,txtplatLeftWall,playerStage),
+				new Platform(1030,-43+210+80,txtplatRightWall,playerStage),new Platform(-915,-43+210+80,txtplatLeftWall,playerStage),
+				new Platform(1030,-43+210+210+80,txtplatRightWall,playerStage),new Platform(-915,-43+210+210+80,txtplatLeftWall,playerStage),
+				new Platform(1030,-43+210+210+210+80,txtplatRightWall,playerStage),new Platform(-915,-43+210+210+210+80,txtplatLeftWall,playerStage),
+				new Platform(1040,-25+210+210+210+250,txtplatCornerRight,playerStage), new Platform(-935,-43+210+210+210+250+15,txtplatCornerLeft,playerStage),
 				new Platform(-850,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-640,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-430,-25+210+210+210+250,txtplatFloor,playerStage),
 				new Platform(-220,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-10,-25+210+210+210+250,txtplatFloor,playerStage), new Platform(200,-25+210+210+210+250,txtplatFloor,playerStage),
 				new Platform(410,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(620,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(830,-25+210+210+210+250,txtplatFloor,playerStage),
-				new Platform(150, 150+100,txtplat, playerStage),new Platform(550, 250+100,txtplat, playerStage),new Platform(830, 330+100,txtplat, playerStage),
-				new Platform(-200, 200+100,txtplat, playerStage),new Platform(-870, 430+100,txtplat, playerStage),new Platform(-500, 300+100,txtplat, playerStage)
+				new Platform(150, 150,txtplat, playerStage),new Platform(550, 250,txtplat, playerStage),new Platform(830, 330,txtplat, playerStage),
+				new Platform(-200, 250,txtplat, playerStage),new Platform(-870, 330,txtplat, playerStage),new Platform(-500, 300,txtplat, playerStage)
 		};
 
 		hpSmall=new HpSmall(playerStage);
