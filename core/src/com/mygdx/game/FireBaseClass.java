@@ -1,16 +1,20 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.maps.Map;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
 
 import pl.mk5.gdx.fireapp.GdxFIRApp;
 import pl.mk5.gdx.fireapp.GdxFIRAuth;
 import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 import pl.mk5.gdx.fireapp.annotations.MapConversion;
 import pl.mk5.gdx.fireapp.auth.GdxFirebaseUser;
-import pl.mk5.gdx.fireapp.database.ChildEventType;
 import pl.mk5.gdx.fireapp.distributions.DatabaseDistribution;
 import pl.mk5.gdx.fireapp.functional.BiConsumer;
 import pl.mk5.gdx.fireapp.functional.Consumer;
@@ -80,16 +84,6 @@ public class FireBaseClass {
                             }
                         }
                     });
-            if (MainGame.registered) {
-                GdxFIRDatabase.instance().inReference("count")
-                        .transaction(Long.class, new Function<Long, Long>() {
-                            @Override
-                            public Long apply(Long i) {
-                                i++;
-                                return i;
-                            }
-                        });
-            }
         }
     }
 
@@ -295,6 +289,19 @@ public class FireBaseClass {
                     }
                 });
     }
+    public static void actionListener() {
+        GdxFIRDatabase.inst()
+                .inReference("")
+                .onDataChange(HashMap.class)
+                .after(GdxFIRAuth.inst().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()))
+                .then(new Consumer<HashMap>() {
+                    @Override
+                    public void accept(HashMap s) {
+                        MainGame.leaderMap=s;
+                    }
+                });
+    }
+
 
 
 }

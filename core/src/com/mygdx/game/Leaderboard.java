@@ -11,6 +11,7 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
+import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
@@ -18,17 +19,24 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Set;
+
+import static java.lang.StrictMath.abs;
+
 public class Leaderboard implements Screen {
-    SpriteBatch batch;
-
-
+    private int yScale;
+    private Buttons backButton;
+    private SpriteBatch batch;
+    private String string;
+    private ArrayList<HashMap> leaderList;
     private MainGame game;
     private Sound clickSound;
     private Stage s;
     private Texture backtxt;
     private InputMultiplexer inputMultiplexer;
     private InputProcessor inputProcessor;
-    private Buttons butt;
     private ScrollPane.ScrollPaneStyle style;
     private Texture scroll;
     private Texture scrollKnob;
@@ -38,6 +46,7 @@ public class Leaderboard implements Screen {
     private Table coreTable;
     Leaderboard(final MainGame game){
         this.game=game;
+        yScale=(Gdx.graphics.getHeight()-465)/3-150;
         clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
         batch = new SpriteBatch();
         backtxt=new Texture("menuBack.jpg");
@@ -46,16 +55,21 @@ public class Leaderboard implements Screen {
         Drawable drawableBack = new Image(backtxt).getDrawable();
         Drawable drawableScroll = new Image(scroll).getDrawable();
         Drawable drawableScrollKnob = new Image(scrollKnob).getDrawable();
-        labelFont=new BitmapFont(Gdx.files.internal("liter.fnt"));
+        labelFont=new BitmapFont(Gdx.files.internal("registerLit.fnt"));
         labelFont.getData().setScale(1.5f);
         style = new ScrollPane.ScrollPaneStyle(drawableBack,null,null,drawableScroll,drawableScrollKnob);
-        labelStyle= new Label.LabelStyle(labelFont,new Color(0,0,0,0.55f));
+        labelStyle= new Label.LabelStyle(labelFont,new Color(1,1,1,0.55f));
         s= new Stage();
+        backButton=new Buttons(Gdx.graphics.getWidth()/2-120,yScale,"backButt","Back",2f,s);
         Gdx.input.setInputProcessor(s);
+        leaderList=new ArrayList<>();
+        leaderSetting();
 
         coreTable = new Table();
         s.addActor(coreTable);
-        coreTable.setFillParent(true);
+        //coreTable.setFillParent(true);
+        coreTable.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()-300);
+        coreTable.setY(300);
 
         table = new Table();
 
@@ -63,10 +77,10 @@ public class Leaderboard implements Screen {
         scroll.setScrollingDisabled(true,false);
 
         table.pad(100).defaults().expandX().space(100);
-        for (int i = 0; i < 100; i++) {
+        for (int i = 0; i < leaderList.size(); i++) {
             table.row();
-
-            Label label=new Label(i + ". TABLE GAVNINA.", labelStyle);
+            string=leaderList.get(i).get("Name")+"     "+leaderList.get(i).get("KD");
+            Label label=new Label(string, labelStyle);
             label.setAlignment(Align.center);
             label.setWrap(true);
             table.add(label).width(Gdx.graphics.getWidth());
@@ -93,7 +107,13 @@ public class Leaderboard implements Screen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                return false;
+                 if ((abs(Gdx.graphics.getHeight()-screenY)>backButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<backButton.btn.getY()+backButton.btn.getHeight())
+                        && (screenX>backButton.btn.getX()&&screenX<backButton.btn.getX()+backButton.btn.getWidth()) && backButton.isTouchable()){
+                    clickSound.play(MainGame.volume);
+                    MainGame.leaderMap=null;
+                    game.setScreen(new MainMenu(game));
+                }
+                return true;
             }
 
             @Override
@@ -161,5 +181,12 @@ public class Leaderboard implements Screen {
     @Override
     public void dispose() {
 
+    }
+    public void leaderSetting(){
+        Set set = MainGame.leaderMap.keySet();
+        Object[] array= set.toArray();
+        for (int i=0;i<array.length;i++){
+            leaderList.add((HashMap)MainGame.leaderMap.get(array[i]));
+        }
     }
 }

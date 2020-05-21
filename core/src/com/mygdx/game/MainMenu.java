@@ -45,7 +45,7 @@ public class MainMenu implements Screen {
     private AuthorizationDialog autoDialog;
 
     private BitmapFont nameFont;
-
+    private boolean isTouchOnSettings=false;
 
     public MainMenu(final MainGame game){
         this.game=game;
@@ -136,8 +136,9 @@ public class MainMenu implements Screen {
 
                     if ((abs(Gdx.graphics.getHeight() - screenY) > leadButton.btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < leadButton.btn.getY() + leadButton.btn.getHeight())
                             && (screenX > leadButton.btn.getX() && screenX < leadButton.btn.getX() + leadButton.btn.getWidth()) && leadButton.isTouchable()) {
-                        //FireBaseClass.actionListener()
-
+                        FireBaseClass.actionListener();
+                        isTouchOnSettings=true;
+                        clickSound.play(MainGame.volume);
                     }
 
 
@@ -155,8 +156,6 @@ public class MainMenu implements Screen {
                             && (screenX > butt[1].btn.getX() && screenX < butt[1].btn.getX() + butt[1].btn.getWidth())) && butt[1].isTouchable()) {
                         clickSound.play(MainGame.volume);
                         game.setScreen(new SettingsMenu(game));
-                        //FireBaseClass.readList();
-                        //game.setScreen(new Leaderboard(game));
                     }
                 }
                 return true;
@@ -182,7 +181,7 @@ public class MainMenu implements Screen {
                 return false;
             }
         };
-        leadButton=new Buttons(951,75,"leaders",leadTexture.getWidth(),leadTexture.getHeight(),s,leadTexture,leadTexture);
+        leadButton=new Buttons(975,75,"leaders",leadTexture.getWidth(),leadTexture.getHeight(),s,leadTexture,leadTexture);
         butt=new Buttons[2];
         for (int i=0;i<butt.length;i++){
             if (i!=0 && (buttTexts[i].toCharArray().length<buttTexts[i-1].toCharArray().length)){
@@ -210,6 +209,7 @@ public class MainMenu implements Screen {
         inputMultiplexer.addProcessor(inputProcessor);
 
         if (MainGame.registered) {FireBaseClass.addKDInDataBase();MainGame.registered=false;}
+        if (MainGame.leaderMap!=null && isTouchOnSettings){ isTouchOnSettings=false; game.setScreen(new Leaderboard(game)); }
         //if (MainGame.authorized && MainGame.current_player_name==null) FireBaseClass.getUserName();
         checkAuto();
 

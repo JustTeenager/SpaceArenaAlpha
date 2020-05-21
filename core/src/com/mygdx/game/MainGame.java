@@ -3,6 +3,8 @@ package com.mygdx.game;
 import com.badlogic.gdx.Game;
 import com.badlogic.gdx.Gdx;
 
+import java.util.HashMap;
+
 import pl.mk5.gdx.fireapp.GdxFIRApp;
 
 public class MainGame extends Game {
@@ -44,6 +46,7 @@ public class MainGame extends Game {
     static int seconds=TIME_SECONDS;
 
     static long timeFromLastKill=-1;
+    static HashMap leaderMap;
     public static boolean flag=false;
 
 
