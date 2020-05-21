@@ -193,24 +193,25 @@ public class ArenaGame extends ScreenAdapter {
 				new Platform(-850,-25,txtplatFloor,playerStage),new Platform(-640,-25,txtplatFloor,playerStage),new Platform(-430,-25,txtplatFloor,playerStage),
 				new Platform(-220,-25,txtplatFloor,playerStage),new Platform(-10,-25,txtplatFloor,playerStage), new Platform(200,-25,txtplatFloor,playerStage),
 				new Platform(410,-25,txtplatFloor,playerStage),new Platform(620,-25,txtplatFloor,playerStage),new Platform(830,-25,txtplatFloor,playerStage),
-				new Platform(1040,-25,txtplatCornerRight,playerStage), new Platform(-935,-43+15,txtplatCornerLeft,playerStage),
-				new Platform(1030,-43+80,txtplatRightWall,playerStage),new Platform(-915,-43+80,txtplatLeftWall,playerStage),
-				new Platform(1030,-43+210+80,txtplatRightWall,playerStage),new Platform(-915,-43+210+80,txtplatLeftWall,playerStage),
-				new Platform(1030,-43+210+210+80,txtplatRightWall,playerStage),new Platform(-915,-43+210+210+80,txtplatLeftWall,playerStage),
-				new Platform(1030,-43+210+210+210+80,txtplatRightWall,playerStage),new Platform(-915,-43+210+210+210+80,txtplatLeftWall,playerStage),
-				new Platform(1040,-25+210+210+210+250,txtplatCornerRight,playerStage), new Platform(-935,-43+210+210+210+250+15,txtplatCornerLeft,playerStage),
-				new Platform(-850,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-640,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-430,-25+210+210+210+250,txtplatFloor,playerStage),
-				new Platform(-220,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(-10,-25+210+210+210+250,txtplatFloor,playerStage), new Platform(200,-25+210+210+210+250,txtplatFloor,playerStage),
-				new Platform(410,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(620,-25+210+210+210+250,txtplatFloor,playerStage),new Platform(830,-25+210+210+210+250,txtplatFloor,playerStage),
-				new Platform(150, 150,txtplat, playerStage),new Platform(550, 250,txtplat, playerStage),new Platform(830, 330,txtplat, playerStage),
-				new Platform(-200, 250,txtplat, playerStage),new Platform(-870, 330,txtplat, playerStage),new Platform(-500, 300,txtplat, playerStage)
+				new Platform(1040,-26,txtplatCornerRight,playerStage), new Platform(-935,-35,txtplatCornerLeft,playerStage),
+				new Platform(1030,-60+80,txtplatRightWall,playerStage),new Platform(-915,-60+80,txtplatLeftWall,playerStage),
+				new Platform(1030,-80+210+80,txtplatRightWall,playerStage),new Platform(-915,-80+210+80,txtplatLeftWall,playerStage),
+				new Platform(1030,-100+210+210+80,txtplatRightWall,playerStage),new Platform(-915,-100+210+210+80,txtplatLeftWall,playerStage),
+				new Platform(1030,-120+210+210+210+80,txtplatRightWall,playerStage),new Platform(-915,-120+210+210+210+80,txtplatLeftWall,playerStage),
+				new Platform(1030,-140+210+210+210+210+80,txtplatRightWall,playerStage),new Platform(-915,-140+210+210+210+210+80,txtplatLeftWall,playerStage),
+				new Platform(1040,-141+210+210+210+210+250,txtplatCornerRight,playerStage), new Platform(-935,-151+210+210+210+210+250,txtplatCornerLeft,playerStage),
+				new Platform(-850,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(-640,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(-430,-140+210+210+210+210+250,txtplatFloor,playerStage),
+				new Platform(-220,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(-10,-140+210+210+210+210+250,txtplatFloor,playerStage), new Platform(200,-140+210+210+210+210+250,txtplatFloor,playerStage),
+				new Platform(410, -140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(620,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(830,-140+210+210+210+210+250,txtplatFloor,playerStage),
+				new Platform(150, 150,txtplat, playerStage),new Platform(530, 280,txtplat, playerStage),new Platform(150, 450,txtplat, playerStage),
+				new Platform(-200, 280,txtplat, playerStage),new Platform(750, 450,txtplat, playerStage),new Platform(-610, 450,txtplat, playerStage)
 		};
 
 		hpSmall=new HpSmall(playerStage);
 
 		txtAmmunition = new Texture("ammunition.png");
-		ammunitions = new Ammunition[]{new Ammunition(txtAmmunition,860,210,playerStage),new Ammunition(txtAmmunition,-600,210,playerStage),
-				new Ammunition(txtAmmunition,300,290,playerStage)};
+		ammunitions = new Ammunition[]{new Ammunition(txtAmmunition,840,550,playerStage),new Ammunition(txtAmmunition,-540,550,playerStage),
+				new Ammunition(txtAmmunition,240,550,playerStage)};
 
 		inputMultiplexer = new InputMultiplexer();
 
