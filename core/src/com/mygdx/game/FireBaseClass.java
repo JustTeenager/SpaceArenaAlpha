@@ -270,7 +270,17 @@ public class FireBaseClass {
                         System.out.println(string);
                         MainGame.current_player_name=string;
                     }
-                });
+                }).fail(new BiConsumer<String, Throwable>() {
+            @Override
+            public void accept(String s, Throwable throwable) {
+                try {
+                    throw throwable;
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+                System.out.println("GETTING NAME ERROR");
+            }
+        });
     }
 
     public static String getuID() {

@@ -295,11 +295,13 @@ public class Player extends ActorObj {
                     } else {
                         if (y && rectangle.y <= pl.rect.y) {
                             System.out.println(1);
-                                if (velocityY.y>0 && jumpState==JumpState.FALLING){
+                                if (velocityY.y>0){
                                     System.out.println("CAPTURED "+velocityY.y);
-                                    velocityY.y = -2;
+                                    //if ((jumpState!=JumpState.GROUNDED) && (rectangle.getX()>pl.rect.getX() && rectangle.getX()<pl.rect.getX()+pl.rect.getWidth())
+                                    //if (rectangle.getX()>)
+                                    velocityY.y = -10;
                                 }
-                                velocityY.y-=0.6f;
+                                //velocityY.y-=0.6f;
                         }
                         //else if (x && this.getOriginY() >= pl.rect.y && this.)
                         if (x) {
