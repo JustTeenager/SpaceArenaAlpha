@@ -202,8 +202,8 @@ public class ArenaGame extends ScreenAdapter {
 				new Platform(1040,-141+210+210+210+210+250,txtplatCornerRight,playerStage), new Platform(-935,-151+210+210+210+210+250,txtplatCornerLeft,playerStage),
 				new Platform(-850,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(-640,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(-430,-140+210+210+210+210+250,txtplatFloor,playerStage),
 				new Platform(-220,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(-10,-140+210+210+210+210+250,txtplatFloor,playerStage), new Platform(200,-140+210+210+210+210+250,txtplatFloor,playerStage),
-				new Platform(410, -140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(620,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(830,-140+210+210+210+210+250,txtplatFloor,playerStage),
-				new Platform(150, 150,txtplat, playerStage),new Platform(530, 280,txtplat, playerStage),new Platform(150, 450,txtplat, playerStage),
+				new Platform( 410, -140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(620,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(830,-140+210+210+210+210+250,txtplatFloor,playerStage),
+				new Platform( 150, 150,txtplat, playerStage),new Platform(530, 280,txtplat, playerStage),new Platform(150, 450,txtplat, playerStage),
 				new Platform(-200, 280,txtplat, playerStage),new Platform(750, 450,txtplat, playerStage),new Platform(-610, 450,txtplat, playerStage)
 		};
 
