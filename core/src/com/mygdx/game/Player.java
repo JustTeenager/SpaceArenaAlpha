@@ -293,7 +293,7 @@ public class Player extends ActorObj {
                             position.y = pl.rect.y + pl.rect.getHeight()-15;
                         }
                     } else {
-                        if (y && rectangle.y <= pl.rect.y) {
+                        if (y && rectangle.y<= pl.rect.y && (rectangle.x+rectangle.getWidth()>=pl.rect.x  && rectangle.x+rectangle.getWidth()<=pl.rect.x+pl.rect.getWidth())) {
                             System.out.println(1);
                                 if (velocityY.y>0){
                                     System.out.println("CAPTURED "+velocityY.y);
