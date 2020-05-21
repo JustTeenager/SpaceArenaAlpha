@@ -21,6 +21,7 @@ import com.badlogic.gdx.utils.Align;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Set;
 
@@ -35,42 +36,46 @@ public class Leaderboard implements Screen {
     private MainGame game;
     private Sound clickSound;
     private Stage s;
-    private Texture backtxt;
     private InputMultiplexer inputMultiplexer;
     private InputProcessor inputProcessor;
     private ScrollPane.ScrollPaneStyle style;
+    private Texture paneltxt;
+    private Texture backtxt;
     private Texture scroll;
     private Texture scrollKnob;
     private BitmapFont labelFont;
+    private BitmapFont leadTabFont;
     private Label.LabelStyle labelStyle;
     private Table table;
     private Table coreTable;
     Leaderboard(final MainGame game){
         this.game=game;
-        yScale=(Gdx.graphics.getHeight()-465)/3-150;
+        yScale=(Gdx.graphics.getHeight()-465)/3-100;
         clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
         batch = new SpriteBatch();
         backtxt=new Texture("menuBack.jpg");
         scroll= new Texture("Slider 1.png");
         scrollKnob= new Texture("Slider 2.png");
-        Drawable drawableBack = new Image(backtxt).getDrawable();
+        paneltxt=new Texture("Achievement Panel2.png");
         Drawable drawableScroll = new Image(scroll).getDrawable();
         Drawable drawableScrollKnob = new Image(scrollKnob).getDrawable();
         labelFont=new BitmapFont(Gdx.files.internal("registerLit.fnt"));
-        labelFont.getData().setScale(1.5f);
-        style = new ScrollPane.ScrollPaneStyle(drawableBack,null,null,drawableScroll,drawableScrollKnob);
-        labelStyle= new Label.LabelStyle(labelFont,new Color(1,1,1,0.55f));
+        labelFont.getData().setScale(2f);
+        leadTabFont=new BitmapFont(Gdx.files.internal("liter.fnt"));
+        leadTabFont.getData().setScale(2.7f);
+        leadTabFont.setColor(new Color(0,0,0,0.55f));
+        style = new ScrollPane.ScrollPaneStyle(null,null,null,drawableScroll,drawableScrollKnob);
+        labelStyle= new Label.LabelStyle(labelFont,new Color(1,1,1,1f));
         s= new Stage();
         backButton=new Buttons(Gdx.graphics.getWidth()/2-120,yScale,"backButt","Back",2f,s);
         Gdx.input.setInputProcessor(s);
         leaderList=new ArrayList<>();
         leaderSetting();
-
         coreTable = new Table();
         s.addActor(coreTable);
         //coreTable.setFillParent(true);
-        coreTable.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()-300);
-        coreTable.setY(300);
+        coreTable.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()-550);
+        coreTable.setY(250);
 
         table = new Table();
 
@@ -80,7 +85,8 @@ public class Leaderboard implements Screen {
         table.pad(100).defaults().expandX().space(100);
         for (int i = 0; i < leaderList.size(); i++) {
             table.row();
-            string=leaderList.get(i).get("Name")+"     "+leaderList.get(i).get("KD");
+            string=leaderList.get(i).get("Name")+"                "+leaderList.get(i).get("Kills")+"                "+leaderList.get(i).get("Death")
+                    +"                "+leaderList.get(i).get("KD");
             Label label=new Label(string, labelStyle);
             label.setAlignment(Align.center);
             label.setWrap(true);
@@ -154,6 +160,11 @@ public class Leaderboard implements Screen {
 
         batch.begin();
         batch.draw(backtxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
+        batch.draw(paneltxt,100,Gdx.graphics.getHeight()-paneltxt.getHeight()+75,Gdx.graphics.getWidth()-200,Gdx.graphics.getHeight());
+        leadTabFont.getData().setScale(2.7f);
+        leadTabFont.draw(batch,"Leaderboard",Gdx.graphics.getWidth()/2-300,Gdx.graphics.getHeight()-90);
+        leadTabFont.getData().setScale(1.7f);
+        leadTabFont.draw(batch," Name           Kills        Death        KD",Gdx.graphics.getWidth()/2-650,Gdx.graphics.getHeight()-300);
         batch.end();
         s.act(delta);
         s.draw();
@@ -183,11 +194,20 @@ public class Leaderboard implements Screen {
     public void dispose() {
 
     }
-    public void leaderSetting(){
+    private void leaderSetting(){
         Set set = MainGame.leaderMap.keySet();
         Object[] array= set.toArray();
         for (int i=0;i<array.length;i++){
             leaderList.add((HashMap)MainGame.leaderMap.get(array[i]));
         }
+        Collections.sort(leaderList, new Comparator<HashMap>() {
+            public int compare(HashMap o1, HashMap o2) {
+                System.out.println("komparing");
+                return ((String) o1.get("KD")).compareTo((String) o2.get("KD"));
+            }
+        });
+            Collections.reverse(leaderList);
+            System.out.println(leaderList);
     }
+
 }

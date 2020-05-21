@@ -19,7 +19,7 @@ public class ScoreLogs extends Actor {
 
     public ScoreLogs(float size, Stage st){
         this.stage=st;
-        backTxt=new Texture("Achievement Panel.png");
+        backTxt=new Texture("Achievement_Panel.png");
         scoreFont=new BitmapFont();
         scoreFont=new BitmapFont(Gdx.files.internal("liter.fnt"));
         scoreFont.getData().setScale(size);

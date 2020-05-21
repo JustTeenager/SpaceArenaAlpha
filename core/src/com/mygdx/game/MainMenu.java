@@ -136,6 +136,10 @@ public class MainMenu implements Screen {
 
                     if ((abs(Gdx.graphics.getHeight() - screenY) > leadButton.btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < leadButton.btn.getY() + leadButton.btn.getHeight())
                             && (screenX > leadButton.btn.getX() && screenX < leadButton.btn.getX() + leadButton.btn.getWidth()) && leadButton.isTouchable()) {
+                        leadButton.setTouchable(Touchable.disabled);
+                        for (Buttons butts:butt){
+                            butts.setTouchable(Touchable.disabled);
+                        }
                         FireBaseClass.actionListener();
                         isTouchOnSettings=true;
                         clickSound.play(MainGame.volume);
@@ -181,7 +185,7 @@ public class MainMenu implements Screen {
                 return false;
             }
         };
-        leadButton=new Buttons(975,75,"leaders",leadTexture.getWidth(),leadTexture.getHeight(),s,leadTexture,leadTexture);
+        leadButton=new Buttons(955,75,"leaders",leadTexture.getWidth(),leadTexture.getHeight(),s,leadTexture,leadTexture);
         butt=new Buttons[2];
         for (int i=0;i<butt.length;i++){
             if (i!=0 && (buttTexts[i].toCharArray().length<buttTexts[i-1].toCharArray().length)){
@@ -193,7 +197,7 @@ public class MainMenu implements Screen {
             butt[i].setTouchable(Touchable.disabled);
             setupX=0;
         }
-
+        leadButton.setTouchable(Touchable.enabled);
         autoDialog=new AuthorizationDialog(2f,s);
         checkAuto();
     }
@@ -261,10 +265,12 @@ public class MainMenu implements Screen {
     private void checkAuto(){
         if (MainGame.authorized) {
             autoDialog.becomeInvisible();
-            for (Buttons button:butt){
-                button.setTouchable(Touchable.enabled);
+            if (!isTouchOnSettings) {
+                for (Buttons button : butt) {
+                    button.setTouchable(Touchable.enabled);
+                }
+                leadButton.setTouchable(Touchable.enabled);
             }
-            leadButton.setTouchable(Touchable.enabled);
         }
         else {autoDialog.becomeVisible();
             for (Buttons button:butt){

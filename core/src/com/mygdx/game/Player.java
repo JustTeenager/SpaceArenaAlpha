@@ -297,7 +297,7 @@ public class Player extends ActorObj {
                             System.out.println(1);
                                 if (velocityY.y>0){
                                     System.out.println("CAPTURED "+velocityY.y);
-                                    //if ((jumpState!=JumpState.GROUNDED) && (rectangle.getX()>pl.rect.getX() && rectangle.getX()<pl.rect.getX()+pl.rect.getWidth())
+                                    if ((jumpState!=JumpState.GROUNDED) && (rectangle.getX()>pl.rect.getX() && rectangle.getX()<pl.rect.getX()+pl.rect.getWidth()))
                                     //if (rectangle.getX()>)
                                     velocityY.y = -10;
                                 }
