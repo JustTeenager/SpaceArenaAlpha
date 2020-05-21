@@ -30,8 +30,10 @@ public class MainMenu implements Screen {
 
     private Texture backtxt;
     private Texture panel;
+    private Texture leadTexture;
 
     private Buttons[] butt;
+    private Buttons leadButton;
     private String[] buttTexts;
     private float setupX;
 
@@ -72,7 +74,7 @@ public class MainMenu implements Screen {
         passwordField.setHeight(300);
         s.addActor(passwordField);*/
 
-
+        leadTexture=new Texture("leaderIcon.png");
         backtxt=new Texture("menuBack.jpg");
         setupX=0;
         panel=new Texture("mainPanel.png");
@@ -131,7 +133,15 @@ public class MainMenu implements Screen {
 
 
                 else {
-                    if ((abs(Gdx.graphics.getHeight() - screenY) > butt[0].btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < butt[0].btn.getY() + butt[0].btn.getHeight())
+
+                    if ((abs(Gdx.graphics.getHeight() - screenY) > leadButton.btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < leadButton.btn.getY() + leadButton.btn.getHeight())
+                            && (screenX > leadButton.btn.getX() && screenX < leadButton.btn.getX() + leadButton.btn.getWidth()) && leadButton.isTouchable()) {
+                        //FireBaseClass.actionListener()
+
+                    }
+
+
+                    else if ((abs(Gdx.graphics.getHeight() - screenY) > butt[0].btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < butt[0].btn.getY() + butt[0].btn.getHeight())
                             && (screenX > butt[0].btn.getX() && screenX < butt[0].btn.getX() + butt[0].btn.getWidth()) && butt[0].isTouchable()) {
                         clickSound.play(MainGame.volume);
                         try {
@@ -172,7 +182,7 @@ public class MainMenu implements Screen {
                 return false;
             }
         };
-
+        leadButton=new Buttons(951,75,"leaders",leadTexture.getWidth(),leadTexture.getHeight(),s,leadTexture,leadTexture);
         butt=new Buttons[2];
         for (int i=0;i<butt.length;i++){
             if (i!=0 && (buttTexts[i].toCharArray().length<buttTexts[i-1].toCharArray().length)){
@@ -254,11 +264,13 @@ public class MainMenu implements Screen {
             for (Buttons button:butt){
                 button.setTouchable(Touchable.enabled);
             }
+            leadButton.setTouchable(Touchable.enabled);
         }
         else {autoDialog.becomeVisible();
             for (Buttons button:butt){
                 button.setTouchable(Touchable.disabled);
             }
+            leadButton.setTouchable(Touchable.disabled);
         }
     }
 }

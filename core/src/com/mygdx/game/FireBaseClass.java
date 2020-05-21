@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.ui.List;
 
@@ -9,6 +10,7 @@ import pl.mk5.gdx.fireapp.GdxFIRAuth;
 import pl.mk5.gdx.fireapp.GdxFIRDatabase;
 import pl.mk5.gdx.fireapp.annotations.MapConversion;
 import pl.mk5.gdx.fireapp.auth.GdxFirebaseUser;
+import pl.mk5.gdx.fireapp.database.ChildEventType;
 import pl.mk5.gdx.fireapp.distributions.DatabaseDistribution;
 import pl.mk5.gdx.fireapp.functional.BiConsumer;
 import pl.mk5.gdx.fireapp.functional.Consumer;
