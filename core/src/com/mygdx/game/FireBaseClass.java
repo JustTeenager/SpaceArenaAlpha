@@ -31,7 +31,6 @@ public class FireBaseClass {
                         //if (gdxFirebaseUser.getUserInfo()!=
                         uID=gdxFirebaseUser.getUserInfo().getUid();
                         enableAutoButtons(dialog);
-                        successLogin();
                     }
                 }).fail(new BiConsumer<String, Throwable>() {
             @Override
@@ -144,6 +143,7 @@ public class FireBaseClass {
                 .transaction(String.class, new Function<String, String>() {
                     @Override
                     public String apply(String name) {
+                        successLogin();
                         return nameActual;
                     }
                 }) .fail(new BiConsumer<String, Throwable>() {
