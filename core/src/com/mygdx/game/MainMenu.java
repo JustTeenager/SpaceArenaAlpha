@@ -105,7 +105,10 @@ public class MainMenu implements Screen {
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
                         try {
-                            FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
+                            synchronized (FireBaseClass.class) {
+                                FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
+                                FireBaseClass.updatePLayerName(MainGame.current_player_name);
+                            }
                             //FireBaseClass.getUserName();
                         }catch (IllegalArgumentException e){
                             autoDialog.setErrorText("empty pass or email");
@@ -199,7 +202,7 @@ public class MainMenu implements Screen {
         inputMultiplexer.addProcessor(inputProcessor);
 
         if (MainGame.registered) {FireBaseClass.addKDInDataBase();MainGame.registered=false;}
-        if (MainGame.authorized && MainGame.current_player_name==null) FireBaseClass.getUserName();
+        //if (MainGame.authorized && MainGame.current_player_name==null) FireBaseClass.getUserName();
         checkAuto();
 
         Gdx.input.setInputProcessor(inputMultiplexer);

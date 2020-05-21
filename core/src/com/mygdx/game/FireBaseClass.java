@@ -31,7 +31,6 @@ public class FireBaseClass {
                         //if (gdxFirebaseUser.getUserInfo()!=
                         uID=gdxFirebaseUser.getUserInfo().getUid();
                         enableAutoButtons(dialog);
-                        successLogin();
                     }
                 }).fail(new BiConsumer<String, Throwable>() {
             @Override
@@ -144,6 +143,7 @@ public class FireBaseClass {
                 .transaction(String.class, new Function<String, String>() {
                     @Override
                     public String apply(String name) {
+                        successLogin();
                         return nameActual;
                     }
                 }) .fail(new BiConsumer<String, Throwable>() {
@@ -270,7 +270,17 @@ public class FireBaseClass {
                         System.out.println(string);
                         MainGame.current_player_name=string;
                     }
-                });
+                }).fail(new BiConsumer<String, Throwable>() {
+            @Override
+            public void accept(String s, Throwable throwable) {
+                try {
+                    throw throwable;
+                } catch (Throwable e) {
+                    e.printStackTrace();
+                }
+                System.out.println("GETTING NAME ERROR");
+            }
+        });
     }
 
     public static String getuID() {

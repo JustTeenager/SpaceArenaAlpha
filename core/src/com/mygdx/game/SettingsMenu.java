@@ -122,7 +122,10 @@ public class SettingsMenu implements Screen {
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
                         try {
-                            FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
+                            synchronized (FireBaseClass.class) {
+                                FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
+                                FireBaseClass.updatePLayerName(MainGame.current_player_name);
+                            }
                         }catch (IllegalArgumentException e){
                             autoDialog.setErrorText("empty pass or email");
                             autoDialog.getRegisterButton().setTouchable(Touchable.enabled);
@@ -155,9 +158,6 @@ public class SettingsMenu implements Screen {
                         && (screenX>backButton.btn.getX()&&screenX<backButton.btn.getX()+backButton.btn.getWidth()) && backButton.isTouchable()){
                     MainGame.volume=distance/distanceGeneral;
                     clickSound.play(MainGame.volume);
-                    try {
-                        FireBaseClass.updatePLayerName(MainGame.current_player_name);
-                    }catch (Exception e){e.printStackTrace();}
                     game.setScreen(new MainMenu(game));
                 }
                 return true;
