@@ -16,11 +16,11 @@ import pl.mk5.gdx.fireapp.functional.Function;
 
 public class FireBaseClass {
 
-    private static String uID;
+    private static String uID="0";
     private static float kills=-1;
     private static float death=-1;
 
-    public static void signIn(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog) {
+    public static void signIn(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog, final String ui) {
         // Sign in via username/email and password
         FireBaseClass.disableAutoButtons(dialog);
         GdxFIRAuth.instance()
@@ -30,7 +30,8 @@ public class FireBaseClass {
                     public void accept(GdxFirebaseUser gdxFirebaseUser) {
                         //if (gdxFirebaseUser.getUserInfo()!=
                         uID=gdxFirebaseUser.getUserInfo().getUid();
-                        enableAutoButtons(dialog);
+                        System.out.println(uID);
+                        getUserName(dialog);
                     }
                 }).fail(new BiConsumer<String, Throwable>() {
             @Override
@@ -44,8 +45,8 @@ public class FireBaseClass {
                     dialog.setErrorText("Something with email or pass");
                 }
             }
-        });
 
+        });
     }
 
 
@@ -143,7 +144,6 @@ public class FireBaseClass {
                 .transaction(String.class, new Function<String, String>() {
                     @Override
                     public String apply(String name) {
-                        successLogin();
                         return nameActual;
                     }
                 }) .fail(new BiConsumer<String, Throwable>() {
@@ -182,10 +182,10 @@ public class FireBaseClass {
                             System.out.println(kills);
                             System.out.println(death);
                             if (kills != -1 && death != -1) {
-                                    float kd=kills/death;
-                                    kills = -1;
-                                    death = -1;
-                                    return String.format("%.2f", kd);
+                                float kd=kills/death;
+                                kills = -1;
+                                death = -1;
+                                return String.format("%.2f", kd);
                             }
                             else {
                                 System.out.println("FUCK YOU");
@@ -236,8 +236,8 @@ public class FireBaseClass {
 
     public static void addKDInDataBase() {
         GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
-                        GdxFIRDatabase.instance()
-                                .inReference(uID+"/Death").setValue(0));
+                GdxFIRDatabase.instance()
+                        .inReference(uID+"/Death").setValue(0));
         GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
                 GdxFIRDatabase.instance()
                         .inReference(uID+"/Kills").setValue(0));
@@ -259,8 +259,9 @@ public class FireBaseClass {
         dialog.getRegisterButton().setTouchable(Touchable.enabled);
     }
 
-    public static void getUserName() {
-        GdxFIRDatabase.inst()
+    public static void getUserName(final AuthorizationDialog dialog) {
+        System.out.println("USERNAME STARTED");
+        GdxFIRDatabase.instance()
                 .inReference(uID+"/Name")
                 .readValue(String.class)
                 .then(new Consumer<String>() {
@@ -269,18 +270,10 @@ public class FireBaseClass {
                         System.out.println("USERNAME GOVINA");
                         System.out.println(string);
                         MainGame.current_player_name=string;
+                        enableAutoButtons(dialog);
+                        successLogin();
                     }
-                }).fail(new BiConsumer<String, Throwable>() {
-            @Override
-            public void accept(String s, Throwable throwable) {
-                try {
-                    throw throwable;
-                } catch (Throwable e) {
-                    e.printStackTrace();
-                }
-                System.out.println("GETTING NAME ERROR");
-            }
-        });
+                });
     }
 
     public static String getuID() {

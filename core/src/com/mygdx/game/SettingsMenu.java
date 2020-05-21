@@ -122,10 +122,7 @@ public class SettingsMenu implements Screen {
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
                         try {
-                            synchronized (FireBaseClass.class) {
-                                FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
-                                FireBaseClass.updatePLayerName(MainGame.current_player_name);
-                            }
+                                FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog,FireBaseClass.getuID());
                         }catch (IllegalArgumentException e){
                             autoDialog.setErrorText("empty pass or email");
                             autoDialog.getRegisterButton().setTouchable(Touchable.enabled);
@@ -158,6 +155,9 @@ public class SettingsMenu implements Screen {
                         && (screenX>backButton.btn.getX()&&screenX<backButton.btn.getX()+backButton.btn.getWidth()) && backButton.isTouchable()){
                     MainGame.volume=distance/distanceGeneral;
                     clickSound.play(MainGame.volume);
+                    try {
+                        FireBaseClass.updatePLayerName(MainGame.current_player_name);
+                    }catch (Exception e){e.printStackTrace();}
                     game.setScreen(new MainMenu(game));
                 }
                 return true;
@@ -209,10 +209,10 @@ public class SettingsMenu implements Screen {
     private void checkAuto(){
         if (MainGame.authorized) {
             autoDialog.becomeInvisible();
-                backButton.setTouchable(Touchable.enabled);
-                volumeButton.setTouchable(Touchable.enabled);
-                logOutButton.setTouchable(Touchable.enabled);
-                setNameButton.setTouchable(Touchable.enabled);
+            backButton.setTouchable(Touchable.enabled);
+            volumeButton.setTouchable(Touchable.enabled);
+            logOutButton.setTouchable(Touchable.enabled);
+            setNameButton.setTouchable(Touchable.enabled);
         }
         else {
             autoDialog.becomeVisible();
@@ -241,7 +241,7 @@ public class SettingsMenu implements Screen {
         if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) System.out.println("KLAVA");
         if (Gdx.input.isTouched()) System.out.println("KLAVA");*/
 
-        if (MainGame.authorized && MainGame.current_player_name==null) FireBaseClass.getUserName();
+        //if (MainGame.authorized && MainGame.current_player_name==null) FireBaseClass.getUserName();
         checkAuto();
 
         Gdx.input.setInputProcessor(inputMultiplexer);

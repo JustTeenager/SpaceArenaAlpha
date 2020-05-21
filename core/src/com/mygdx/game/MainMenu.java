@@ -105,10 +105,8 @@ public class MainMenu implements Screen {
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
                         try {
-                            synchronized (FireBaseClass.class) {
-                                FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
-                                FireBaseClass.updatePLayerName(MainGame.current_player_name);
-                            }
+                                FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog,FireBaseClass.getuID());
+                                //FireBaseClass.getUserName(autoDialog,FireBaseClass.getuID());
                             //FireBaseClass.getUserName();
                         }catch (IllegalArgumentException e){
                             autoDialog.setErrorText("empty pass or email");
@@ -181,7 +179,7 @@ public class MainMenu implements Screen {
                 setupX=buttTexts[i-1].toCharArray().length-buttTexts[i].toCharArray().length;
             }
             butt[i]=new Buttons(Gdx.graphics.getWidth()/2+25*setupX-160,Gdx.graphics.getHeight()/4+200-i*MainGame.buttonDistanceFromEachOther,
-                   "button_"+i,buttTexts[i],1.7f,s);
+                    "button_"+i,buttTexts[i],1.7f,s);
             s.addActor(butt[i]);
             butt[i].setTouchable(Touchable.disabled);
             setupX=0;
@@ -209,7 +207,7 @@ public class MainMenu implements Screen {
 
 
         //Gdx.input.setInputProcessor(inputProcessor);
-        //ilovepng
+
 
         batch.begin();
         batch.draw(backtxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
