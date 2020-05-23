@@ -73,7 +73,6 @@ public class Leaderboard implements Screen {
         leaderSetting();
         coreTable = new Table();
         s.addActor(coreTable);
-        //coreTable.setFillParent(true);
         coreTable.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()-550);
         coreTable.setY(250);
 
@@ -207,7 +206,6 @@ public class Leaderboard implements Screen {
             }
         });
             Collections.reverse(leaderList);
-            System.out.println(leaderList);
     }
 
 }

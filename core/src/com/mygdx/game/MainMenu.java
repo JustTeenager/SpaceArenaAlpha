@@ -62,18 +62,6 @@ public class MainMenu implements Screen {
         batch = new SpriteBatch();
         s=new Stage();
 
-
-        /*Texture backTxt=new Texture("settingsPanel.png");
-        BitmapFont font=new BitmapFont(Gdx.files.internal("liter.fnt"));
-        font.getData().setScale(2);
-        Drawable drawable=new Image(backTxt).getDrawable();
-        TextField.TextFieldStyle style=new TextField.TextFieldStyle(font,new Color(0,0,0,0.55f),null,null,drawable);
-        passwordField=new TextField("",style);
-        passwordField.setPosition(500,500);
-        passwordField.setWidth(400);
-        passwordField.setHeight(300);
-        s.addActor(passwordField);*/
-
         leadTexture=new Texture("leaderIcon.png");
         backtxt=new Texture("menuBack.jpg");
         setupX=0;
@@ -108,8 +96,6 @@ public class MainMenu implements Screen {
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
                         try {
                                 FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog,FireBaseClass.getuID());
-                                //FireBaseClass.getUserName(autoDialog,FireBaseClass.getuID());
-                            //FireBaseClass.getUserName();
                         }catch (IllegalArgumentException e){
                             autoDialog.setErrorText("empty pass or email");
                             autoDialog.getRegisterButton().setTouchable(Touchable.enabled);
@@ -214,14 +200,9 @@ public class MainMenu implements Screen {
 
         if (MainGame.registered) {FireBaseClass.addKDInDataBase();MainGame.registered=false;}
         if (MainGame.leaderMap!=null && isTouchOnSettings){ isTouchOnSettings=false; game.setScreen(new Leaderboard(game)); }
-        //if (MainGame.authorized && MainGame.current_player_name==null) FireBaseClass.getUserName();
         checkAuto();
 
         Gdx.input.setInputProcessor(inputMultiplexer);
-
-
-        //Gdx.input.setInputProcessor(inputProcessor);
-
 
         batch.begin();
         batch.draw(backtxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());

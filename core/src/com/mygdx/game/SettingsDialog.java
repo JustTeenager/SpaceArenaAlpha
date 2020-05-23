@@ -17,14 +17,14 @@ public class SettingsDialog extends Actor {
 
     private float distance;
     private float distanceGeneral;
-    Window window;
-    Texture backTxt;
-    Texture soundTxt;
+    private Window window;
+    private Texture backTxt;
+    private Texture soundTxt;
 
     private ArrayList<Buttons> bArray;
 
-    Texture volumeScale;
-    Texture volumeTxt;
+    public Texture volumeScale;
+    public Texture volumeTxt;
     private BitmapFont font;
     private Stage st;
     int xScale;

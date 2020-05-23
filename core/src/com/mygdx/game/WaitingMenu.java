@@ -14,13 +14,13 @@ import com.badlogic.gdx.utils.Align;
 public class WaitingMenu extends ScreenAdapter {
     private MainGame game;
     private Stage st;
-    SpriteBatch batch;
-    Buttons txtbutton;
-    Buttons waitButton;
-    Texture backtxt;
-    Texture replaytxt;
-    Texture panel;
-    InputProcessor inputProcessor;
+    private SpriteBatch batch;
+    private Buttons txtbutton;
+    private Buttons waitButton;
+    private Texture backtxt;
+    private Texture replaytxt;
+    private Texture panel;
+    private InputProcessor inputProcessor;
     public WaitingMenu(final MainGame game){
         this.game=game;
         batch=new SpriteBatch();

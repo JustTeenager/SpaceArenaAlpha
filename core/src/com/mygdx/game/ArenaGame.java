@@ -53,7 +53,7 @@ public class ArenaGame extends ScreenAdapter {
 	private Texture txtplatCornerLeft;
 	private Texture txtplatCornerRight;
 
-	HpSmall hpSmall;
+	private HpSmall hpSmall;
 
 	private Texture txtAmmunition;
 	private Ammunition[] ammunitions;
@@ -210,7 +210,7 @@ public class ArenaGame extends ScreenAdapter {
 		hpSmall=new HpSmall(playerStage);
 
 		txtAmmunition = new Texture("ammunition.png");
-		ammunitions = new Ammunition[]{new Ammunition(txtAmmunition,790,550,playerStage),new Ammunition(txtAmmunition,-590,550,playerStage),
+		ammunitions = new Ammunition[]{new Ammunition(txtAmmunition,790,550,playerStage),new Ammunition(txtAmmunition,-500,550,playerStage),
 				new Ammunition(txtAmmunition,190,550,playerStage)};
 
 		inputMultiplexer = new InputMultiplexer();
@@ -314,7 +314,6 @@ public class ArenaGame extends ScreenAdapter {
 				MainGame.flag=true;
 			}
 
-			//hud.drawScore(delta,batch);
 			if (MainGame.timeFromLastKill - MainGame.seconds >= 3) {
 				GameHUD.scoreLogs.setVisible(false);
 				MainGame.needEnemyReanimate=false;
@@ -323,7 +322,6 @@ public class ArenaGame extends ScreenAdapter {
 				CURRENT_PLAYER.setNextRound();
 				ENEMY.setNextRound();
 			}
-				//MainGame.timeFromLastKill = -1;
 		}
 
 		for (Ammunition ammunition: ammunitions){
@@ -352,7 +350,6 @@ public class ArenaGame extends ScreenAdapter {
 		batch.begin();
 		hud.drawTimer(delta,batch);
 		hud.drawHpPanel(delta,batch);
-		//hud.drawScore(delta,batch);
 		batch.end();
 		hudStage.draw();
 		if (MainGame.seconds==0){

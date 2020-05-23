@@ -69,8 +69,6 @@ public class Shooting extends ActorObj {
 
     @Override
     public void collapse(Player player) {
-        //System.out.println(CURRENT_PLAYER.hp+"  CURRENT HP");
-        //System.out.println(ENEMY.hp+"  ENEMY HP");
         if (player.hp>0) {
             if (this.rectangle.overlaps(player.rectangle)) {
                 this.setVisible(false);
@@ -89,8 +87,6 @@ public class Shooting extends ActorObj {
                 player.useAnim(0.2f, false, player.getTextureArray_dead_player_4());
                 player.setAnimationNum(24);
             }
-            //CURRENT_PLAYER.setNextRound();
-            //ENEMY.setNextRound();
         }
         for (int i=0;i<plat.length;i++){
             if (rectangle.overlaps(plat[i].rect)){

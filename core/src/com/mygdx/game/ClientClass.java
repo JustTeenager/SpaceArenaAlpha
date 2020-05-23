@@ -78,11 +78,8 @@ public class ClientClass extends Listener {
 
 
         if(p instanceof MessageBox){
-            //Если мы получили PacketMessage .
             MessageBox box = (MessageBox) p;
             MainGame.needEnemyReanimate=box.message;
-           // System.out.println("Ответ от сервера: "+box.message);
-           // System.out.println(MainGame.needEnemyReanimate+"IS NEED ROM SERVER");
         }
 
         if (p instanceof CoordBox){
@@ -153,7 +150,6 @@ public class ClientClass extends Listener {
         }catch (Exception e){}
     }
     public static void boxNumDeploy(CoordBox box){
-        //System.out.println(a+"AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA");
         playerNUM = box.getPlayerIdentify();
         MainGame.setPlayerIdentify(safeID);
         MainGame.time=box.Btime;

@@ -1,21 +1,13 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
-import com.badlogic.gdx.math.Intersector;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Array;
-
-import java.util.Vector;
-
-import sun.applet.Main;
-
-import static java.lang.Math.abs;
 
 public class Player extends ActorObj {
     Vector2 lastFrame;
@@ -298,12 +290,9 @@ public class Player extends ActorObj {
                                 if (velocityY.y>0){
                                     System.out.println("CAPTURED "+velocityY.y);
                                     if ((jumpState!=JumpState.GROUNDED) && (rectangle.getX()>pl.rect.getX() && rectangle.getX()<pl.rect.getX()+pl.rect.getWidth()))
-                                    //if (rectangle.getX()>)
                                     velocityY.y = -10;
                                 }
-                                //velocityY.y-=0.6f;
                         }
-                        //else if (x && this.getOriginY() >= pl.rect.y && this.)
                         if (x) {
                             System.out.println(2);
                             position.x = lastFrame.x - (JoystickLeft.CheckAngleLeft ? 1 : -1) * 0.3f;

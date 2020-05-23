@@ -1,7 +1,6 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputMultiplexer;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
@@ -14,36 +13,34 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-
 import static java.lang.StrictMath.abs;
-import static java.lang.StrictMath.log;
 
 public class SettingsMenu implements Screen {
     private MainGame game;
     Stage st;
 
-    SpriteBatch batch;
-    Texture backTxt;
-    Texture volumeTxt;
-    Texture volumeScale;
-    Texture soundTxt;
-    Texture panel;
+    private SpriteBatch batch;
+    private Texture backTxt;
+    private Texture volumeTxt;
+    private Texture volumeScale;
+    private Texture soundTxt;
+    private Texture panel;
 
-    Buttons volumeButton;
-    Buttons backButton;
-    Buttons setNameButton;
-    Buttons logOutButton;
+    private Buttons volumeButton;
+    private Buttons backButton;
+    private Buttons setNameButton;
+    private Buttons logOutButton;
 
     private AuthorizationDialog autoDialog;
 
-    InputProcessor inputProcessor;
-    InputMultiplexer inputMultiplexer;
-    Sound clickSound;
-    BitmapFont nameFont;
+    private InputProcessor inputProcessor;
+    private InputMultiplexer inputMultiplexer;
+    private Sound clickSound;
+    private BitmapFont nameFont;
     private float distance;
     private float distanceGeneral;
-    int xScale;
-    int yScale;
+    private int xScale;
+    private int yScale;
 
     public SettingsMenu(final MainGame game){
         this.game=game;
@@ -236,12 +233,6 @@ public class SettingsMenu implements Screen {
 
         inputMultiplexer.addProcessor(this.st);
         inputMultiplexer.addProcessor(inputProcessor);
-
-        /*if (Gdx.input.isButtonPressed(Input.Keys.ANY_KEY))System.out.println("KLAVA");
-        if (Gdx.input.isKeyPressed(Input.Keys.ANY_KEY)) System.out.println("KLAVA");
-        if (Gdx.input.isTouched()) System.out.println("KLAVA");*/
-
-        //if (MainGame.authorized && MainGame.current_player_name==null) FireBaseClass.getUserName();
         checkAuto();
 
         Gdx.input.setInputProcessor(inputMultiplexer);

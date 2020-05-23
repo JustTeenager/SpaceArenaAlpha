@@ -24,12 +24,6 @@ public class ScoreLogs extends Actor {
         scoreFont=new BitmapFont(Gdx.files.internal("liter.fnt"));
         scoreFont.getData().setScale(size);
         scoreFont.setColor(new Color(0,1,0,0.4f));
-        /*try {
-            gl = new GlyphLayout(scoreFont, (MainGame.current_player_name.length() >= MainGame.enemy_name.length() ? MainGame.current_player_name : MainGame.enemy_name));
-        } catch (Exception e) {
-            e.printStackTrace();
-            gl = new GlyphLayout(scoreFont,"player");
-        }*/
         stage.addActor(this);
         setVisible(false);
     }
@@ -43,10 +37,8 @@ public class ScoreLogs extends Actor {
             gl = new GlyphLayout(scoreFont,"player");
             System.out.println("GL GOVNINA 1111111111111");
         }
-        //if (MainGame.timeFromLastKill - MainGame.seconds > 4) {
             batch.draw(backTxt, stage.getWidth() / 2 - 150, stage.getHeight() / 2,gl.width+250, 160);
             scoreFont.draw(batch, MainGame.current_player_name + ": " + MainGame.current_player_score, stage.getWidth() / 2+25, stage.getHeight() / 2 + 115);
             scoreFont.draw(batch, MainGame.enemy_name + ": " + MainGame.enemy_score, stage.getWidth() / 2+25, stage.getHeight() / 2 + 65);
-        //}
     }
 }

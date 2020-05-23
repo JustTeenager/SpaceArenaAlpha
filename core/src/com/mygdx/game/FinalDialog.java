@@ -19,7 +19,7 @@ public class FinalDialog extends Actor {
     private Texture backTxt;
     private BitmapFont font;
     private Stage st;
-    Buttons backButton;
+    private Buttons backButton;
     static String winner;
 
 

@@ -11,8 +11,6 @@ public class NameInput implements Input.TextInputListener {
     public NameInput(InputProcessor processor){
         this.inputProcessor=processor;
         Gdx.input.setInputProcessor(inputProcessor);
-        if (Gdx.input.getInputProcessor().equals(inputProcessor)) System.out.println("OFC IT IS THE SAME PROC");
-        else System.out.println("OFC ITS NOT THE SAME PROC");
     }
 
     @Override
@@ -23,7 +21,5 @@ public class NameInput implements Input.TextInputListener {
     }
     @Override
     public void canceled () {
-        if (Gdx.input.getInputProcessor().equals(inputProcessor)) System.out.println("OFC IT IS THE SAME PROC");
-        else System.out.println("OFC ITS NOT THE SAME PROC");
     }
 }

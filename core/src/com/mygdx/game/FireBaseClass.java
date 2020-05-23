@@ -218,7 +218,6 @@ public class FireBaseClass {
                             return String.format("%.2f", String.valueOf(kills / death));
                         }
                         else {
-                            System.out.println("FUCK YOU");
                             return String.valueOf(kills);
                         }
                     }
@@ -256,14 +255,13 @@ public class FireBaseClass {
     }
 
     public static void getUserName(final AuthorizationDialog dialog) {
-        System.out.println("USERNAME STARTED");
         GdxFIRDatabase.instance()
                 .inReference(uID+"/Name")
                 .readValue(String.class)
                 .then(new Consumer<String>() {
                     @Override
                     public void accept(String string) {
-                        System.out.println("USERNAME GOVINA");
+                        System.out.println("USERNAME ERROR");
                         System.out.println(string);
                         MainGame.current_player_name=string;
                         enableAutoButtons(dialog);

@@ -40,7 +40,7 @@ public class Ammunition extends ActorObj {
         }
     }
 
-    public void ammoRespawn(){
+    private void ammoRespawn(){
         this.setVisible(true);
     }
 
