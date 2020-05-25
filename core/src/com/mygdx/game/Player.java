@@ -14,7 +14,6 @@ public class Player extends ActorObj {
     Vector2 position;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
-    boolean testflag=false;
 
     JumpState jumpState;
     Rectangle rectangle;
@@ -155,7 +154,6 @@ public class Player extends ActorObj {
     @Override
     public void update() {
         if (this.getName().equals("CURRENT_PLAYER")) {
-            testflag=false;
             lastFrame.set(position);
             float delta = Gdx.graphics.getDeltaTime();
             velocityY.y -= delta * MainGame.GRAVITY;
@@ -263,16 +261,6 @@ public class Player extends ActorObj {
         boolean x=((x3 > x1 && x3 < x2) || (x4 > x1 && x4 < x2) || (x1 > x3 && x1 < x4) || (x2 > x3 && x2 < x4));
         boolean y=((y3 > y1 && y3 < y2) || (y4 > y1 && y4 < y2) || (y1 > y3 && y1 < y4) || (y2 > y3 && y2 < y4));
 
-        /*if (lastFrame.x >= pl.left && lastFrame.x <= pl.right && lastFrame.y >= pl.top && (position.y - pl.top < 0.2f)) {//запрыгивать
-            if (velocityY.y <= 0) {
-                velocityY.y = 0;
-                jumpState = JumpState.GROUNDED;
-                position.y = pl.top;
-            }
-        }*/
-        //////////////////////////////////////
-        //position.y = lastFrame.y - (velocityY.y > 0 ? 1 : -1) * 0.5f;
-        //&& !(lastFrame.x >= pl.left && lastFrame.x <= pl.right && lastFrame.y >= pl.top && (position.y - pl.top < 0.2f))
         if(position.x>915 || position.x<-835){// чтобы он за границу с краёв не выходил
             position.x=lastFrame.x;
             setX(position.x);
@@ -285,18 +273,14 @@ public class Player extends ActorObj {
                             position.y = pl.rect.y + pl.rect.getHeight()-15;
                         }
                     } else {
-                        if (y && rectangle.y<= pl.rect.y && (rectangle.x>=pl.rect.x  && rectangle.x+rectangle.getWidth()<=pl.rect.x+pl.rect.getWidth())) {
+                        if (y && rectangle.y<= pl.rect.y) {
                                 if (velocityY.y>0){
-                                    testflag=true;
-                                    if ((jumpState!=JumpState.GROUNDED)) {
-                                        System.out.println("PLATFORMA GOVNINA");
-                                        velocityY.y = -10;
-                                    }
+                                    if ((jumpState!=JumpState.GROUNDED) && (rectangle.getX()>pl.rect.getX() && rectangle.getX()<pl.rect.getX()+pl.rect.getWidth()))
+                                    velocityY.y = -10;
                                 }
                         }
-                        if (x && !testflag) {
+                        if (x) {
                             position.x = lastFrame.x - (JoystickLeft.checkAngleLeft ? 1 : -1) * 0.3f;
-                            System.out.println("PLATFORMA GOVNINA PO X");
                         }
                     }
 
