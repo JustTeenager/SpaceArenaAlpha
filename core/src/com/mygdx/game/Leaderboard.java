@@ -11,29 +11,29 @@ import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.ui.Button;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Label;
 import com.badlogic.gdx.scenes.scene2d.ui.ScrollPane;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
-
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.HashMap;
 import java.util.Set;
-
 import static java.lang.StrictMath.abs;
 
+//класс Экрана таблицы лидеров
 public class Leaderboard implements Screen {
+
+    private MainGame game;
+
     private int yScale;
     private Buttons backButton;
     private SpriteBatch batch;
     private String string;
     private ArrayList<HashMap> leaderList;
-    private MainGame game;
     private Sound clickSound;
     private Stage s;
     private InputMultiplexer inputMultiplexer;
@@ -50,38 +50,44 @@ public class Leaderboard implements Screen {
     private Table coreTable;
     Leaderboard(final MainGame game){
         this.game=game;
-        yScale=(Gdx.graphics.getHeight()-465)/3-100;
-        clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
         batch = new SpriteBatch();
+        s= new Stage();
+        yScale=(Gdx.graphics.getHeight()-465)/3-100;
+
+        clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
+
         backtxt=new Texture("menuBack.jpg");
         scroll= new Texture("Slider 1.png");
         scrollKnob= new Texture("Slider 2.png");
         paneltxt=new Texture("Achievement Panel2.png");
         Drawable drawableScroll = new Image(scroll).getDrawable();
         Drawable drawableScrollKnob = new Image(scrollKnob).getDrawable();
+
         labelFont=new BitmapFont(Gdx.files.internal("registerLit.fnt"));
         labelFont.getData().setScale(2f);
         leadTabFont=new BitmapFont(Gdx.files.internal("liter.fnt"));
         leadTabFont.getData().setScale(2.7f);
         leadTabFont.setColor(new Color(0,0,0,0.55f));
+
         style = new ScrollPane.ScrollPaneStyle(null,null,null,drawableScroll,drawableScrollKnob);
         labelStyle= new Label.LabelStyle(labelFont,new Color(1,1,1,1f));
-        s= new Stage();
+
         backButton=new Buttons(Gdx.graphics.getWidth()/2-120,yScale,"backButt","Back",2f,s);
         Gdx.input.setInputProcessor(s);
+
         leaderList=new ArrayList<>();
         leaderSetting();
+
         coreTable = new Table();
         s.addActor(coreTable);
         coreTable.setSize(Gdx.graphics.getWidth(),Gdx.graphics.getHeight()-550);
         coreTable.setY(250);
 
         table = new Table();
-
         final ScrollPane scroll = new ScrollPane(table, style);
         scroll.setScrollingDisabled(true,false);
-
         table.pad(100).defaults().expandX().space(100);
+        //заполенение таблицы лидеров
         for (int i = 0; i < leaderList.size(); i++) {
             table.row();
             string=leaderList.get(i).get("Name")+"                "+leaderList.get(i).get("Kills")+"                "+leaderList.get(i).get("Death")
@@ -92,6 +98,7 @@ public class Leaderboard implements Screen {
             table.add(label).width(Gdx.graphics.getWidth());
         }
 
+        //задать скролл на всю длину таблицы
         coreTable.add(scroll).expand().fill();
 
         inputMultiplexer=new InputMultiplexer();
@@ -113,6 +120,7 @@ public class Leaderboard implements Screen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                //нажатие на кнопку выхода таблицы
                  if ((abs(Gdx.graphics.getHeight()-screenY)>backButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<backButton.btn.getY()+backButton.btn.getHeight())
                         && (screenX>backButton.btn.getX()&&screenX<backButton.btn.getX()+backButton.btn.getWidth()) && backButton.isTouchable()){
                     clickSound.play(MainGame.volume);
@@ -161,7 +169,7 @@ public class Leaderboard implements Screen {
         batch.draw(backtxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         batch.draw(paneltxt,100,Gdx.graphics.getHeight()-paneltxt.getHeight()+75,Gdx.graphics.getWidth()-200,Gdx.graphics.getHeight());
         leadTabFont.getData().setScale(2.7f);
-        leadTabFont.draw(batch,"Leaderboard",Gdx.graphics.getWidth()/2-300,Gdx.graphics.getHeight()-90);
+        leadTabFont.draw(batch,MainGame.LEADERBOARD,Gdx.graphics.getWidth()/2-300,Gdx.graphics.getHeight()-90);
         leadTabFont.getData().setScale(1.7f);
         leadTabFont.draw(batch," Name           Kills        Death        KD",Gdx.graphics.getWidth()/2-650,Gdx.graphics.getHeight()-300);
         batch.end();
@@ -193,6 +201,7 @@ public class Leaderboard implements Screen {
     public void dispose() {
 
     }
+    //функция преобразования данных,полученных от сервиса FireBase,в нужный для таблицы лист (KD по убыванию)
     private void leaderSetting(){
         Set set = MainGame.leaderMap.keySet();
         Object[] array= set.toArray();

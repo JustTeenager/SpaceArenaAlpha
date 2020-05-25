@@ -80,7 +80,6 @@ public class SettingsMenu implements Screen {
         if (MainGame.volButtonX!=-1){
             prevVolumePosition=MainGame.volButtonX;
             volumeButton.btn.setX(prevVolumePosition);
-            System.out.println("changed");
         }
 
         inputMultiplexer=new InputMultiplexer();
@@ -119,7 +118,7 @@ public class SettingsMenu implements Screen {
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
                         try {
-                                FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog,FireBaseClass.getuID());
+                                FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
                         }catch (IllegalArgumentException e){
                             autoDialog.setErrorText("empty pass or email");
                             autoDialog.getRegisterButton().setTouchable(Touchable.enabled);
@@ -240,7 +239,7 @@ public class SettingsMenu implements Screen {
         batch.begin();
         batch.draw(backTxt,0,0,Gdx.graphics.getWidth(),Gdx.graphics.getHeight());
         batch.draw(panel,350,100);
-        nameFont.draw(batch,"Game Settings",Gdx.graphics.getWidth()/2-340,Gdx.graphics.getHeight()-180);
+        nameFont.draw(batch,MainGame.GAME_SETTINGS,Gdx.graphics.getWidth()/2-340,Gdx.graphics.getHeight()-180);
         batch.draw(volumeScale,xScale,yScale);
         batch.draw(soundTxt,xScale-soundTxt.getWidth()+15,yScale-soundTxt.getHeight()/4-15);
         batch.end();

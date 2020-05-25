@@ -2,7 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.math.Vector2;
-
+//основной класс для передачи информации,по сути - собственный тип данных
 public class CoordBox {
 
     private int playerIdentify;

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.utils.Align;
 
+//класс меню ожидания
 public class WaitingMenu extends ScreenAdapter {
     private MainGame game;
     private Stage st;
@@ -92,6 +93,7 @@ public class WaitingMenu extends ScreenAdapter {
 
     @Override
     public void render(float delta) {
+        //проверка наличия соединения с сервером
         if (!ClientClass.isConnected()){
             game.setScreen(new ConnectMenu(game));
         }
@@ -107,6 +109,7 @@ public class WaitingMenu extends ScreenAdapter {
         waitButton.btn.act(delta);
         st.draw();
 
+        //запрос на проверку наличия второго игрока
         ClientClass.sendPlayersWaitingBox(new PlayersWaitingBox());
 
         if (MainGame.playersNum==2){

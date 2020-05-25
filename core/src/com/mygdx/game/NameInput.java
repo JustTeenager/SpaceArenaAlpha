@@ -4,6 +4,7 @@ import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 
+//класс считывания имени при смене
 public class NameInput implements Input.TextInputListener {
     private String text;
     private InputProcessor inputProcessor;

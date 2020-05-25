@@ -12,6 +12,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextButton;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 
+//класс всех испоьзуемых кнопок,обьект включает в себя кнопку и "обертку для нее" - текстуру и текст
 public class Buttons extends Actor {
     static BitmapFont font;
     private GlyphLayout gl;
@@ -21,6 +22,7 @@ public class Buttons extends Actor {
     private Texture tappedTexture;
     private Texture untappedTexture;
 
+    //создание кнопки с текстом
     public Buttons(float x, float y,String name, String text,float size, Stage s){
         super();
         setName(name);
@@ -50,7 +52,7 @@ public class Buttons extends Actor {
         s.addActor(this);
     }
 
-
+    //создание кнопки с какой-то картинкой
     public Buttons(float x, float y,String name,float width,float height, Stage s,Texture tappedtxt,Texture untappedtxt){
         super();
         setName(name);

@@ -2,6 +2,7 @@ package com.mygdx.game;
 
 import com.badlogic.gdx.graphics.Camera;
 
+//класс игровой камеры
 public class ChaseCam {
     public Camera camera;
 

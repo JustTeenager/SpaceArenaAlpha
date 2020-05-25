@@ -7,11 +7,14 @@ import com.badlogic.gdx.scenes.scene2d.Group;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.Array;
 
+//Базовый класс обьектов "взаимодействия" - пуль,игроков,патронов
 public abstract class ActorObj extends Group {
-    Texture textTEMP;
-    Animation<TextureRegion> anim;
+    private Texture textTEMP;
+    private Animation<TextureRegion> anim;
 
+    //анимация "на выходе"
     protected Animation<TextureRegion> animation;
+
     public ActorObj(float x, float y, Stage s){
         super();
         setPosition(x,y);
@@ -21,6 +24,7 @@ public abstract class ActorObj extends Group {
     protected ActorObj() {
     }
 
+    //создание анимации из набора кадров
     public void setAnim(Array<TextureRegion> array,String[] str) {
         for (int i = 0; i < str.length; i++) {
             textTEMP = new Texture(str[i]);
@@ -28,6 +32,7 @@ public abstract class ActorObj extends Group {
             array.add(new TextureRegion(textTEMP));
         }
     }
+    //функция использования соответсвующей анимации
     public void useAnim(float frameT,boolean loop,Array<TextureRegion> array){
         anim = new Animation<>(frameT, array);
         if (loop)

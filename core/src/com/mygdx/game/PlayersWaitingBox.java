@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+//класс,отвечающий за реализацию ожидания второго игрока
 public class PlayersWaitingBox {
     int count;
     PlayersWaitingBox(){}

@@ -343,7 +343,7 @@ public class Player extends ActorObj {
         this.amountBullets=MainGame.AMOUNT_BULLETS;
         this.hp=100;
 
-        MainGame.flag=false;
+        //MainGame.flag=false;
 
         this.flip=false;
         this.killed=false;

@@ -7,26 +7,24 @@ import com.badlogic.gdx.audio.Music;
 import com.badlogic.gdx.graphics.GL20;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
-import com.badlogic.gdx.graphics.glutils.ShapeRenderer;
 import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.utils.viewport.ExtendViewport;
 import java.util.ArrayList;
 
-
+//Класс непосредственно игры
 public class ArenaGame extends ScreenAdapter {
-
+	//"контекст" приложения,используется для смены экранов
 	private MainGame game;
-
 	private Texture backTxt;
 	public static Music gameMusic;
-
-	private ShapeRenderer shapeRenderer=new ShapeRenderer();
-
+	//Обьект для обработки нажатий на экран,включает несколько обьектов InputProcessor
 	private InputMultiplexer inputMultiplexer;
+	//"Кисть" для отрисовки
 	private SpriteBatch batch;
 	private ExtendViewport viewport;
-
+	//Один из ключевых обьектов игры и фреймворка в целом - Stage
+	// Осуществляет обработку логики и отрисовку включенных в себя обьектов (актеров)
 	public static Stage playerStage;
 	public static Player pl1;
 	public static Player pl2;
@@ -49,7 +47,6 @@ public class ArenaGame extends ScreenAdapter {
 	private Texture txtplatFloor;
 	private Texture txtplatLeftWall;
 	private Texture txtplatRightWall;
-	private Texture txtplatRoof;
 	private Texture txtplatCornerLeft;
 	private Texture txtplatCornerRight;
 
@@ -68,11 +65,16 @@ public class ArenaGame extends ScreenAdapter {
 
 	public ArenaGame (final MainGame game) {
 		this.game=game;
+
+		//создание игроков и массивов пуль для обновления данных
 		CURRENT_PLAYER=new Player(-100,50);
 		ENEMY=new Player(700,50);
 		shootings = new ArrayList<>();
 		shootingsEnemy = new ArrayList<>();
+		//установка в начальное положение определителя персонажа
 		MainGame.setPlayerIdentify(-1);
+
+		//передача пакета с именем и запрос на определение персонажа
 		try {
 			ClientClass.sendBox(new CoordBox(-1));
 			ClientClass.sendBox(new PlayerNameBox(MainGame.current_player_name));
@@ -87,11 +89,13 @@ public class ArenaGame extends ScreenAdapter {
 		gameMusic.setVolume(MainGame.volume);
 		gameMusic.play();
 
+		//размер "Окна" для камеры
 		viewport=new ExtendViewport(MainGame.WORLD_SIZE_X,MainGame.WORLD_SIZE_Y);
 
 		playerStage=new Stage(viewport);
 		hudStage = new Stage();
 
+		//загрузка анимаций персонажей
 		pl1=new Player(-100,50);
 		pl1.setID(-100);
 		pl1.setAnim(pl1.getTextureArray_aim_player_2(),MainGame.Aim_2);
@@ -106,70 +110,51 @@ public class ArenaGame extends ScreenAdapter {
 		pl2.setAnim(pl2.getTextureArray_jump_player_4(),MainGame.JumpShoot_4);
 		pl2.setAnim(pl2.getTextureArray_dead_player_4(),MainGame.Dead_4);
 
-		switch (MainGame.getPlayerIdentify()){
-			case 1:{
-				CURRENT_PLAYER=pl1;
-				playerStage.addActor(CURRENT_PLAYER);
-				CURRENT_PLAYER.setX(pl1.getID());
-				CURRENT_PLAYER.setY(50);
-				CURRENT_PLAYER.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
-				CURRENT_PLAYER.setAnimationNum(11);
 
-				ENEMY=pl2;
-				playerStage.addActor(ENEMY);
-				ENEMY.setX(pl2.getID());
-				ENEMY.setY(50);
-				ENEMY.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
-				ENEMY.setAnimationNum(21);
+		//Определение персонажа в зависимости от подключения
+		if (MainGame.getPlayerIdentify() == 1) {
+			CURRENT_PLAYER = pl1;
+			playerStage.addActor(CURRENT_PLAYER);
+			CURRENT_PLAYER.setX(pl1.getID());
+			CURRENT_PLAYER.setY(50);
+			CURRENT_PLAYER.useAnim(0.1f, true, pl1.getTextureArray_aim_player_2());
+			//установка кода для передачи анимации на другой клиент
+			CURRENT_PLAYER.setAnimationNum(11);
 
-				CURRENT_PLAYER.setName("CURRENT_PLAYER");
-				CURRENT_PLAYER.setID(pl1.getID());
-				ENEMY.setName("ENEMY");
-				ENEMY.setID(pl2.getID());
+			ENEMY = pl2;
+			playerStage.addActor(ENEMY);
+			ENEMY.setX(pl2.getID());
+			ENEMY.setY(50);
+			ENEMY.useAnim(0.1f, true, pl2.getTextureArray_aim_player_4());
+			ENEMY.setAnimationNum(21);
 
-			}break;
-			/*case 2:{
-				CURRENT_PLAYER=new Player(1000,50);
-				CURRENT_PLAYER=pl2;
-				playerStage.addActor(CURRENT_PLAYER);
-				CURRENT_PLAYER.setX(pl2.getID());
-				CURRENT_PLAYER.setY(50);
-				CURRENT_PLAYER.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
+			CURRENT_PLAYER.setName("CURRENT_PLAYER");
+			CURRENT_PLAYER.setID(pl1.getID());
+			ENEMY.setName("ENEMY");
+			ENEMY.setID(pl2.getID());
+		} else {
+			CURRENT_PLAYER = pl2;
+			playerStage.addActor(CURRENT_PLAYER);
+			CURRENT_PLAYER.setX(pl2.getID());
+			CURRENT_PLAYER.setY(50);
+			CURRENT_PLAYER.useAnim(0.1f, true, pl2.getTextureArray_aim_player_4());
+			CURRENT_PLAYER.setAnimationNum(21);
 
-				ENEMY=new Player(0,50);
-				ENEMY=pl1;
-				playerStage.addActor(ENEMY);
-				ENEMY.setX(pl1.getID());
-				ENEMY.setY(50);
-			    ENEMY.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());//Стандартная анимация
+			ENEMY = pl1;
+			playerStage.addActor(ENEMY);
+			ENEMY.setX(pl1.getID());
+			ENEMY.setY(50);
+			ENEMY.useAnim(0.1f, true, pl1.getTextureArray_aim_player_2());
+			ENEMY.setAnimationNum(11);
 
-				CURRENT_PLAYER.setName("CURRENT_PLAYER");
-				CURRENT_PLAYER.setID(pl2.getID());
-				ENEMY.setName("ENEMY");
-				ENEMY.setID(pl1.getID());
-
-			}break;*/
-			default:{
-				CURRENT_PLAYER=pl2;
-				playerStage.addActor(CURRENT_PLAYER);
-				CURRENT_PLAYER.setX(pl2.getID());
-				CURRENT_PLAYER.setY(50);
-				CURRENT_PLAYER.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
-				CURRENT_PLAYER.setAnimationNum(21);
-
-				ENEMY=pl1;
-				playerStage.addActor(ENEMY);
-				ENEMY.setX(pl1.getID());
-				ENEMY.setY(50);
-				ENEMY.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
-				ENEMY.setAnimationNum(11);
-
-				CURRENT_PLAYER.setName("CURRENT_PLAYER");
-				CURRENT_PLAYER.setID(pl2.getID());
-				ENEMY.setName("ENEMY");
-				ENEMY.setID(pl1.getID());
-			}
+			CURRENT_PLAYER.setName("CURRENT_PLAYER");
+			//по ID отличаем,текстуры какого персонажа использовать в отрисовке
+			CURRENT_PLAYER.setID(pl2.getID());
+			ENEMY.setName("ENEMY");
+			ENEMY.setID(pl1.getID());
 		}
+
+
 		ENEMY.position=new Vector2(ENEMY.getID(),50);
 		CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
 
@@ -185,10 +170,10 @@ public class ArenaGame extends ScreenAdapter {
 		txtplatFloor=new Texture("SciFiPlatformsetFloor.png");
 		txtplatLeftWall=new Texture("LeftWall.png");
 		txtplatRightWall=new Texture("RightWall.png");
-		txtplatRoof=new Texture("Roof.png");
 		txtplatCornerLeft=new Texture("SciFiPlatformset-5.png");
 		txtplatCornerRight=new Texture("SciFiPlatformset-4.png");
 
+		//создание карты
 		plat= new Platform[]{
 				new Platform(-850,-25,txtplatFloor,playerStage),new Platform(-640,-25,txtplatFloor,playerStage),new Platform(-430,-25,txtplatFloor,playerStage),
 				new Platform(-220,-25,txtplatFloor,playerStage),new Platform(-10,-25,txtplatFloor,playerStage), new Platform(200,-25,txtplatFloor,playerStage),
@@ -215,6 +200,7 @@ public class ArenaGame extends ScreenAdapter {
 
 		inputMultiplexer = new InputMultiplexer();
 
+		//установка игрового интерфейса (окон и кнопок)
 		hud=new GameHUD(hudStage,viewport,CURRENT_PLAYER);
 		jumpbtn=new Texture("analog_button.png");
 		settingsbtn=new Texture("Options Icon.png");
@@ -233,6 +219,7 @@ public class ArenaGame extends ScreenAdapter {
 		CURRENT_PLAYER.setStartPosition(new Vector2(CURRENT_PLAYER.getX(),CURRENT_PLAYER.getY()));
 		ENEMY.setStartPosition(new Vector2(ENEMY.getX(),ENEMY.getY()));
 
+		//финальный перевод в начальное положение ресурсов перед началом матча
 		setStartSettings();
 
 	}
@@ -244,12 +231,13 @@ public class ArenaGame extends ScreenAdapter {
 
 	@Override
 	public void render (float delta) {
+		//проверка отключения одного из игроков
 		if ((!ClientClass.isConnected() || ClientClass.playerNUM==-1) && MainGame.seconds>0){
 			game.setScreen(new ConnectMenu(game));
 			ClientClass.close();
 		}
 
-
+		//Очистка экрана перед следующим кадром
 		Gdx.gl.glClearColor(1, 1, 1, 1);
 		Gdx.gl.glClear(GL20.GL_COLOR_BUFFER_BIT);
 
@@ -266,13 +254,15 @@ public class ArenaGame extends ScreenAdapter {
 		} catch (Exception e) {
 			System.out.println("RENDER EXCEPTION!!!");
 		}
+
+		//проверка создания пули и их обработка (проверка и своих пуль,и вражеских)
 		joystickRight.checkCreateBullet();
 
 		for (int i=0;i<shootingsEnemy.size();i++){
 			shootingsEnemy.get(i).update();
 			shootingsEnemy.get(i).collapse(CURRENT_PLAYER);
 			if (ENEMY.hp<=0 || CURRENT_PLAYER.hp<=0)shootingsEnemy.get(i).setVisible(false);
-			if (shootingsEnemy.get(i).isOut || !shootingsEnemy.get(i).isVisible()){//удаление той пули, которая выышла за экран
+			if (shootingsEnemy.get(i).isOut || !shootingsEnemy.get(i).isVisible()){//удаление той пули, которая вышла за экран
 				shootingsEnemy.remove(i);
 			}
 		}
@@ -281,11 +271,11 @@ public class ArenaGame extends ScreenAdapter {
 			shootings.get(i).update();
 			shootings.get(i).collapse(ENEMY);
 			if (ENEMY.hp<=0 || CURRENT_PLAYER.hp<=0)shootings.get(i).setVisible(false);
-			if (shootings.get(i).isOut || !shootings.get(i).isVisible()){//удаление той пули, которая выышла за экран
+			if (shootings.get(i).isOut || !shootings.get(i).isVisible()){
 				shootings.remove(i);
 			}
 		}
-
+		//обработка обстоятельств смерти
 		if (CURRENT_PLAYER.hp<=0){
 			if (!MainGame.flag ){
 				GameHUD.scoreLogs.setVisible(true);
@@ -327,19 +317,18 @@ public class ArenaGame extends ScreenAdapter {
 		for (Ammunition ammunition: ammunitions){
 			ammunition.update();
 		}
-
+		//отправка на сервер сведений,стрелял игрок или нет
 		if (!MainGame.isShooted){
 			coordBox = new CoordBox(MainGame.getPlayerIdentify(),CURRENT_PLAYER.position,CURRENT_PLAYER.getAnimationNum(),CURRENT_PLAYER.flip,CURRENT_PLAYER.rectangle,CURRENT_PLAYER.hp);
 			ClientClass.sendBox(coordBox);
 		}
-
 		else if (MainGame.isShooted) {
 			MainGame.isShooted=false;
 			coordBox = new CoordBox(MainGame.getPlayerIdentify(), CURRENT_PLAYER.position, CURRENT_PLAYER.getAnimationNum(), CURRENT_PLAYER.flip, CURRENT_PLAYER.rectangle, CURRENT_PLAYER.hp,
 					JoystickRight.shootTemp.getDirection(), (double) JoystickRight.shootTemp.getRotation(), JoystickRight.shootTemp.getRectangle());
-
 			ClientClass.sendBox(coordBox);
 		}
+		//отрисовка
 		hud.setColor(1,1,1,0.5f);
 		chaseCam.update();
 		viewport.apply();
@@ -352,6 +341,8 @@ public class ArenaGame extends ScreenAdapter {
 		hud.drawHpPanel(delta,batch);
 		batch.end();
 		hudStage.draw();
+
+		//обработка окончания игры
 		if (MainGame.seconds==0){
 			if (MainGame.current_player_score>MainGame.enemy_score){
 				FinalDialog.winner=MainGame.current_player_name+" was victorious!";
@@ -368,18 +359,6 @@ public class ArenaGame extends ScreenAdapter {
 				hud.getBackButtonFinal().setVisible(true);
 			}catch (Exception e){}
 		}
-		//отладка платформ
-		/*Gdx.gl.glEnable(GL20.GL_BLEND);
-		Gdx.gl.glBlendFunc(GL20.GL_SRC_ALPHA, GL20.GL_ONE_MINUS_SRC_ALPHA);
-		shapeRenderer.setProjectionMatrix(chaseCam.camera.combined);
-		shapeRenderer.setColor(0, 1, 1, 0.5f);
-		shapeRenderer.begin(ShapeRenderer.ShapeType.Filled);
-		shapeRenderer.rect(CURRENT_PLAYER.rectangle.getX(),CURRENT_PLAYER.rectangle.getY(),CURRENT_PLAYER.rectangle.getWidth(), CURRENT_PLAYER.rectangle.getHeight());
-		for (Platform plat:plat){
-			shapeRenderer.rect(plat.rect.getX(),plat.rect.getY(),plat.rect.getWidth(), plat.rect.getHeight());
-		}
-		shapeRenderer.end();
-		Gdx.gl.glDisable(GL20.GL_BLEND);*/
 	}
 
 	@Override

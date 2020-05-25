@@ -9,6 +9,7 @@ import com.badlogic.gdx.graphics.g2d.GlyphLayout;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
+//класс вывода очков в процессе игры
 public class ScoreLogs extends Actor {
 
     private Stage stage;
@@ -32,10 +33,6 @@ public class ScoreLogs extends Actor {
     public void draw(Batch batch, float parentAlpha) {
         if (MainGame.current_player_name!=null && MainGame.enemy_name!=null) {
             gl = new GlyphLayout(scoreFont, (MainGame.current_player_name.length() >= MainGame.enemy_name.length() ? MainGame.current_player_name : MainGame.enemy_name));
-        }
-        else {
-            gl = new GlyphLayout(scoreFont,"player");
-            System.out.println("GL GOVNINA 1111111111111");
         }
             batch.draw(backTxt, stage.getWidth() / 2 - 150, stage.getHeight() / 2,gl.width+250, 160);
             scoreFont.draw(batch, MainGame.current_player_name + ": " + MainGame.current_player_score, stage.getWidth() / 2+25, stage.getHeight() / 2 + 115);

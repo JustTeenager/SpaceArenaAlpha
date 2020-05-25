@@ -7,7 +7,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.actions.RepeatAction;
 import com.badlogic.gdx.utils.Align;
-
+//класс аммуниции на игровой карте
 public class Ammunition extends ActorObj {
     private Texture txtAmmunition;
     private Rectangle recAmmunition;

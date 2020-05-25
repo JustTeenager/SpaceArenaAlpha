@@ -8,20 +8,24 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.Stage;
-import com.badlogic.gdx.scenes.scene2d.actions.Actions;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import com.badlogic.gdx.utils.Align;
 
+//класс,отвечающий за диалоговое окно регистрации
 public class AuthorizationDialog extends Actor {
     private Window window;
+
+    //обьект отрисовки текста
     private BitmapFont font;
     private BitmapFont fontText;
     private BitmapFont fontErr;
 
     private String errorText;
+
+    //поля для заполнения
     private TextField emailField;
     private TextField passwordField;
     private Texture backTxt;
@@ -62,7 +66,7 @@ public class AuthorizationDialog extends Actor {
         passwordField.setPasswordCharacter('*');
         passwordField.setAlignment(Align.center);
         passwordField.setMessageText("password");
-        passwordField.setTextFieldFilter(new TextField.TextFieldFilter() {
+        /*passwordField.setTextFieldFilter(new TextField.TextFieldFilter() {
             @Override
             public boolean acceptChar(TextField textField, char c) {
                 for (char wrChar:MainGame.wrongChars)
@@ -72,9 +76,7 @@ public class AuthorizationDialog extends Actor {
                     }
                 return true;
             }
-        });
-
-
+        });*/
         emailField.setPosition(window.getX()+150,680);
         passwordField.setPosition(window.getX()+150,480);
         emailField.setWidth(window.getWidth()-300);
@@ -137,9 +139,4 @@ public class AuthorizationDialog extends Actor {
     public void setErrorText(String errorText) {
         this.errorText = errorText;
     }
-
-    public String getErrorText() {
-        return errorText;
-    }
-
 }

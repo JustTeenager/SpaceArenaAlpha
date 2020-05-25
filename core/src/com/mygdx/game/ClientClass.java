@@ -4,10 +4,9 @@ import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
 import java.net.InetAddress;
-
 import static com.mygdx.game.ArenaGame.ENEMY;
 
-
+//класс,отвечающий за обмен данных с сервером и обработку входящих данных
 public class ClientClass extends Listener {
 
     static Client client;
@@ -15,8 +14,10 @@ public class ClientClass extends Listener {
     static int tcpPort = 54555, udpPort = 54555;
     static InetAddress adr;
 
+    //номер,по которому определяется персонаж
     private static int safeID;
 
+    //для обработки потери соединения одним из игроков
     static int playerNUM;
 
     public static void startClient() throws Exception {
@@ -93,9 +94,7 @@ public class ClientClass extends Listener {
             }
         }
     }
-    public static void setNumToIdentify(){
-        MainGame.setPlayerIdentify(playerNUM);
-    }
+
     public static void boxDeploy(CoordBox box){
         try {
             ENEMY.position = box.BpositionPlayer;
@@ -145,6 +144,7 @@ public class ClientClass extends Listener {
             e.printStackTrace();
         }
 
+        //если был произведен выстрел - ресурсы для создания пули выгружаются,дальше пуля обрабатывается как и все остальные,на стороне клиента
         try {
             Shooting.addEnemyShootingArray(box);
         }catch (Exception e){}

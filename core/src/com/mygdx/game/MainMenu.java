@@ -12,15 +12,10 @@ import com.badlogic.gdx.graphics.g2d.BitmapFont;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
-import com.badlogic.gdx.scenes.scene2d.ui.TextField;
-
-import java.util.HashMap;
-import java.util.Map;
-
-import sun.applet.Main;
 
 import static java.lang.StrictMath.abs;
 
+//класс главного меню
 public class MainMenu implements Screen {
 
     private MainGame game;
@@ -87,6 +82,7 @@ public class MainMenu implements Screen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                //обработка нажатий на кнопки регистрации и входа окна авторизации
                 if (autoDialog.isVisible()) {
                     if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getLogInButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getLogInButton().btn.getY() + autoDialog.getLogInButton().btn.getHeight())
                             && (screenX > autoDialog.getLogInButton().btn.getX() && screenX < autoDialog.getLogInButton().btn.getX() + autoDialog.getLogInButton().btn.getWidth()) && (autoDialog.getLogInButton().isTouchable())) {
@@ -95,7 +91,7 @@ public class MainMenu implements Screen {
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
                         try {
-                                FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog,FireBaseClass.getuID());
+                                FireBaseClass.signIn(MainGame.playerLogin, MainGame.playerPassword.toCharArray(), autoDialog);
                         }catch (IllegalArgumentException e){
                             autoDialog.setErrorText("empty pass or email");
                             autoDialog.getRegisterButton().setTouchable(Touchable.enabled);
@@ -116,10 +112,8 @@ public class MainMenu implements Screen {
                         }
                     }
                 }
-
-
                 else {
-
+                    //нажатие на кнопку таблицы лидеров
                     if ((abs(Gdx.graphics.getHeight() - screenY) > leadButton.btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < leadButton.btn.getY() + leadButton.btn.getHeight())
                             && (screenX > leadButton.btn.getX() && screenX < leadButton.btn.getX() + leadButton.btn.getWidth()) && leadButton.isTouchable()) {
                         leadButton.setTouchable(Touchable.disabled);
@@ -131,18 +125,21 @@ public class MainMenu implements Screen {
                         clickSound.play(MainGame.volume);
                     }
 
-
+                    //нажатие на кнопку начала игры
                     else if ((abs(Gdx.graphics.getHeight() - screenY) > butt[0].btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < butt[0].btn.getY() + butt[0].btn.getHeight())
                             && (screenX > butt[0].btn.getX() && screenX < butt[0].btn.getX() + butt[0].btn.getWidth()) && butt[0].isTouchable()) {
                         clickSound.play(MainGame.volume);
                         try {
+                            //соединение с сервером и переход к экрану ожидания
                             ClientClass.startClient();
                             game.setScreen(new WaitingMenu(game));
                         } catch (Exception e) {
                             e.printStackTrace();
                             game.setScreen(new ConnectMenu(game));
                         }
-                    } else if ((abs(Gdx.graphics.getHeight() - screenY) > butt[1].btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < butt[1].btn.getY() + butt[1].btn.getHeight()
+                    }
+                    //нажатие на кнопку настроек
+                    else if ((abs(Gdx.graphics.getHeight() - screenY) > butt[1].btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < butt[1].btn.getY() + butt[1].btn.getHeight()
                             && (screenX > butt[1].btn.getX() && screenX < butt[1].btn.getX() + butt[1].btn.getWidth())) && butt[1].isTouchable()) {
                         clickSound.play(MainGame.volume);
                         game.setScreen(new SettingsMenu(game));
@@ -171,6 +168,7 @@ public class MainMenu implements Screen {
                 return false;
             }
         };
+        //создание необходимых кнопок
         leadButton=new Buttons(955,75,"leaders",leadTexture.getWidth(),leadTexture.getHeight(),s,leadTexture,leadTexture);
         butt=new Buttons[2];
         for (int i=0;i<butt.length;i++){

@@ -11,6 +11,7 @@ import com.badlogic.gdx.scenes.scene2d.Stage;
 
 import static java.lang.StrictMath.abs;
 
+//класс окна отсоединении одного из игроков
 public class ConnectMenu implements Screen {
     private MainGame game;
     private SpriteBatch batch;

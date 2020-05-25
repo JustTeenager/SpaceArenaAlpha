@@ -13,36 +13,35 @@ import java.util.Set;
 import pl.mk5.gdx.fireapp.GdxFIRApp;
 import pl.mk5.gdx.fireapp.GdxFIRAuth;
 import pl.mk5.gdx.fireapp.GdxFIRDatabase;
-import pl.mk5.gdx.fireapp.annotations.MapConversion;
 import pl.mk5.gdx.fireapp.auth.GdxFirebaseUser;
-import pl.mk5.gdx.fireapp.distributions.DatabaseDistribution;
 import pl.mk5.gdx.fireapp.functional.BiConsumer;
 import pl.mk5.gdx.fireapp.functional.Consumer;
 import pl.mk5.gdx.fireapp.functional.Function;
 
+//Класс,отвечающий за взаимодействия с базой данных FireBase
 public class FireBaseClass {
-
+    //ключ пользователя,инициализируется при входе в аккаунт
     private static String uID="0";
+
     private static float kills=-1;
     private static float death=-1;
 
-    public static void signIn(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog, final String ui) {
-        // Sign in via username/email and password
+    // функция входа в аккаунт
+    public static void signIn(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog) {
+        //отключение кнопок на время авторизации
         FireBaseClass.disableAutoButtons(dialog);
         GdxFIRAuth.instance()
                 .signInWithEmailAndPassword(playerEmail, playerPassword)
                 .then(new Consumer<GdxFirebaseUser>() {
                     @Override
                     public void accept(GdxFirebaseUser gdxFirebaseUser) {
-                        //if (gdxFirebaseUser.getUserInfo()!=
                         uID=gdxFirebaseUser.getUserInfo().getUid();
-                        System.out.println(uID);
                         getUserName(dialog);
                     }
                 }).fail(new BiConsumer<String, Throwable>() {
             @Override
             public void accept(String s, Throwable throwable) {
-                System.out.println("ERROR DURING LOGIN");
+                //включение кнопок при неудачной авторизации
                 enableAutoButtons(dialog);
                 try {
                     throw throwable;
@@ -55,7 +54,7 @@ public class FireBaseClass {
         });
     }
 
-
+    //функция создания нового аккаунта
     public static void register(final String playerEmail, final char[] playerPassword, final AuthorizationDialog dialog){
         synchronized (GdxFIRDatabase.class) {
             FireBaseClass.disableAutoButtons(dialog);
@@ -73,8 +72,6 @@ public class FireBaseClass {
                     .fail(new BiConsumer<String, Throwable>() {
                         @Override
                         public void accept(String s, Throwable throwable) {
-                            //GdxFIRAuth.inst().getCurrentUser().delete().subscribe();
-                            System.out.println("REGISTRATION ERROR");
                             enableAutoButtons(dialog);
                             try {
                                 throw throwable;
@@ -87,24 +84,7 @@ public class FireBaseClass {
         }
     }
 
-    //email:
-    //com.google.firebase.auth.FirebaseAuthInvalidCredentialsException -- The email is badly formatted
-    //com.google.firebase.auth.FirebaseAuthUserCollisionException --  The email is already in use
-    //com.google.firebase.auth.FirebaseAuthWeakPasswordException -- The given password is invalid
-    //
-
-    private static void setCountPlayer(){
-        GdxFIRDatabase.instance().inReference("count")
-                .transaction(Long.class, new Function<Long, Long>() {
-                    @Override
-                    public Long apply(Long i) {
-                        i++;
-                        return i;
-                    }
-                });
-    }
-
-
+    //функция выхода из аккаунта
     public static void signOut( final AuthorizationDialog dialog){
         FireBaseClass.disableAutoButtons(dialog);
         GdxFIRAuth.instance().signOut()
@@ -119,22 +99,18 @@ public class FireBaseClass {
 
     private static void successLogin(){
         MainGame.authorized=true;
-        System.out.println("LOGGED");
     }
 
     private static void successSignOut(){
         MainGame.authorized=false;
         MainGame.current_player_name=null;
-        System.out.println("SIGNED OUT");
-
     }
 
     private static void successRegister(){
         MainGame.registered=true;
-        System.out.println("REGISTERED");
     }
 
-
+    //функция смены имени
     public static void updatePLayerName(final String nameActual){
         GdxFIRDatabase.instance().inReference(uID+"/Name")
                 .transaction(String.class, new Function<String, String>() {
@@ -142,16 +118,10 @@ public class FireBaseClass {
                     public String apply(String name) {
                         return nameActual;
                     }
-                }) .fail(new BiConsumer<String, Throwable>() {
-            @Override
-            public void accept(String s, Throwable throwable) {
-                //GdxFIRAuth.inst().getCurrentUser().delete().subscribe();
-                System.out.println("GETTING NAME ERROR");
-            }
-        });
-
+                });
     }
 
+    //функция обновления данных (в конце матча)
     public static void updateStatInDataBase(final int addKills,final int addDeath) {
         synchronized (GdxFIRDatabase.class) {
             GdxFIRDatabase.instance().inReference(uID + "/Kills")
@@ -184,51 +154,13 @@ public class FireBaseClass {
                                 return String.format("%.2f", kd);
                             }
                             else {
-                                System.out.println("FUCK YOU");
                                 return String.valueOf(kills);
                             }
                         }
-                    }).fail(new BiConsumer<String, Throwable>() {
-                @Override
-                public void accept(String s, Throwable throwable) {
-                    System.out.println("GETTING KD ERROR");
-                    try {
-                        throw throwable;
-                    } catch (Throwable e) {
-                        e.printStackTrace();
-                    }
-                }
-            });
+                    });
         }
-        System.out.println("updated kd");
     }
-
-    public static void updateKDInDatabase(){
-        GdxFIRDatabase.instance().inReference(uID + "/KD")
-                .transaction(String.class, new Function<String, String>() {
-                    @Override
-                    public String apply(String kd) {
-                        System.out.println(kd);
-                        System.out.println(kills / death);
-                        System.out.println(kills);
-                        System.out.println(death);
-                        if (kills != -1 && death != -1) {
-                            kills = -1;
-                            death = -1;
-                            return String.format("%.2f", String.valueOf(kills / death));
-                        }
-                        else {
-                            return String.valueOf(kills);
-                        }
-                    }
-                }).fail(new BiConsumer<String, Throwable>() {
-            @Override
-            public void accept(String s, Throwable throwable) {
-                System.out.println("GETTING KD ERROR");
-            }
-        });
-    }
-
+    //функция создания путей в базе для хранения необходимых данных
     public static void addKDInDataBase() {
         GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
                 GdxFIRDatabase.instance()
@@ -242,7 +174,6 @@ public class FireBaseClass {
         GdxFIRAuth.instance().signInWithEmailAndPassword(MainGame.playerLogin,MainGame.playerPassword.toCharArray()).then(
                 GdxFIRDatabase.instance()
                         .inReference(uID+"/KD").setValue(String.valueOf(0)));
-        System.out.println("added kd");
     }
 
     private static void disableAutoButtons(AuthorizationDialog dialog){
@@ -254,6 +185,7 @@ public class FireBaseClass {
         dialog.getRegisterButton().setTouchable(Touchable.enabled);
     }
 
+    //функция считывания имени аккаунта при входе
     public static void getUserName(final AuthorizationDialog dialog) {
         GdxFIRDatabase.instance()
                 .inReference(uID+"/Name")
@@ -261,8 +193,6 @@ public class FireBaseClass {
                 .then(new Consumer<String>() {
                     @Override
                     public void accept(String string) {
-                        System.out.println("USERNAME ERROR");
-                        System.out.println(string);
                         MainGame.current_player_name=string;
                         enableAutoButtons(dialog);
                         successLogin();
@@ -270,10 +200,7 @@ public class FireBaseClass {
                 });
     }
 
-    public static String getuID() {
-        return uID;
-    }
-
+    //функция считывания данных для составления таблицы лидеров
     public static void actionListener() {
         GdxFIRDatabase.inst()
                 .inReference("")

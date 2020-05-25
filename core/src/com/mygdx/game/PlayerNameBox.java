@@ -1,5 +1,6 @@
 package com.mygdx.game;
 
+//класс передачи имени
 public class PlayerNameBox {
     String name;
     public PlayerNameBox(){}

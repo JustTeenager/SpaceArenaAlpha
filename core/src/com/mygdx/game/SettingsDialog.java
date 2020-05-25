@@ -13,6 +13,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Window;
 import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import java.util.ArrayList;
 
+//класс окна настроек в игре
 public class SettingsDialog extends Actor {
 
     private float distance;
@@ -48,7 +49,7 @@ public class SettingsDialog extends Actor {
         font.getData().setScale(size);
         Drawable drawable=new Image(backTxt).getDrawable();
         Window.WindowStyle windowstyle=new Window.WindowStyle(font,new Color(0,0,0,0.55f),drawable);
-        window=new Window("Game Settings",windowstyle);
+        window=new Window(MainGame.GAME_SETTINGS,windowstyle);
         window.padTop(150);
         window.padLeft(325);
         window.setSize(backTxt.getWidth(),backTxt.getHeight());

@@ -1,15 +1,12 @@
 package com.mygdx.game;
 
 import com.badlogic.gdx.Game;
-import com.badlogic.gdx.Gdx;
-
 import java.util.HashMap;
-
 import pl.mk5.gdx.fireapp.GdxFIRApp;
 
+//Класс игрового контектса,содержит также большую часть общих переменных
 public class MainGame extends Game {
     static final float GRAVITY=300;
-    //gravity=425
     static final int WORLD_SIZE_X=1020;
     static final int WORLD_SIZE_Y=800;
     static final int AMOUNT_BULLETS=30;
@@ -18,7 +15,10 @@ public class MainGame extends Game {
     static final float MAX_HP=100;
     static int bulletsDamage;
     static final String GAME_OVER="Game Over!";
+    static final String GAME_SETTINGS="Game Settings";
+    static final String LEADERBOARD="Leaderboard";
     static boolean isShooted=false;
+    //переменная для реализация прыжка с платформы
     static boolean jumped=false;
     static boolean isSettingsDialogOpened=false;
     static boolean needEnemyReanimate=false;
@@ -26,28 +26,32 @@ public class MainGame extends Game {
     static boolean registered=false;
     static int playersNum;
     private static int playerIdentify;
-    static String current_player_name;
 
+    static String current_player_name;
     static String enemy_name;
     static String playerLogin;
-    static final char[] wrongChars={'.','#', '$', '[', ']'};
-
     static String playerPassword;
 
     static float volume=1;
     static float volButtonX=-1;
 
+    //переменные для установки кнопок
     static int buttonDistancefromPanel=75;
     static int buttonDistanceFromEachOther=140;
     static int current_player_score=0;
     static int enemy_score=0;
 
+    //переменные для отсчета времени
     static String time="-1";
     static int seconds=TIME_SECONDS;
 
     static long timeFromLastKill=-1;
+    //обьект,получаемыйу
     static HashMap leaderMap;
+
+    //переменная проверки отображения окна счета
     public static boolean flag=false;
+
 
 
     public static final String[] Aim_4 = {
@@ -72,9 +76,6 @@ public class MainGame extends Game {
             "Dead 4(3).png", "Dead 4(4).png",
             "Dead 4(5).png", "Dead 4(6).png", "Dead 4(7).png", "Dead 4(8).png",
             "Dead 4(9).png", "Dead 4(10).png"};
-
-
-
 
     public static final String[] Aim_2 = {
             "Aim (1).png", "Aim (2).png",
@@ -110,6 +111,6 @@ public class MainGame extends Game {
     }
 
     public static void setPlayerIdentify(int playerIdentify) {
-        MainGame.playerIdentify = playerIdentify;//
+        MainGame.playerIdentify = playerIdentify;
     }
 }
