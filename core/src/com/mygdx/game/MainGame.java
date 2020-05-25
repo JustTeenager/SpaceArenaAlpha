@@ -13,6 +13,9 @@ public class MainGame extends Game {
     static final int TIME_SECONDS=120;
     static final float VELOCITY_BULLETS=1200;
     static final float MAX_HP=100;
+    static final int PL1_X=-100;
+    static final int PL2_X=700;
+    static final int PL_Y=80;
     static int bulletsDamage;
     static final String GAME_OVER="Game Over!";
     static final String GAME_SETTINGS="Game Settings";

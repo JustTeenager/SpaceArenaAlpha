@@ -67,8 +67,8 @@ public class ArenaGame extends ScreenAdapter {
 		this.game=game;
 
 		//создание игроков и массивов пуль для обновления данных
-		CURRENT_PLAYER=new Player(-100,50);
-		ENEMY=new Player(700,50);
+		CURRENT_PLAYER=new Player(MainGame.PL1_X,MainGame.PL_Y);
+		ENEMY=new Player(MainGame.PL2_X,MainGame.PL_Y);
 		shootings = new ArrayList<>();
 		shootingsEnemy = new ArrayList<>();
 		//установка в начальное положение определителя персонажа
@@ -96,15 +96,15 @@ public class ArenaGame extends ScreenAdapter {
 		hudStage = new Stage();
 
 		//загрузка анимаций персонажей
-		pl1=new Player(-100,50);
-		pl1.setID(-100);
+		pl1=new Player(MainGame.PL1_X,MainGame.PL_Y);
+		pl1.setID(MainGame.PL1_X);
 		pl1.setAnim(pl1.getTextureArray_aim_player_2(),MainGame.Aim_2);
 		pl1.setAnim(pl1.getTextureArray_move_player_2(),MainGame.RunShoot_2);
 		pl1.setAnim(pl1.getTextureArray_jump_player_2(),MainGame.JumpShoot_2);
 		pl1.setAnim(pl1.getTextureArray_dead_player_2(),MainGame.Dead_2);
 
-		pl2=new Player(700,50);
-		pl2.setID(700);
+		pl2=new Player(MainGame.PL2_X,MainGame.PL_Y);
+		pl2.setID(MainGame.PL2_X);
 		pl2.setAnim(pl2.getTextureArray_aim_player_4(),MainGame.Aim_4);
 		pl2.setAnim(pl2.getTextureArray_move_player_4(),MainGame.RunShoot_4);
 		pl2.setAnim(pl2.getTextureArray_jump_player_4(),MainGame.JumpShoot_4);
@@ -116,7 +116,7 @@ public class ArenaGame extends ScreenAdapter {
 			CURRENT_PLAYER = pl1;
 			playerStage.addActor(CURRENT_PLAYER);
 			CURRENT_PLAYER.setX(pl1.getID());
-			CURRENT_PLAYER.setY(50);
+			CURRENT_PLAYER.setY(MainGame.PL_Y);
 			CURRENT_PLAYER.useAnim(0.1f, true, pl1.getTextureArray_aim_player_2());
 			//установка кода для передачи анимации на другой клиент
 			CURRENT_PLAYER.setAnimationNum(11);
@@ -124,7 +124,7 @@ public class ArenaGame extends ScreenAdapter {
 			ENEMY = pl2;
 			playerStage.addActor(ENEMY);
 			ENEMY.setX(pl2.getID());
-			ENEMY.setY(50);
+			ENEMY.setY(MainGame.PL_Y);
 			ENEMY.useAnim(0.1f, true, pl2.getTextureArray_aim_player_4());
 			ENEMY.setAnimationNum(21);
 
@@ -136,14 +136,14 @@ public class ArenaGame extends ScreenAdapter {
 			CURRENT_PLAYER = pl2;
 			playerStage.addActor(CURRENT_PLAYER);
 			CURRENT_PLAYER.setX(pl2.getID());
-			CURRENT_PLAYER.setY(50);
+			CURRENT_PLAYER.setY(MainGame.PL_Y);
 			CURRENT_PLAYER.useAnim(0.1f, true, pl2.getTextureArray_aim_player_4());
 			CURRENT_PLAYER.setAnimationNum(21);
 
 			ENEMY = pl1;
 			playerStage.addActor(ENEMY);
 			ENEMY.setX(pl1.getID());
-			ENEMY.setY(50);
+			ENEMY.setY(MainGame.PL_Y);
 			ENEMY.useAnim(0.1f, true, pl1.getTextureArray_aim_player_2());
 			ENEMY.setAnimationNum(11);
 
@@ -155,8 +155,8 @@ public class ArenaGame extends ScreenAdapter {
 		}
 
 
-		ENEMY.position=new Vector2(ENEMY.getID(),50);
-		CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),50);
+		ENEMY.position=new Vector2(ENEMY.getID(),MainGame.PL_Y);
+		CURRENT_PLAYER.position=new Vector2(CURRENT_PLAYER.getID(),MainGame.PL_Y);
 
 		circle = new Texture("analog_base.png");
 		circleCur = new Texture("analog_button.png");

@@ -187,7 +187,7 @@ public class Player extends ActorObj {
             } else endJump();
             if (!JoystickLeft.checkAngleLeft && JoystickLeft.isTouchLeft && MainGame.seconds>0) {
                 flip = true;
-                if (this.getID() == -100) {
+                if (this.getID() == MainGame.PL1_X) {
                     if (!this.killed) {
                         useAnim(0.1f, true, move_player_2);
                         animationNum = 12;
@@ -206,7 +206,7 @@ public class Player extends ActorObj {
                 }
             } else if (JoystickLeft.isTouchLeft && MainGame.seconds>0) {
                 flip = false;
-                if (this.getID() == -100) {
+                if (this.getID() == MainGame.PL1_X) {
                     if (!this.killed) {
                         useAnim(0.1f, true, move_player_2);
                         animationNum = 12;
@@ -227,7 +227,7 @@ public class Player extends ActorObj {
             if (!this.killed) rectangle.setPosition(getX(), getY()+15);
 
             if ((!JoystickLeft.isTouchLeft) && (jumpState == JumpState.GROUNDED)) {
-                if (this.getID() == -100) {
+                if (this.getID() == MainGame.PL1_X) {
                     if (!this.killed) {
                         useAnim(0.1f, true, aim_player_2);
                         animationNum = 11;
@@ -313,7 +313,7 @@ public class Player extends ActorObj {
     private void startJump(){
         jumpState=JumpState.JUMPING;
         if (!this.killed) velocityY.y+=JUMP;
-        if (this.getID()==-100) {
+        if (this.getID()==MainGame.PL1_X) {
             if (!this.killed) {
                 useAnim(0.1f, false, jump_player_2);
                 animationNum = 13;
@@ -343,7 +343,7 @@ public class Player extends ActorObj {
         this.amountBullets=MainGame.AMOUNT_BULLETS;
         this.hp=100;
 
-        //MainGame.flag=false;
+        MainGame.scoreFlag=false;
 
         this.flip=false;
         this.killed=false;
