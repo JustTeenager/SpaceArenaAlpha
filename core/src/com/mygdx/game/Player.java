@@ -185,7 +185,7 @@ public class Player extends ActorObj {
                         break;
                 }
             } else endJump();
-            if (!JoystickLeft.CheckAngleLeft && JoystickLeft.isTouchLeft && MainGame.seconds>0) {
+            if (!JoystickLeft.checkAngleLeft && JoystickLeft.isTouchLeft && MainGame.seconds>0) {
                 flip = true;
                 if (this.getID() == -100) {
                     if (!this.killed) {
@@ -295,7 +295,7 @@ public class Player extends ActorObj {
                         }
                         if (x) {
                             System.out.println(2);
-                            position.x = lastFrame.x - (JoystickLeft.CheckAngleLeft ? 1 : -1) * 0.3f;
+                            position.x = lastFrame.x - (JoystickLeft.checkAngleLeft ? 1 : -1) * 0.3f;
                         }
                     }
 
@@ -349,10 +349,10 @@ public class Player extends ActorObj {
         this.killed=false;
         JoystickLeft.isTouchLeft=false;
         JoystickLeft.angleLeft=0;
-        JoystickLeft.CheckAngleLeft=true;
+        JoystickLeft.checkAngleLeft=true;
         JoystickRight.isTouchRight=false;
         JoystickRight.angleRight=0;
-        JoystickRight.CheckAngleRight=true;
+        JoystickRight.checkAngleRight=true;
         MainGame.bulletsDamage=5;
         ArenaGame.chaseCam.update();
     }

@@ -277,11 +277,11 @@ public class ArenaGame extends ScreenAdapter {
 		}
 		//обработка обстоятельств смерти
 		if (CURRENT_PLAYER.hp<=0){
-			if (!MainGame.flag ){
+			if (!MainGame.scoreFlag ){
 				GameHUD.scoreLogs.setVisible(true);
 				MainGame.enemy_score++;
 				MainGame.timeFromLastKill=MainGame.seconds;
-				MainGame.flag=true;
+				MainGame.scoreFlag=true;
 				MessageBox box=new MessageBox();
 				box.message=true;
 				ClientClass.sendBox(box);
@@ -289,7 +289,7 @@ public class ArenaGame extends ScreenAdapter {
 
 			if (MainGame.timeFromLastKill - MainGame.seconds >= 3) {
 				GameHUD.scoreLogs.setVisible(false);
-				MainGame.flag=false;
+				MainGame.scoreFlag=false;
 				MainGame.timeFromLastKill = -1;
 				CURRENT_PLAYER.setNextRound();
 			}
@@ -297,17 +297,17 @@ public class ArenaGame extends ScreenAdapter {
 
 		else if (MainGame.needEnemyReanimate) {
 
-			if (!MainGame.flag){
+			if (!MainGame.scoreFlag){
 				GameHUD.scoreLogs.setVisible(true);
 				MainGame.current_player_score++;
 				MainGame.timeFromLastKill=MainGame.seconds;
-				MainGame.flag=true;
+				MainGame.scoreFlag=true;
 			}
 
 			if (MainGame.timeFromLastKill - MainGame.seconds >= 3) {
 				GameHUD.scoreLogs.setVisible(false);
 				MainGame.needEnemyReanimate=false;
-				MainGame.flag=false;
+				MainGame.scoreFlag=false;
 				MainGame.timeFromLastKill = -1;
 				CURRENT_PLAYER.setNextRound();
 				ENEMY.setNextRound();
@@ -407,16 +407,16 @@ public class ArenaGame extends ScreenAdapter {
 		MainGame.current_player_score=0;
 		MainGame.enemy_score=0;
 		CURRENT_PLAYER.amountBullets=MainGame.AMOUNT_BULLETS;
-		JoystickLeft.CheckAngleLeft=true;
+		JoystickLeft.checkAngleLeft=true;
 		JoystickLeft.isTouchLeft=false;
 		JoystickLeft.angleLeft=0;
-		JoystickRight.CheckAngleRight=true;
+		JoystickRight.checkAngleRight=true;
 		JoystickRight.angleRight=0;
 		JoystickRight.isTouchRight=false;
 		pl1.useAnim(0.1f,true,pl1.getTextureArray_aim_player_2());
 		pl2.useAnim(0.1f,true,pl2.getTextureArray_aim_player_4());
 		MainGame.bulletsDamage=5;
 		MainGame.timeFromLastKill=-1;
-		MainGame.flag=false;
+		MainGame.scoreFlag=false;
 	}
 }

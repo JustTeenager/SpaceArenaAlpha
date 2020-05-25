@@ -50,7 +50,7 @@ public class MainGame extends Game {
     static HashMap leaderMap;
 
     //переменная проверки отображения окна счета
-    public static boolean flag=false;
+    public static boolean scoreFlag=false;
 
 
 

@@ -10,7 +10,7 @@ public class JoystickLeft extends BaseJoystick {
     private float curX=0;
     private float curY=0;
     public static boolean isTouchLeft= false;
-    public static boolean CheckAngleLeft=true;
+    public static boolean checkAngleLeft=true;
     private float rad = 0;
     public static double angleLeft=0;
 
@@ -21,7 +21,7 @@ public class JoystickLeft extends BaseJoystick {
         this.circleCur = circleCur;
         setDefaultWH();
         setDefaultXY();
-        //setVisible(false);
+        setVisible(false);
     }
 
     public void isTouch(float x,float y) { // проверяем коснулись ли мы курсора
@@ -99,10 +99,10 @@ public class JoystickLeft extends BaseJoystick {
         }
 
         if (angleLeft>0 && angleLeft<=90 || angleLeft<360 && angleLeft>=270){
-            CheckAngleLeft = true;
+            checkAngleLeft = true;
         }
         else {
-            CheckAngleLeft = false;
+            checkAngleLeft = false;
         }
 
     }
@@ -114,7 +114,7 @@ public class JoystickLeft extends BaseJoystick {
             if (isTouchLeft ) {
                 changeCursor(screenX, screenY);
                 setAngle();
-                //setVisible(true);
+                setVisible(true);
             }
         }
         return false;
@@ -125,7 +125,7 @@ public class JoystickLeft extends BaseJoystick {
         if (screenX<1000 && MainGame.seconds>0 ) {
             isTouchLeft = false;
             angleLeft = 0;
-            //setVisible(false);
+            setVisible(false);
         }
         return false;
     }

@@ -24,8 +24,8 @@ public class Shooting extends ActorObj {
     private float velocity;
     private Vector2 direction;
     private Sprite sprite;
-    static Sound shootSound2=Gdx.audio.newSound(Gdx.files.internal("shootSound_2.wav"));
-    static Sound shootSound4=Gdx.audio.newSound(Gdx.files.internal("shootSound_4.wav"));
+    public static Sound shootSound2=Gdx.audio.newSound(Gdx.files.internal("shootSound_2.wav"));
+    public static Sound shootSound4=Gdx.audio.newSound(Gdx.files.internal("shootSound_4.wav"));
     public Shooting(float x, float y, Stage s,Vector2 direction,float velocity){
         super(x,y,s);
         setPosition(x,y);
@@ -122,7 +122,7 @@ public class Shooting extends ActorObj {
     }
 
     public static void addEnemyShootingArray(CoordBox coordBox){
-        Shooting enemySh=new Shooting(coordBox.BpositionPlayer.x,coordBox.BpositionPlayer.y, playerStage,coordBox.BbulletsPosition,MainGame.VELOCITY_BULLETS,coordBox.Bangles);
+        Shooting enemySh=new Shooting(coordBox.boxPositionPlayer.x,coordBox.boxPositionPlayer.y, playerStage,coordBox.boxBulletsPosition,MainGame.VELOCITY_BULLETS,coordBox.boxAngles);
         ArenaGame.shootingsEnemy.add(enemySh);//
     }
 

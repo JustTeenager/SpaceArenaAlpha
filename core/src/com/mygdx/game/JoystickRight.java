@@ -14,7 +14,7 @@ public class JoystickRight extends BaseJoystick {
     public static boolean isTouchRight= false;
     private float rad = 0;
     public static double angleRight=0;
-    public static boolean CheckAngleRight= true;
+    public static boolean checkAngleRight= true;
 
     public static Shooting shootTemp=new Shooting(5000,5000,ArenaGame.playerStage,new Vector2(5000,5000),MainGame.VELOCITY_BULLETS);
 
@@ -27,7 +27,7 @@ public class JoystickRight extends BaseJoystick {
         direction = new Vector2();
         setDefault();
         setDefaultXY();
-        //setVisible(false);
+        setVisible(false);
     }
 
     public void isTouch(float x,float y) { // проверяем коснулись ли мы курсора
@@ -107,10 +107,10 @@ public class JoystickRight extends BaseJoystick {
         }
 
         if (angleRight>0 && angleRight<=90 || angleRight<360 && angleRight>=270){
-            CheckAngleRight = true;
+            checkAngleRight = true;
         }
         else {
-            CheckAngleRight = false;
+            checkAngleRight = false;
         }
 
     }
@@ -120,7 +120,7 @@ public class JoystickRight extends BaseJoystick {
             isTouch(screenX, screenY);
             if (isTouchRight) {
                 changeCur(screenX, screenY);
-                //setVisible(true);
+                setVisible(true);
                 setAngle();
             }
         }
@@ -133,7 +133,7 @@ public class JoystickRight extends BaseJoystick {
             isTouchRight = false;
             angleRight = 0;
         }
-        //setVisible(false);
+        setVisible(false);
         return false;
     }
 
@@ -149,7 +149,7 @@ public class JoystickRight extends BaseJoystick {
     private float one = Gdx.graphics.getDeltaTime();
     private float two = Gdx.graphics.getDeltaTime()-5;
     public void checkCreateBullet(){//функция для создания пуль
-        if (JoystickRight.isTouchRight && JoystickLeft.CheckAngleLeft==CheckAngleRight && one-two>=6 && !ArenaGame.CURRENT_PLAYER.killed && MainGame.seconds>0 && ArenaGame.CURRENT_PLAYER.amountBullets>0){
+        if (JoystickRight.isTouchRight && JoystickLeft.checkAngleLeft==checkAngleRight && one-two>=6 && !ArenaGame.CURRENT_PLAYER.killed && MainGame.seconds>0 && ArenaGame.CURRENT_PLAYER.amountBullets>0){
             MainGame.isShooted=true;
             shootTemp=new Shooting(ArenaGame.CURRENT_PLAYER.getX(),ArenaGame.CURRENT_PLAYER.getY(),ArenaGame.playerStage,JoystickRight.direction,MainGame.VELOCITY_BULLETS);
             shootTemp.setRotation((float)angleRight);

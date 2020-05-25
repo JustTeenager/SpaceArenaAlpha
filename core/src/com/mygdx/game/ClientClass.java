@@ -97,16 +97,16 @@ public class ClientClass extends Listener {
 
     public static void boxDeploy(CoordBox box){
         try {
-            ENEMY.position = box.BpositionPlayer;
-            ENEMY.setX(box.BpositionPlayer.x);
-            ENEMY.setY(box.BpositionPlayer.y);
-            ENEMY.hp = box.Bhp;
+            ENEMY.position = box.boxPositionPlayer;
+            ENEMY.setX(box.boxPositionPlayer.x);
+            ENEMY.setY(box.boxPositionPlayer.y);
+            ENEMY.hp = box.boxHp;
             ENEMY.flip = box.flipped;
-            ENEMY.rectangle = box.BrectanglePlayer;
-            MainGame.time=box.Btime;
+            ENEMY.rectangle = box.boxRectanglePlayer;
+            MainGame.time=box.boxTime;
             MainGame.seconds=box.seconds;
 
-            switch (box.BplayerAnimNumber) {
+            switch (box.boxPlayerAnimNumber) {
                 case 11: {
                     ENEMY.useAnim(0.1f, true, ENEMY.getTextureArray_aim_player_2());
                 }
@@ -152,7 +152,7 @@ public class ClientClass extends Listener {
     public static void boxNumDeploy(CoordBox box){
         playerNUM = box.getPlayerIdentify();
         MainGame.setPlayerIdentify(safeID);
-        MainGame.time=box.Btime;
+        MainGame.time=box.boxTime;
         MainGame.seconds=box.seconds;
         System.out.println(MainGame.getPlayerIdentify() + " IS IDENTY FROM THE CLIENT");
     }
