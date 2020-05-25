@@ -216,5 +216,4 @@ public class Leaderboard implements Screen {
         });
             Collections.reverse(leaderList);
     }
-
 }
