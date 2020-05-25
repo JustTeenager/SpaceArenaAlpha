@@ -14,6 +14,7 @@ public class Player extends ActorObj {
     Vector2 position;
 
     private ShapeRenderer shapeRenderer = new ShapeRenderer();
+    boolean testflag=false;
 
     JumpState jumpState;
     Rectangle rectangle;
@@ -154,6 +155,7 @@ public class Player extends ActorObj {
     @Override
     public void update() {
         if (this.getName().equals("CURRENT_PLAYER")) {
+            testflag=false;
             lastFrame.set(position);
             float delta = Gdx.graphics.getDeltaTime();
             velocityY.y -= delta * MainGame.GRAVITY;
@@ -187,7 +189,7 @@ public class Player extends ActorObj {
             } else endJump();
             if (!JoystickLeft.checkAngleLeft && JoystickLeft.isTouchLeft && MainGame.seconds>0) {
                 flip = true;
-                if (this.getID() == MainGame.PL1_X) {
+                if (this.getID() == -100) {
                     if (!this.killed) {
                         useAnim(0.1f, true, move_player_2);
                         animationNum = 12;
@@ -206,7 +208,7 @@ public class Player extends ActorObj {
                 }
             } else if (JoystickLeft.isTouchLeft && MainGame.seconds>0) {
                 flip = false;
-                if (this.getID() == MainGame.PL1_X) {
+                if (this.getID() == -100) {
                     if (!this.killed) {
                         useAnim(0.1f, true, move_player_2);
                         animationNum = 12;
@@ -227,7 +229,7 @@ public class Player extends ActorObj {
             if (!this.killed) rectangle.setPosition(getX(), getY()+15);
 
             if ((!JoystickLeft.isTouchLeft) && (jumpState == JumpState.GROUNDED)) {
-                if (this.getID() == MainGame.PL1_X) {
+                if (this.getID() == -100) {
                     if (!this.killed) {
                         useAnim(0.1f, true, aim_player_2);
                         animationNum = 11;
@@ -276,26 +278,25 @@ public class Player extends ActorObj {
             setX(position.x);
         }
         if (rectangle.overlaps(pl.rect)) {
-            //System.out.println("OVERLAPSED");
                     if (y && rectangle.y >= pl.rect.y) {
                         if (velocityY.y <= 0) {
-                            System.out.println(0);
                             velocityY.y = 0;
                             jumpState = JumpState.GROUNDED;
                             position.y = pl.rect.y + pl.rect.getHeight()-15;
                         }
                     } else {
-                        if (y && rectangle.y<= pl.rect.y && (rectangle.x+rectangle.getWidth()>=pl.rect.x  && rectangle.x+rectangle.getWidth()<=pl.rect.x+pl.rect.getWidth())) {
-                            System.out.println(1);
+                        if (y && rectangle.y<= pl.rect.y && (rectangle.x>=pl.rect.x  && rectangle.x+rectangle.getWidth()<=pl.rect.x+pl.rect.getWidth())) {
                                 if (velocityY.y>0){
-                                    System.out.println("CAPTURED "+velocityY.y);
-                                    if ((jumpState!=JumpState.GROUNDED) && (rectangle.getX()>pl.rect.getX() && rectangle.getX()<pl.rect.getX()+pl.rect.getWidth()))
-                                    velocityY.y = -10;
+                                    testflag=true;
+                                    if ((jumpState!=JumpState.GROUNDED)) {
+                                        System.out.println("PLATFORMA GOVNINA");
+                                        velocityY.y = -10;
+                                    }
                                 }
                         }
-                        if (x) {
-                            System.out.println(2);
+                        if (x && !testflag) {
                             position.x = lastFrame.x - (JoystickLeft.checkAngleLeft ? 1 : -1) * 0.3f;
+                            System.out.println("PLATFORMA GOVNINA PO X");
                         }
                     }
 
@@ -313,7 +314,7 @@ public class Player extends ActorObj {
     private void startJump(){
         jumpState=JumpState.JUMPING;
         if (!this.killed) velocityY.y+=JUMP;
-        if (this.getID()==MainGame.PL1_X) {
+        if (this.getID()==-100) {
             if (!this.killed) {
                 useAnim(0.1f, false, jump_player_2);
                 animationNum = 13;
@@ -343,7 +344,7 @@ public class Player extends ActorObj {
         this.amountBullets=MainGame.AMOUNT_BULLETS;
         this.hp=100;
 
-        MainGame.scoreFlag=false;
+        //MainGame.flag=false;
 
         this.flip=false;
         this.killed=false;

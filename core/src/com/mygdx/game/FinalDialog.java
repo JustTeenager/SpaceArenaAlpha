@@ -16,7 +16,6 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 public class FinalDialog extends Actor {
 
     private MainGame game;
-
     private Window window;
     private Texture backTxt;
     private BitmapFont font;

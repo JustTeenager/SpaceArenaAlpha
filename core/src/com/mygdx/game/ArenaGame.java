@@ -188,8 +188,8 @@ public class ArenaGame extends ScreenAdapter {
 				new Platform(-850,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(-640,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(-430,-140+210+210+210+210+250,txtplatFloor,playerStage),
 				new Platform(-220,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(-10,-140+210+210+210+210+250,txtplatFloor,playerStage), new Platform(200,-140+210+210+210+210+250,txtplatFloor,playerStage),
 				new Platform( 410, -140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(620,-140+210+210+210+210+250,txtplatFloor,playerStage),new Platform(830,-140+210+210+210+210+250,txtplatFloor,playerStage),
-				new Platform( 100, 150,txtplat, playerStage),new Platform(480, 280,txtplat, playerStage),new Platform(100, 450,txtplat, playerStage),
-				new Platform(-250, 280,txtplat, playerStage),new Platform(700, 450,txtplat, playerStage),new Platform(-560, 450,txtplat, playerStage)
+				new Platform( 100, 150,txtplat, playerStage),new Platform(480, 280,txtplat, playerStage),new Platform(100, 510,txtplat, playerStage),
+				new Platform(-250, 280,txtplat, playerStage),new Platform(700, 510,txtplat, playerStage),new Platform(-560, 510,txtplat, playerStage)
 		};
 
 		hpSmall=new HpSmall(playerStage);
