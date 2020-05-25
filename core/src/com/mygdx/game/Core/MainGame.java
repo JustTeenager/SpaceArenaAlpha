@@ -41,7 +41,7 @@ public class MainGame extends Game {
     public static float volButtonX=-1;
 
     //переменные для установки кнопок
-    public static int buttonDistancefromPanel=75;
+    public static int buttonDistanceFromPanel=75;
     public static int buttonDistanceFromEachOther=140;
     public static int current_player_score=0;
     public static int enemy_score=0;
@@ -51,7 +51,7 @@ public class MainGame extends Game {
     public static int seconds=TIME_SECONDS;
 
     public static long timeFromLastKill=-1;
-    //обьект,получаемыйу
+    //обьект,получаемый от firebase
     public static HashMap leaderMap;
 
     //переменная проверки отображения окна счета

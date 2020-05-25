@@ -1,5 +1,7 @@
 package com.mygdx.game.Client;
 
+import com.badlogic.gdx.math.Rectangle;
+import com.badlogic.gdx.math.Vector2;
 import com.esotericsoftware.kryonet.Client;
 import com.esotericsoftware.kryonet.Connection;
 import com.esotericsoftware.kryonet.Listener;
@@ -31,8 +33,8 @@ public class ClientClass extends Listener {
         //Регистрируем пакеты
         client.getKryo().register(MessageBox.class);
         client.getKryo().register(CoordBox.class);
-        client.getKryo().register(com.badlogic.gdx.math.Vector2.class);
-        client.getKryo().register(com.badlogic.gdx.math.Rectangle.class);
+        client.getKryo().register(Vector2.class);
+        client.getKryo().register(Rectangle.class);
         client.getKryo().register(PlayersWaitingBox.class);
         client.getKryo().register(PlayerNameBox.class);
         client.start();

@@ -35,7 +35,7 @@ public class SettingsMenu implements Screen {
     private Buttons setNameButton;
     private Buttons logOutButton;
 
-    private com.mygdx.game.Dialogs.AuthorizationDialog autoDialog;
+    private AuthorizationDialog autoDialog;
 
     private InputProcessor inputProcessor;
     private InputMultiplexer inputMultiplexer;
@@ -46,7 +46,7 @@ public class SettingsMenu implements Screen {
     private int xScale;
     private int yScale;
 
-    public SettingsMenu(final com.mygdx.game.Core.MainGame game){
+    public SettingsMenu(final MainGame game){
         this.game=game;
 
         clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
@@ -82,7 +82,7 @@ public class SettingsMenu implements Screen {
 
         float prevVolumePosition;
         if (com.mygdx.game.Core.MainGame.volButtonX!=-1){
-            prevVolumePosition= com.mygdx.game.Core.MainGame.volButtonX;
+            prevVolumePosition= MainGame.volButtonX;
             volumeButton.btn.setX(prevVolumePosition);
         }
 
