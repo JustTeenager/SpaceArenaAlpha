@@ -48,6 +48,8 @@ public class MainMenu implements Screen {
     public MainMenu(final MainGame game){
         this.game=game;
 
+
+        //подготовка к игровой сессии
         MainGame.playersNum=0;
         MainGame.setPlayerIdentify(-1);
 
@@ -83,13 +85,13 @@ public class MainMenu implements Screen {
                 return false;
             }
 
+            //обработка нажатий на кнопки регистрации и входа окна авторизации
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
-                //обработка нажатий на кнопки регистрации и входа окна авторизации
+                //вход
                 if (autoDialog.isVisible()) {
                     if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getLogInButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getLogInButton().btn.getY() + autoDialog.getLogInButton().btn.getHeight())
                             && (screenX > autoDialog.getLogInButton().btn.getX() && screenX < autoDialog.getLogInButton().btn.getX() + autoDialog.getLogInButton().btn.getWidth()) && (autoDialog.getLogInButton().isTouchable())) {
-                        System.out.println("FB LOGIN");
                         clickSound.play(MainGame.volume);
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
@@ -100,9 +102,9 @@ public class MainMenu implements Screen {
                             autoDialog.getRegisterButton().setTouchable(Touchable.enabled);
                             autoDialog.getLogInButton().setTouchable(Touchable.enabled);
                         }
+                        //регистрация
                     } else if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getRegisterButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getRegisterButton().btn.getY() + autoDialog.getRegisterButton().btn.getHeight())
                             && (screenX > autoDialog.getRegisterButton().btn.getX() && screenX < autoDialog.getRegisterButton().btn.getX() + autoDialog.getRegisterButton().btn.getWidth()) && autoDialog.getRegisterButton().isTouchable()) {
-                        System.out.println("FB REGISTER");
                         clickSound.play(MainGame.volume);
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
@@ -199,6 +201,8 @@ public class MainMenu implements Screen {
         inputMultiplexer.addProcessor(this.s);
         inputMultiplexer.addProcessor(inputProcessor);
 
+
+        //для регистрации множества аккаунтов и правильной прогрузки таблицы лидеров
         if (MainGame.registered) {FireBaseClass.addKDInDataBase();MainGame.registered=false;}
         if (MainGame.leaderMap!=null && isTouchOnSettings){ isTouchOnSettings=false; game.setScreen(new Leaderboard(game)); }
         checkAuto();

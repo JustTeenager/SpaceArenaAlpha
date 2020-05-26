@@ -19,6 +19,7 @@ import com.mygdx.game.Core.MainGame;
 
 import static java.lang.StrictMath.abs;
 
+//меню настроек
 public class SettingsMenu implements Screen {
     private MainGame game;
     Stage st;
@@ -81,7 +82,7 @@ public class SettingsMenu implements Screen {
         autoDialog.becomeInvisible();
 
         float prevVolumePosition;
-        if (com.mygdx.game.Core.MainGame.volButtonX!=-1){
+        if (MainGame.volButtonX!=-1){
             prevVolumePosition= MainGame.volButtonX;
             volumeButton.btn.setX(prevVolumePosition);
         }
@@ -106,16 +107,17 @@ public class SettingsMenu implements Screen {
 
             @Override
             public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+                //обраотка нажатия на кнопку выхода из аккаунта
                 if ((abs(Gdx.graphics.getHeight()-screenY)>logOutButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<logOutButton.btn.getY()+logOutButton.btn.getHeight())
                         && (screenX>logOutButton.btn.getX()&&screenX<logOutButton.btn.getX()+logOutButton.btn.getWidth()) && !autoDialog.isVisible()){
-                    System.out.println("FB LOGOUT");
                     clickSound.play(MainGame.volume);
                     FireBaseClass.signOut(autoDialog);
                 }
+                //обработка нажатий на окно авторизации
                 if (autoDialog.isVisible()) {
+                    //вход
                     if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getLogInButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getLogInButton().btn.getY() + autoDialog.getLogInButton().btn.getHeight())
                             && (screenX > autoDialog.getLogInButton().btn.getX() && screenX < autoDialog.getLogInButton().btn.getX() + autoDialog.getLogInButton().btn.getWidth()) && (autoDialog.getLogInButton().isTouchable())) {
-                        System.out.println("FB LOGIN");
                         clickSound.play(MainGame.volume);
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
@@ -126,9 +128,9 @@ public class SettingsMenu implements Screen {
                             autoDialog.getRegisterButton().setTouchable(Touchable.enabled);
                             autoDialog.getLogInButton().setTouchable(Touchable.enabled);
                         }
+                        //регистрация
                     } else if ((abs(Gdx.graphics.getHeight() - screenY) > autoDialog.getRegisterButton().btn.getY() && abs(Gdx.graphics.getHeight() - screenY) < autoDialog.getRegisterButton().btn.getY() + autoDialog.getRegisterButton().btn.getHeight())
                             && (screenX > autoDialog.getRegisterButton().btn.getX() && screenX < autoDialog.getRegisterButton().btn.getX() + autoDialog.getRegisterButton().btn.getWidth()) && autoDialog.getRegisterButton().isTouchable()) {
-                        System.out.println("FB REGISTER");
                         clickSound.play(MainGame.volume);
                         MainGame.playerLogin = autoDialog.getEmailField().getText();
                         MainGame.playerPassword = autoDialog.getPasswordField().getText();
@@ -141,14 +143,14 @@ public class SettingsMenu implements Screen {
                         }
                     }
                 }
-
+                //кнопка смены имени
                 else if ((abs(Gdx.graphics.getHeight()-screenY)>setNameButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<setNameButton.btn.getY()+setNameButton.btn.getHeight())
                         && (screenX>setNameButton.btn.getX()&&screenX<setNameButton.btn.getX()+setNameButton.btn.getWidth()) && setNameButton.isTouchable()){
                     clickSound.play(MainGame.volume);
                     NameInput input = new NameInput(inputMultiplexer);
                     Gdx.input.getTextInput(input, "Enter your name",MainGame.current_player_name, "Your name");
                 }
-
+                //кнопка выхода
                 else if ((abs(Gdx.graphics.getHeight()-screenY)>backButton.btn.getY()&&abs(Gdx.graphics.getHeight()-screenY)<backButton.btn.getY()+backButton.btn.getHeight())
                         && (screenX>backButton.btn.getX()&&screenX<backButton.btn.getX()+backButton.btn.getWidth()) && backButton.isTouchable()){
                     MainGame.volume=distance/distanceGeneral;
@@ -166,6 +168,7 @@ public class SettingsMenu implements Screen {
                 return false;
             }
 
+            //обработка регулировки громкости
             @Override
             public boolean touchDragged(int screenX, int screenY, int pointer) {
                 if (!autoDialog.isVisible()) {
@@ -204,6 +207,8 @@ public class SettingsMenu implements Screen {
         };
         checkAuto();
     }
+
+    //если окно регистрации открыто - другие кнопки перестают действовать,и наоборот
     private void checkAuto(){
         if (MainGame.authorized) {
             autoDialog.becomeInvisible();

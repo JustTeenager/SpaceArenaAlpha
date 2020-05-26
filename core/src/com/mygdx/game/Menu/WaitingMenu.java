@@ -26,7 +26,7 @@ public class WaitingMenu extends ScreenAdapter {
     private Texture replaytxt;
     private Texture panel;
     private InputProcessor inputProcessor;
-    public WaitingMenu(final com.mygdx.game.Core.MainGame game){
+    public WaitingMenu(final MainGame game){
         this.game=game;
         batch=new SpriteBatch();
         st=new Stage();

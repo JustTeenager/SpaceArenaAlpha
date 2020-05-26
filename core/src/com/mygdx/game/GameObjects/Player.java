@@ -34,7 +34,6 @@ public class Player extends ActorObj {
     private int animationNum;
     //переменная зеркальной отрисовки при развороте персонажа
     public boolean flip=false;
-    boolean flag=false;
 
     private Array<TextureRegion> aim_player_2= new Array<>();
     private Array<TextureRegion> move_player_2= new Array<>();
@@ -258,6 +257,8 @@ public class Player extends ActorObj {
             position.x=lastFrame.x;
             setX(position.x);
         }
+
+        //проверка соприкосновения физических "обьектов " - rectangle
         if (rectangle.overlaps(pl.rect)) {
                     if (y && rectangle.y >= pl.rect.y) {
                         if (velocityY.y <= 0) {
