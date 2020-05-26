@@ -41,7 +41,7 @@ public class ConnectMenu implements Screen {
                 "waitingTXT",(ClientClass.isConnected() ? "Enemy disconnected" : "Unable to Connect"),1.15f,st);
         backButton=new Buttons(Gdx.graphics.getWidth()/2-35,Gdx.graphics.getHeight()/3,"backButt","Back",2f,st);
 
-        clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
+        clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.mp3"));
 
         inputProcessor=new InputProcessor() {
             @Override

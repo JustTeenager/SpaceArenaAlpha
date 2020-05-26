@@ -58,7 +58,7 @@ public class MainMenu implements Screen {
         nameFont.setColor(new Color(0,0,0,0.55f));
 
 
-        clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
+        clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.mp3"));
         batch = new SpriteBatch();
         s=new Stage();
 

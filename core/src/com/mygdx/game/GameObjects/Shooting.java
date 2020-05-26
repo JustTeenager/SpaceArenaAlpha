@@ -28,8 +28,8 @@ public class Shooting extends ActorObj {
     private float velocity;
     private Vector2 direction;
     private Sprite sprite;
-    public static Sound shootSound2=Gdx.audio.newSound(Gdx.files.internal("shootSound_2.wav"));
-    public static Sound shootSound4=Gdx.audio.newSound(Gdx.files.internal("shootSound_4.wav"));
+    public static Sound shootSound2=Gdx.audio.newSound(Gdx.files.internal("shootSound_2.mp3"));
+    public static Sound shootSound4=Gdx.audio.newSound(Gdx.files.internal("shootSound_4.mp3"));
     public Shooting(float x, float y, Stage s,Vector2 direction,float velocity){
         super(x,y,s);
         setPosition(x,y);

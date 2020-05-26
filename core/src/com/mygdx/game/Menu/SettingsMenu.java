@@ -50,7 +50,7 @@ public class SettingsMenu implements Screen {
     public SettingsMenu(final MainGame game){
         this.game=game;
 
-        clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
+        clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.mp3"));
 
         batch=new SpriteBatch();
         st=new Stage();

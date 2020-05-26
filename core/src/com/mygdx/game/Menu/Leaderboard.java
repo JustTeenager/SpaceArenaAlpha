@@ -55,7 +55,7 @@ public class Leaderboard implements Screen {
         s= new Stage();
         yScale=(Gdx.graphics.getHeight()-465)/3-100;
 
-        clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.wav"));
+        clickSound=Gdx.audio.newSound(Gdx.files.internal("clickmusic.mp3"));
 
         backtxt=new Texture("menuBack.jpg");
         scroll= new Texture("Slider 1.png");
