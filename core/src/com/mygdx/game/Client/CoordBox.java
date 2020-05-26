@@ -16,7 +16,7 @@ public class CoordBox {
     public Double boxAngles;
     public String boxTime;
     public int seconds;
-
+    //основной конструктор для передачи данных(с пулями)
     public CoordBox(int playerIdentify, Vector2 positionPlayer, int playerAnimNumber, boolean flipped, Rectangle rectanglePlayer, int hp,
                     Vector2 bulletsPosition, Double angle, Rectangle rectangleShoot){
         this.playerIdentify=playerIdentify;
@@ -30,11 +30,11 @@ public class CoordBox {
         boxAngles = angle;
         boxRectangleShoot = rectangleShoot;
     }
-
+    //самый первый пакет данных
     public CoordBox(int playerIdentify){
         this.playerIdentify=playerIdentify;
     }
-
+    //основной конструктор для передачи данных(без пуль)
     public CoordBox(int playerIdentify, Vector2 positionPlayer, int playerAnimNumber, boolean flipped, Rectangle rectanglePlayer, int hp){
         this.playerIdentify=playerIdentify;
         this.flipped=flipped;

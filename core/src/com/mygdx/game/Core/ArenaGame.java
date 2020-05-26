@@ -348,7 +348,7 @@ public class ArenaGame extends ScreenAdapter {
 		chaseCam.update();
 		viewport.apply();
 		batch.begin();
-		batch.draw(backTxt,0,0,2320,1080);//2020?
+		batch.draw(backTxt,0,0,2320,1080);
 		batch.end();
 		playerStage.draw();
 		batch.begin();
@@ -412,7 +412,7 @@ public class ArenaGame extends ScreenAdapter {
 		hudStage.dispose();
 		jumpbtn.dispose();
 	}
-
+	//метод отвечающий за стартовое состояние переменных на начало матча
 	public void setStartSettings(){
 		MainGame.seconds=MainGame.TIME_SECONDS;
 		MainGame.time="-1";

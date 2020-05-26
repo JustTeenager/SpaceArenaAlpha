@@ -6,7 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.mygdx.game.Core.ArenaGame;
 import com.mygdx.game.GameObjects.Shooting;
 import com.mygdx.game.Core.MainGame;
-
+//класс правого джойстика, который отвечает за стрельбу
 public class JoystickRight extends BaseJoystick {
     private Texture circle;
     private Texture circleCur;
@@ -16,10 +16,9 @@ public class JoystickRight extends BaseJoystick {
     public static boolean isTouchRight= false;
     private float rad = 0;
     public static double angleRight=0;
-    public static boolean checkAngleRight= true;
+    public static boolean checkAngleRight= true;//отвечает за проверку угла, если угол лежит в пределах от 90 до 270, то переменная равняется false, иначе true
 
     public static Shooting shootTemp=new Shooting(5000,5000, ArenaGame.playerStage,new Vector2(5000,5000), MainGame.VELOCITY_BULLETS);
-
 
     private static final float CURSOR_RADIUS = 60;
     public JoystickRight(Texture circle, Texture circleCur){
@@ -38,13 +37,13 @@ public class JoystickRight extends BaseJoystick {
         }
     }
 
-    public void setDefault(){// задаётся ширина,высота и радиус большого шара
+    public void setDefault(){// задаётся ширина,высота и радиус большого круга
         setWidth(320);
         setHeight(320);
         rad = 160;
 
     }
-    public void setDefaultXY(){//задаётся левый нижний угол квадрата для большого шара
+    public void setDefaultXY(){//задаётся левый нижний угол квадрата для большого круга
         setX(1550);
         setY(40);
     }
@@ -63,7 +62,7 @@ public class JoystickRight extends BaseJoystick {
         batch.setColor(1,1,1,0.5f);
         batch.draw(circle,this.getX(),this.getY(),this.getWidth(),this.getHeight());
         if (MainGame.seconds==0){
-            batch.draw(circleCur,this.getX()+rad-CURSOR_RADIUS,// если курсор не двигают
+            batch.draw(circleCur,this.getX()+rad-CURSOR_RADIUS,
                     this.getY()+rad - CURSOR_RADIUS,
                     2*CURSOR_RADIUS,
                     2*CURSOR_RADIUS);
@@ -75,7 +74,7 @@ public class JoystickRight extends BaseJoystick {
                     2*CURSOR_RADIUS);
         }
         else{
-            batch.draw(circleCur,this.getX()+rad-CURSOR_RADIUS,// если курсор не двигают
+            batch.draw(circleCur,this.getX()+rad-CURSOR_RADIUS,
                 this.getY()+rad - CURSOR_RADIUS,
                 2*CURSOR_RADIUS,
                 2*CURSOR_RADIUS);
@@ -148,7 +147,7 @@ public class JoystickRight extends BaseJoystick {
         }
         return false;
     }
-
+    //две приватные переменные для регулирования скорострельности
     private float one = Gdx.graphics.getDeltaTime();
     private float two = Gdx.graphics.getDeltaTime()-5;
     public void checkCreateBullet(){//функция для создания пуль
