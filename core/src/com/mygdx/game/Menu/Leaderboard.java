@@ -25,7 +25,7 @@ import java.util.HashMap;
 import java.util.Set;
 import static java.lang.StrictMath.abs;
 
-//класс Экрана таблицы лидеров
+//класс экрана таблицы лидеров
 public class Leaderboard implements Screen {
 
     private MainGame game;

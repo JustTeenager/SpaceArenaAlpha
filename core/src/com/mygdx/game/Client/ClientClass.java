@@ -159,7 +159,6 @@ public class ClientClass extends Listener {
         MainGame.setPlayerIdentify(safeID);
         MainGame.time=box.boxTime;
         MainGame.seconds=box.seconds;
-        System.out.println(MainGame.getPlayerIdentify() + " IS IDENTY FROM THE CLIENT");
     }
 
     public static boolean isConnected(){

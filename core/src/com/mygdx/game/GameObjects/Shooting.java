@@ -17,7 +17,7 @@ import static com.mygdx.game.Core.ArenaGame.CURRENT_PLAYER;
 import static com.mygdx.game.Core.ArenaGame.ENEMY;
 import static com.mygdx.game.Core.ArenaGame.plat;
 import static com.mygdx.game.Core.ArenaGame.playerStage;
-
+//класс пуль
 public class Shooting extends ActorObj {
 
     public static Texture shoot = new Texture("ef_2_00000.png");
@@ -124,7 +124,7 @@ public class Shooting extends ActorObj {
            setPosition(10000,10000);
         }
     }
-
+    //создание пули, исходя из полученных сервером данных, и добавление её в массив
     public static void addEnemyShootingArray(CoordBox coordBox){
         Shooting enemySh=new Shooting(coordBox.boxPositionPlayer.x,coordBox.boxPositionPlayer.y, playerStage,coordBox.boxBulletsPosition, MainGame.VELOCITY_BULLETS,coordBox.boxAngles);
         ArenaGame.shootingsEnemy.add(enemySh);//

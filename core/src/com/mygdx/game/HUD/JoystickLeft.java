@@ -3,7 +3,7 @@ package com.mygdx.game.HUD;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Batch;
 import com.mygdx.game.Core.MainGame;
-
+//класс левого джойстика, который отвечает за ходьбу
 public class JoystickLeft extends BaseJoystick {
     private Texture circle;
     private Texture circleCur;
@@ -11,7 +11,7 @@ public class JoystickLeft extends BaseJoystick {
     private float curX=0;
     private float curY=0;
     public static boolean isTouchLeft= false;
-    public static boolean checkAngleLeft=true;
+    public static boolean checkAngleLeft=true;//отвечает за проверку угла, если угол лежит в пределах от 90 до 270, то переменная равняется false, иначе true
     private float rad = 0;
     public static double angleLeft=0;
 
@@ -31,13 +31,13 @@ public class JoystickLeft extends BaseJoystick {
         }
     }
 
-    public void setDefaultWH(){// задаётся ширина,высота и радиус большого шара
+    public void setDefaultWH(){// задаётся ширина,высота и радиус большого круга
         setWidth(320);
         setHeight(320);
         rad = 160;
 
     }
-    public void setDefaultXY(){//задаётся левый нижни угол квадрата длбольшого шара
+    public void setDefaultXY(){//задаётся левый нижний угол квадрата для большого круга
         setX(40);
         setY(40);
     }
@@ -55,13 +55,13 @@ public class JoystickLeft extends BaseJoystick {
     public void draw(Batch batch, float parentAlpha) {
         batch.setColor(1,1,1,0.5f);
         batch.draw(circle,this.getX(),this.getY(),this.getWidth(),this.getHeight());
-        if(MainGame.seconds==0){
+        if(MainGame.seconds==0){//если игра завешается, то курсор джойстика возвращается в начальное положение
             batch.draw(circleCur,this.getX()+rad-CURSOR_RADIUS,
                     this.getY()+rad - CURSOR_RADIUS,
                     2*CURSOR_RADIUS,
                     2*CURSOR_RADIUS);
         }
-        else if (isTouchLeft){
+        else if (isTouchLeft){// если коснулись джойстика, то отрисовываем курсор в зависимости от расположения пальца, но не выходя из области большого круга
             batch.draw(circleCur,this.getX()+rad-CURSOR_RADIUS+curX,
                     this.getY()+rad - CURSOR_RADIUS+curY,
                     2*CURSOR_RADIUS,
@@ -73,6 +73,7 @@ public class JoystickLeft extends BaseJoystick {
                 2*CURSOR_RADIUS);
         }
     }
+    // метод, которые не даёт курсору выйти за пределы большого круга
     public void changeCursor(float x, float y){
         float dx = x - rad-40;
         float dy =720-(y - rad);
@@ -82,12 +83,13 @@ public class JoystickLeft extends BaseJoystick {
             this.curY =dy;
         }
         else{
-            float k = rad/length;
-            this.curX = k*dx;
-            this.curY = k*dy;
+            float c = rad/length;
+            this.curX = c*dx;
+            this.curY = c*dy;
         }
 
     }
+    // метод, которые считает угол отклонения курсора от начального положения
     public  void setAngle(){
         angleLeft = Math.atan(curY/curX)*180/Math.PI;
         if(angleLeft>0 &&curY<0)

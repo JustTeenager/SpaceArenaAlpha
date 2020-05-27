@@ -237,7 +237,6 @@ public class Player extends ActorObj {
             }
         }
     }
-
     @Override
     public void platformReact(Platform pl) {
         float x1=lastFrame.x;

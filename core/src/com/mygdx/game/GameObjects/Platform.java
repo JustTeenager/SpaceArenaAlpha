@@ -4,11 +4,10 @@ import com.badlogic.gdx.graphics.g2d.Batch;
 import com.badlogic.gdx.math.Rectangle;
 import com.badlogic.gdx.scenes.scene2d.Stage;
 
-//к
+//класс платформ
 public class Platform extends ActorObj {
 
     private Texture platTexture;
-    //float coreX;
     public float coreY;
     public float top;
     public float bottom;
